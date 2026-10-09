@@ -3,196 +3,196 @@
     "path": "./blocks/services-list/services-list-accordion-benefits",
     "types": "./dist/services-list-accordion-benefits.d.ts",
     "import": "./dist/services-list-accordion-benefits.js",
-    "require": "./dist/services-list-accordion-benefits.cjs"
-  }
-,
+    "require": "./dist/services-list-accordion-benefits.cjs",
+    "exportName": "ServicesListAccordionBenefits"
+  },
   {
     "path": "./blocks/services-list/services-list-accordion",
     "types": "./dist/services-list-accordion.d.ts",
     "import": "./dist/services-list-accordion.js",
-    "require": "./dist/services-list-accordion.cjs"
-  }
-,
+    "require": "./dist/services-list-accordion.cjs",
+    "exportName": "ServicesListAccordion"
+  },
   {
     "path": "./blocks/services-list/services-list-cards-hover",
     "types": "./dist/services-list-cards-hover.d.ts",
     "import": "./dist/services-list-cards-hover.js",
-    "require": "./dist/services-list-cards-hover.cjs"
-  }
-,
+    "require": "./dist/services-list-cards-hover.cjs",
+    "exportName": "ServicesListCardsHover"
+  },
   {
     "path": "./blocks/services-list/services-list-category-accordion",
     "types": "./dist/services-list-category-accordion.d.ts",
     "import": "./dist/services-list-category-accordion.js",
-    "require": "./dist/services-list-category-accordion.cjs"
-  }
-,
+    "require": "./dist/services-list-category-accordion.cjs",
+    "exportName": "ServicesListCategoryAccordion"
+  },
   {
     "path": "./blocks/services-list/services-list-centered-icons",
     "types": "./dist/services-list-centered-icons.d.ts",
     "import": "./dist/services-list-centered-icons.js",
-    "require": "./dist/services-list-centered-icons.cjs"
-  }
-,
+    "require": "./dist/services-list-centered-icons.cjs",
+    "exportName": "ServicesListCenteredIcons"
+  },
   {
     "path": "./blocks/services-list/services-list-culture-tabs",
     "types": "./dist/services-list-culture-tabs.d.ts",
     "import": "./dist/services-list-culture-tabs.js",
-    "require": "./dist/services-list-culture-tabs.cjs"
-  }
-,
+    "require": "./dist/services-list-culture-tabs.cjs",
+    "exportName": "ServicesListCultureTabs"
+  },
   {
     "path": "./blocks/services-list/services-list-expandable-cards",
     "types": "./dist/services-list-expandable-cards.d.ts",
     "import": "./dist/services-list-expandable-cards.js",
-    "require": "./dist/services-list-expandable-cards.cjs"
-  }
-,
-  {
-    "path": "./blocks/services-list/services-list-feature-spotlight",
-    "types": "./dist/services-list-feature-spotlight.d.ts",
-    "import": "./dist/services-list-feature-spotlight.js",
-    "require": "./dist/services-list-feature-spotlight.cjs"
-  }
-,
+    "require": "./dist/services-list-expandable-cards.cjs",
+    "exportName": "ServicesListExpandableCards"
+  },
   {
     "path": "./blocks/services-list/services-list-featured-highlight",
     "types": "./dist/services-list-featured-highlight.d.ts",
     "import": "./dist/services-list-featured-highlight.js",
-    "require": "./dist/services-list-featured-highlight.cjs"
-  }
-,
+    "require": "./dist/services-list-featured-highlight.cjs",
+    "exportName": "ServicesListFeaturedHighlight"
+  },
+  {
+    "path": "./blocks/services-list/services-list-feature-spotlight",
+    "types": "./dist/services-list-feature-spotlight.d.ts",
+    "import": "./dist/services-list-feature-spotlight.js",
+    "require": "./dist/services-list-feature-spotlight.cjs",
+    "exportName": "ServicesListFeatureSpotlight"
+  },
   {
     "path": "./blocks/services-list/services-list-hero-cards",
     "types": "./dist/services-list-hero-cards.d.ts",
     "import": "./dist/services-list-hero-cards.js",
-    "require": "./dist/services-list-hero-cards.cjs"
-  }
-,
+    "require": "./dist/services-list-hero-cards.cjs",
+    "exportName": "ServicesListHeroCards"
+  },
   {
     "path": "./blocks/services-list/services-list-icon-grid",
     "types": "./dist/services-list-icon-grid.d.ts",
     "import": "./dist/services-list-icon-grid.js",
-    "require": "./dist/services-list-icon-grid.cjs"
-  }
-,
+    "require": "./dist/services-list-icon-grid.cjs",
+    "exportName": "ServicesListIconGrid"
+  },
   {
     "path": "./blocks/services-list/services-list-image-cards",
     "types": "./dist/services-list-image-cards.d.ts",
     "import": "./dist/services-list-image-cards.js",
-    "require": "./dist/services-list-image-cards.cjs"
-  }
-,
+    "require": "./dist/services-list-image-cards.cjs",
+    "exportName": "ServicesListImageCards"
+  },
   {
     "path": "./blocks/services-list/services-list-image-overlay-grid",
     "types": "./dist/services-list-image-overlay-grid.d.ts",
     "import": "./dist/services-list-image-overlay-grid.js",
-    "require": "./dist/services-list-image-overlay-grid.cjs"
-  }
-,
+    "require": "./dist/services-list-image-overlay-grid.cjs",
+    "exportName": "ServicesListImageOverlayGrid"
+  },
   {
     "path": "./blocks/services-list/services-list-masonry",
     "types": "./dist/services-list-masonry.d.ts",
     "import": "./dist/services-list-masonry.js",
-    "require": "./dist/services-list-masonry.cjs"
-  }
-,
+    "require": "./dist/services-list-masonry.cjs",
+    "exportName": "ServicesListMasonry"
+  },
   {
     "path": "./blocks/services-list/services-list-methodology-steps",
     "types": "./dist/services-list-methodology-steps.d.ts",
     "import": "./dist/services-list-methodology-steps.js",
-    "require": "./dist/services-list-methodology-steps.cjs"
-  }
-,
+    "require": "./dist/services-list-methodology-steps.cjs",
+    "exportName": "ServicesListMethodologySteps"
+  },
   {
     "path": "./blocks/services-list/services-list-minimal-grid",
     "types": "./dist/services-list-minimal-grid.d.ts",
     "import": "./dist/services-list-minimal-grid.js",
-    "require": "./dist/services-list-minimal-grid.cjs"
-  }
-,
+    "require": "./dist/services-list-minimal-grid.cjs",
+    "exportName": "ServicesListMinimalGrid"
+  },
   {
     "path": "./blocks/services-list/services-list-muted-cards",
     "types": "./dist/services-list-muted-cards.d.ts",
     "import": "./dist/services-list-muted-cards.js",
-    "require": "./dist/services-list-muted-cards.cjs"
-  }
-,
+    "require": "./dist/services-list-muted-cards.cjs",
+    "exportName": "ServicesListMutedCards"
+  },
   {
     "path": "./blocks/services-list/services-list-numbered-steps",
     "types": "./dist/services-list-numbered-steps.d.ts",
     "import": "./dist/services-list-numbered-steps.js",
-    "require": "./dist/services-list-numbered-steps.cjs"
-  }
-,
+    "require": "./dist/services-list-numbered-steps.cjs",
+    "exportName": "ServicesListNumberedSteps"
+  },
   {
     "path": "./blocks/services-list/services-list-pricing-grid",
     "types": "./dist/services-list-pricing-grid.d.ts",
     "import": "./dist/services-list-pricing-grid.js",
-    "require": "./dist/services-list-pricing-grid.cjs"
-  }
-,
+    "require": "./dist/services-list-pricing-grid.cjs",
+    "exportName": "ServicesListPricingGrid"
+  },
   {
     "path": "./blocks/services-list/services-list-progress-sidebar",
     "types": "./dist/services-list-progress-sidebar.d.ts",
     "import": "./dist/services-list-progress-sidebar.js",
-    "require": "./dist/services-list-progress-sidebar.cjs"
-  }
-,
+    "require": "./dist/services-list-progress-sidebar.cjs",
+    "exportName": "ServicesListProgressSidebar"
+  },
   {
     "path": "./blocks/services-list/services-list-split-checklist",
     "types": "./dist/services-list-split-checklist.d.ts",
     "import": "./dist/services-list-split-checklist.js",
-    "require": "./dist/services-list-split-checklist.cjs"
-  }
-,
+    "require": "./dist/services-list-split-checklist.cjs",
+    "exportName": "ServicesListSplitChecklist"
+  },
   {
     "path": "./blocks/services-list/services-list-sticky-image",
     "types": "./dist/services-list-sticky-image.d.ts",
     "import": "./dist/services-list-sticky-image.js",
-    "require": "./dist/services-list-sticky-image.cjs"
-  }
-,
+    "require": "./dist/services-list-sticky-image.cjs",
+    "exportName": "ServicesListStickyImage"
+  },
   {
     "path": "./blocks/services-list/services-list-table-hover",
     "types": "./dist/services-list-table-hover.d.ts",
     "import": "./dist/services-list-table-hover.js",
-    "require": "./dist/services-list-table-hover.cjs"
-  }
-,
+    "require": "./dist/services-list-table-hover.cjs",
+    "exportName": "ServicesListTableHover"
+  },
   {
     "path": "./blocks/services-list/services-list-tabs-features",
     "types": "./dist/services-list-tabs-features.d.ts",
     "import": "./dist/services-list-tabs-features.js",
-    "require": "./dist/services-list-tabs-features.cjs"
-  }
-,
+    "require": "./dist/services-list-tabs-features.cjs",
+    "exportName": "ServicesListTabsFeatures"
+  },
   {
     "path": "./blocks/services-list/services-list-timeline",
     "types": "./dist/services-list-timeline.d.ts",
     "import": "./dist/services-list-timeline.js",
-    "require": "./dist/services-list-timeline.cjs"
-  }
-,
+    "require": "./dist/services-list-timeline.cjs",
+    "exportName": "ServicesListTimeline"
+  },
   {
     "path": "./blocks/services-list/services-list-two-column-grid",
     "types": "./dist/services-list-two-column-grid.d.ts",
     "import": "./dist/services-list-two-column-grid.js",
-    "require": "./dist/services-list-two-column-grid.cjs"
-  }
-,
+    "require": "./dist/services-list-two-column-grid.cjs",
+    "exportName": "ServicesListTwoColumnGrid"
+  },
   {
     "path": "./blocks/services-list/services-list-vertical-tags",
     "types": "./dist/services-list-vertical-tags.d.ts",
     "import": "./dist/services-list-vertical-tags.js",
-    "require": "./dist/services-list-vertical-tags.cjs"
-  }
-,
+    "require": "./dist/services-list-vertical-tags.cjs",
+    "exportName": "ServicesListVerticalTags"
+  },
   {
     "path": "./blocks/services-list/services-list-video-showcase",
     "types": "./dist/services-list-video-showcase.d.ts",
     "import": "./dist/services-list-video-showcase.js",
-    "require": "./dist/services-list-video-showcase.cjs"
+    "require": "./dist/services-list-video-showcase.cjs",
+    "exportName": "ServicesListVideoShowcase"
   }
-
 ]

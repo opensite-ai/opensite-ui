@@ -3,21 +3,21 @@
     "path": "./blocks/advanced/free-form-design",
     "types": "./dist/free-form-design.d.ts",
     "import": "./dist/free-form-design.js",
-    "require": "./dist/free-form-design.cjs"
-  }
-,
+    "require": "./dist/free-form-design.cjs",
+    "exportName": "FreeFormDesign"
+  },
   {
     "path": "./blocks/advanced/iframe-embed",
     "types": "./dist/iframe-embed.d.ts",
     "import": "./dist/iframe-embed.js",
-    "require": "./dist/iframe-embed.cjs"
-  }
-,
+    "require": "./dist/iframe-embed.cjs",
+    "exportName": "IframeEmbed"
+  },
   {
     "path": "./blocks/advanced/script-embed",
     "types": "./dist/script-embed.d.ts",
     "import": "./dist/script-embed.js",
-    "require": "./dist/script-embed.cjs"
+    "require": "./dist/script-embed.cjs",
+    "exportName": "ScriptEmbed"
   }
-
 ]

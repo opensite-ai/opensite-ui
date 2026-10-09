@@ -3,35 +3,35 @@
     "path": "./blocks/link-page/link-page-bento-layout",
     "types": "./dist/link-page-bento-layout.d.ts",
     "import": "./dist/link-page-bento-layout.js",
-    "require": "./dist/link-page-bento-layout.cjs"
-  }
-,
+    "require": "./dist/link-page-bento-layout.cjs",
+    "exportName": "LinkPageBentoLayout"
+  },
   {
     "path": "./blocks/link-page/link-page-grid-cards",
     "types": "./dist/link-page-grid-cards.d.ts",
     "import": "./dist/link-page-grid-cards.js",
-    "require": "./dist/link-page-grid-cards.cjs"
-  }
-,
+    "require": "./dist/link-page-grid-cards.cjs",
+    "exportName": "LinkPageGridCards"
+  },
   {
     "path": "./blocks/link-page/link-page-minimal-profile",
     "types": "./dist/link-page-minimal-profile.d.ts",
     "import": "./dist/link-page-minimal-profile.js",
-    "require": "./dist/link-page-minimal-profile.cjs"
-  }
-,
+    "require": "./dist/link-page-minimal-profile.cjs",
+    "exportName": "LinkPageMinimalProfile"
+  },
   {
     "path": "./blocks/link-page/link-page-newsletter-social",
     "types": "./dist/link-page-newsletter-social.d.ts",
     "import": "./dist/link-page-newsletter-social.js",
-    "require": "./dist/link-page-newsletter-social.cjs"
-  }
-,
+    "require": "./dist/link-page-newsletter-social.cjs",
+    "exportName": "LinkPageNewsletterSocial"
+  },
   {
     "path": "./blocks/link-page/link-tree-block",
     "types": "./dist/link-tree-block.d.ts",
     "import": "./dist/link-tree-block.js",
-    "require": "./dist/link-tree-block.cjs"
+    "require": "./dist/link-tree-block.cjs",
+    "exportName": "LinkTreeBlock"
   }
-
 ]

@@ -3,42 +3,42 @@
     "path": "./blocks/list/list-achievements-showcase",
     "types": "./dist/list-achievements-showcase.d.ts",
     "import": "./dist/list-achievements-showcase.js",
-    "require": "./dist/list-achievements-showcase.cjs"
-  }
-,
+    "require": "./dist/list-achievements-showcase.cjs",
+    "exportName": "ListAchievementsShowcase"
+  },
   {
     "path": "./blocks/list/list-career-timeline",
     "types": "./dist/list-career-timeline.d.ts",
     "import": "./dist/list-career-timeline.js",
-    "require": "./dist/list-career-timeline.cjs"
-  }
-,
+    "require": "./dist/list-career-timeline.cjs",
+    "exportName": "ListCareerTimeline"
+  },
   {
     "path": "./blocks/list/list-feature-comparison",
     "types": "./dist/list-feature-comparison.d.ts",
     "import": "./dist/list-feature-comparison.js",
-    "require": "./dist/list-feature-comparison.cjs"
-  }
-,
+    "require": "./dist/list-feature-comparison.cjs",
+    "exportName": "ListFeatureComparison"
+  },
   {
     "path": "./blocks/list/list-metrics-dashboard",
     "types": "./dist/list-metrics-dashboard.d.ts",
     "import": "./dist/list-metrics-dashboard.js",
-    "require": "./dist/list-metrics-dashboard.cjs"
-  }
-,
+    "require": "./dist/list-metrics-dashboard.cjs",
+    "exportName": "ListMetricsDashboard"
+  },
   {
     "path": "./blocks/list/list-searchable-grid",
     "types": "./dist/list-searchable-grid.d.ts",
     "import": "./dist/list-searchable-grid.js",
-    "require": "./dist/list-searchable-grid.cjs"
-  }
-,
+    "require": "./dist/list-searchable-grid.cjs",
+    "exportName": "ListSearchableGrid"
+  },
   {
     "path": "./blocks/list/list-service-category-table",
     "types": "./dist/list-service-category-table.d.ts",
     "import": "./dist/list-service-category-table.js",
-    "require": "./dist/list-service-category-table.cjs"
+    "require": "./dist/list-service-category-table.cjs",
+    "exportName": "ListServiceCategoryTable"
   }
-
 ]

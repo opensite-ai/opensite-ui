@@ -1,555 +1,555 @@
 [
   {
-    "path": "./blocks/hero/hero-ad-campaign-expert",
-    "types": "./dist/hero-ad-campaign-expert.d.ts",
-    "import": "./dist/hero-ad-campaign-expert.js",
-    "require": "./dist/hero-ad-campaign-expert.cjs"
-  }
-,
-  {
     "path": "./blocks/hero/hero-adaptable-product-grid",
     "types": "./dist/hero-adaptable-product-grid.d.ts",
     "import": "./dist/hero-adaptable-product-grid.js",
-    "require": "./dist/hero-adaptable-product-grid.cjs"
-  }
-,
+    "require": "./dist/hero-adaptable-product-grid.cjs",
+    "exportName": "HeroAdaptableProductGrid"
+  },
+  {
+    "path": "./blocks/hero/hero-ad-campaign-expert",
+    "types": "./dist/hero-ad-campaign-expert.d.ts",
+    "import": "./dist/hero-ad-campaign-expert.js",
+    "require": "./dist/hero-ad-campaign-expert.cjs",
+    "exportName": "HeroAdCampaignExpert"
+  },
   {
     "path": "./blocks/hero/hero-agency-animated-images",
     "types": "./dist/hero-agency-animated-images.d.ts",
     "import": "./dist/hero-agency-animated-images.js",
-    "require": "./dist/hero-agency-animated-images.cjs"
-  }
-,
+    "require": "./dist/hero-agency-animated-images.cjs",
+    "exportName": "HeroAgencyAnimatedImages"
+  },
   {
     "path": "./blocks/hero/hero-ai-powered-carousel",
     "types": "./dist/hero-ai-powered-carousel.d.ts",
     "import": "./dist/hero-ai-powered-carousel.js",
-    "require": "./dist/hero-ai-powered-carousel.cjs"
-  }
-,
+    "require": "./dist/hero-ai-powered-carousel.cjs",
+    "exportName": "HeroAiPoweredCarousel"
+  },
   {
     "path": "./blocks/hero/hero-announcement-badge",
     "types": "./dist/hero-announcement-badge.d.ts",
     "import": "./dist/hero-announcement-badge.js",
-    "require": "./dist/hero-announcement-badge.cjs"
-  }
-,
+    "require": "./dist/hero-announcement-badge.cjs",
+    "exportName": "HeroAnnouncementBadge"
+  },
   {
     "path": "./blocks/hero/hero-architecture-fullscreen",
     "types": "./dist/hero-architecture-fullscreen.d.ts",
     "import": "./dist/hero-architecture-fullscreen.js",
-    "require": "./dist/hero-architecture-fullscreen.cjs"
-  }
-,
+    "require": "./dist/hero-architecture-fullscreen.cjs",
+    "exportName": "HeroArchitectureFullscreen"
+  },
   {
     "path": "./blocks/hero/hero-badge-image-split",
     "types": "./dist/hero-badge-image-split.d.ts",
     "import": "./dist/hero-badge-image-split.js",
-    "require": "./dist/hero-badge-image-split.cjs"
-  }
-,
+    "require": "./dist/hero-badge-image-split.cjs",
+    "exportName": "HeroBadgeImageSplit"
+  },
   {
     "path": "./blocks/hero/hero-badge-shadow-overlay",
     "types": "./dist/hero-badge-shadow-overlay.d.ts",
     "import": "./dist/hero-badge-shadow-overlay.js",
-    "require": "./dist/hero-badge-shadow-overlay.cjs"
-  }
-,
+    "require": "./dist/hero-badge-shadow-overlay.cjs",
+    "exportName": "HeroBadgeShadowOverlay"
+  },
   {
     "path": "./blocks/hero/hero-billing-platform-logos",
     "types": "./dist/hero-billing-platform-logos.d.ts",
     "import": "./dist/hero-billing-platform-logos.js",
-    "require": "./dist/hero-billing-platform-logos.cjs"
-  }
-,
+    "require": "./dist/hero-billing-platform-logos.cjs",
+    "exportName": "HeroBillingPlatformLogos"
+  },
   {
     "path": "./blocks/hero/hero-business-carousel-dots",
     "types": "./dist/hero-business-carousel-dots.d.ts",
     "import": "./dist/hero-business-carousel-dots.js",
-    "require": "./dist/hero-business-carousel-dots.cjs"
-  }
-,
+    "require": "./dist/hero-business-carousel-dots.cjs",
+    "exportName": "HeroBusinessCarouselDots"
+  },
   {
     "path": "./blocks/hero/hero-business-operations-mosaic",
     "types": "./dist/hero-business-operations-mosaic.d.ts",
     "import": "./dist/hero-business-operations-mosaic.js",
-    "require": "./dist/hero-business-operations-mosaic.cjs"
-  }
-,
+    "require": "./dist/hero-business-operations-mosaic.cjs",
+    "exportName": "HeroBusinessOperationsMosaic"
+  },
   {
     "path": "./blocks/hero/hero-centered-gradient-cta",
     "types": "./dist/hero-centered-gradient-cta.d.ts",
     "import": "./dist/hero-centered-gradient-cta.js",
-    "require": "./dist/hero-centered-gradient-cta.cjs"
-  }
-,
+    "require": "./dist/hero-centered-gradient-cta.cjs",
+    "exportName": "HeroCenteredGradientCta"
+  },
   {
     "path": "./blocks/hero/hero-centered-image-grid",
     "types": "./dist/hero-centered-image-grid.d.ts",
     "import": "./dist/hero-centered-image-grid.js",
-    "require": "./dist/hero-centered-image-grid.cjs"
-  }
-,
+    "require": "./dist/hero-centered-image-grid.cjs",
+    "exportName": "HeroCenteredImageGrid"
+  },
   {
     "path": "./blocks/hero/hero-centered-screenshot",
     "types": "./dist/hero-centered-screenshot.d.ts",
     "import": "./dist/hero-centered-screenshot.js",
-    "require": "./dist/hero-centered-screenshot.cjs"
-  }
-,
+    "require": "./dist/hero-centered-screenshot.cjs",
+    "exportName": "HeroCenteredScreenshot"
+  },
   {
     "path": "./blocks/hero/hero-coming-soon-countdown",
     "types": "./dist/hero-coming-soon-countdown.d.ts",
     "import": "./dist/hero-coming-soon-countdown.js",
-    "require": "./dist/hero-coming-soon-countdown.cjs"
-  }
-,
+    "require": "./dist/hero-coming-soon-countdown.cjs",
+    "exportName": "HeroComingSoonCountdown"
+  },
   {
     "path": "./blocks/hero/hero-community-survey-cta",
     "types": "./dist/hero-community-survey-cta.d.ts",
     "import": "./dist/hero-community-survey-cta.js",
-    "require": "./dist/hero-community-survey-cta.cjs"
-  }
-,
+    "require": "./dist/hero-community-survey-cta.cjs",
+    "exportName": "HeroCommunitySurveyCta"
+  },
   {
     "path": "./blocks/hero/hero-conversation-intelligence",
     "types": "./dist/hero-conversation-intelligence.d.ts",
     "import": "./dist/hero-conversation-intelligence.js",
-    "require": "./dist/hero-conversation-intelligence.cjs"
-  }
-,
+    "require": "./dist/hero-conversation-intelligence.cjs",
+    "exportName": "HeroConversationIntelligence"
+  },
   {
     "path": "./blocks/hero/hero-conversion-video-play",
     "types": "./dist/hero-conversion-video-play.d.ts",
     "import": "./dist/hero-conversion-video-play.js",
-    "require": "./dist/hero-conversion-video-play.cjs"
-  }
-,
+    "require": "./dist/hero-conversion-video-play.cjs",
+    "exportName": "HeroConversionVideoPlay"
+  },
   {
     "path": "./blocks/hero/hero-creative-studio-stacked",
     "types": "./dist/hero-creative-studio-stacked.d.ts",
     "import": "./dist/hero-creative-studio-stacked.js",
-    "require": "./dist/hero-creative-studio-stacked.cjs"
-  }
-,
+    "require": "./dist/hero-creative-studio-stacked.cjs",
+    "exportName": "HeroCreativeStudioStacked"
+  },
   {
     "path": "./blocks/hero/hero-crm-streamlined",
     "types": "./dist/hero-crm-streamlined.d.ts",
     "import": "./dist/hero-crm-streamlined.js",
-    "require": "./dist/hero-crm-streamlined.cjs"
-  }
-,
+    "require": "./dist/hero-crm-streamlined.cjs",
+    "exportName": "HeroCrmStreamlined"
+  },
   {
     "path": "./blocks/hero/hero-customer-support-layered",
     "types": "./dist/hero-customer-support-layered.d.ts",
     "import": "./dist/hero-customer-support-layered.js",
-    "require": "./dist/hero-customer-support-layered.cjs"
-  }
-,
+    "require": "./dist/hero-customer-support-layered.cjs",
+    "exportName": "HeroCustomerSupportLayered"
+  },
   {
     "path": "./blocks/hero/hero-dashed-border-features",
     "types": "./dist/hero-dashed-border-features.d.ts",
     "import": "./dist/hero-dashed-border-features.js",
-    "require": "./dist/hero-dashed-border-features.cjs"
-  }
-,
+    "require": "./dist/hero-dashed-border-features.cjs",
+    "exportName": "HeroDashedBorderFeatures"
+  },
   {
     "path": "./blocks/hero/hero-design-carousel-portfolio",
     "types": "./dist/hero-design-carousel-portfolio.d.ts",
     "import": "./dist/hero-design-carousel-portfolio.js",
-    "require": "./dist/hero-design-carousel-portfolio.cjs"
-  }
-,
+    "require": "./dist/hero-design-carousel-portfolio.cjs",
+    "exportName": "HeroDesignCarouselPortfolio"
+  },
   {
     "path": "./blocks/hero/hero-design-showcase-logos",
     "types": "./dist/hero-design-showcase-logos.d.ts",
     "import": "./dist/hero-design-showcase-logos.js",
-    "require": "./dist/hero-design-showcase-logos.cjs"
-  }
-,
+    "require": "./dist/hero-design-showcase-logos.cjs",
+    "exportName": "HeroDesignShowcaseLogos"
+  },
   {
     "path": "./blocks/hero/hero-design-system-3d",
     "types": "./dist/hero-design-system-3d.d.ts",
     "import": "./dist/hero-design-system-3d.js",
-    "require": "./dist/hero-design-system-3d.cjs"
-  }
-,
+    "require": "./dist/hero-design-system-3d.cjs",
+    "exportName": "HeroDesignSystem3d"
+  },
   {
     "path": "./blocks/hero/hero-developer-tools-code",
     "types": "./dist/hero-developer-tools-code.d.ts",
     "import": "./dist/hero-developer-tools-code.js",
-    "require": "./dist/hero-developer-tools-code.cjs"
-  }
-,
+    "require": "./dist/hero-developer-tools-code.cjs",
+    "exportName": "HeroDeveloperToolsCode"
+  },
   {
     "path": "./blocks/hero/hero-digital-agency-fullscreen",
     "types": "./dist/hero-digital-agency-fullscreen.d.ts",
     "import": "./dist/hero-digital-agency-fullscreen.js",
-    "require": "./dist/hero-digital-agency-fullscreen.cjs"
-  }
-,
+    "require": "./dist/hero-digital-agency-fullscreen.cjs",
+    "exportName": "HeroDigitalAgencyFullscreen"
+  },
   {
     "path": "./blocks/hero/hero-ecommerce-product-showcase",
     "types": "./dist/hero-ecommerce-product-showcase.d.ts",
     "import": "./dist/hero-ecommerce-product-showcase.js",
-    "require": "./dist/hero-ecommerce-product-showcase.cjs"
-  }
-,
+    "require": "./dist/hero-ecommerce-product-showcase.cjs",
+    "exportName": "HeroEcommerceProductShowcase"
+  },
   {
     "path": "./blocks/hero/hero-enterprise-security",
     "types": "./dist/hero-enterprise-security.d.ts",
     "import": "./dist/hero-enterprise-security.js",
-    "require": "./dist/hero-enterprise-security.cjs"
-  }
-,
+    "require": "./dist/hero-enterprise-security.cjs",
+    "exportName": "HeroEnterpriseSecurity"
+  },
   {
     "path": "./blocks/hero/hero-event-registration",
     "types": "./dist/hero-event-registration.d.ts",
     "import": "./dist/hero-event-registration.js",
-    "require": "./dist/hero-event-registration.cjs"
-  }
-,
+    "require": "./dist/hero-event-registration.cjs",
+    "exportName": "HeroEventRegistration"
+  },
   {
     "path": "./blocks/hero/hero-feature-cards-grid",
     "types": "./dist/hero-feature-cards-grid.d.ts",
     "import": "./dist/hero-feature-cards-grid.js",
-    "require": "./dist/hero-feature-cards-grid.cjs"
-  }
-,
+    "require": "./dist/hero-feature-cards-grid.cjs",
+    "exportName": "HeroFeatureCardsGrid"
+  },
   {
     "path": "./blocks/hero/hero-floating-images",
     "types": "./dist/hero-floating-images.d.ts",
     "import": "./dist/hero-floating-images.js",
-    "require": "./dist/hero-floating-images.cjs"
-  }
-,
+    "require": "./dist/hero-floating-images.cjs",
+    "exportName": "HeroFloatingImages"
+  },
   {
     "path": "./blocks/hero/hero-fullscreen-background-image",
     "types": "./dist/hero-fullscreen-background-image.d.ts",
     "import": "./dist/hero-fullscreen-background-image.js",
-    "require": "./dist/hero-fullscreen-background-image.cjs"
-  }
-,
+    "require": "./dist/hero-fullscreen-background-image.cjs",
+    "exportName": "HeroFullscreenBackgroundImage"
+  },
   {
     "path": "./blocks/hero/hero-fullscreen-logo-cta",
     "types": "./dist/hero-fullscreen-logo-cta.d.ts",
     "import": "./dist/hero-fullscreen-logo-cta.js",
-    "require": "./dist/hero-fullscreen-logo-cta.cjs"
-  }
-,
+    "require": "./dist/hero-fullscreen-logo-cta.cjs",
+    "exportName": "HeroFullscreenLogoCta"
+  },
   {
     "path": "./blocks/hero/hero-gradient-avatars-rating",
     "types": "./dist/hero-gradient-avatars-rating.d.ts",
     "import": "./dist/hero-gradient-avatars-rating.js",
-    "require": "./dist/hero-gradient-avatars-rating.cjs"
-  }
-,
+    "require": "./dist/hero-gradient-avatars-rating.cjs",
+    "exportName": "HeroGradientAvatarsRating"
+  },
   {
     "path": "./blocks/hero/hero-gradient-client-focused",
     "types": "./dist/hero-gradient-client-focused.d.ts",
     "import": "./dist/hero-gradient-client-focused.js",
-    "require": "./dist/hero-gradient-client-focused.cjs"
-  }
-,
+    "require": "./dist/hero-gradient-client-focused.cjs",
+    "exportName": "HeroGradientClientFocused"
+  },
   {
     "path": "./blocks/hero/hero-grid-pattern-efficiency",
     "types": "./dist/hero-grid-pattern-efficiency.d.ts",
     "import": "./dist/hero-grid-pattern-efficiency.js",
-    "require": "./dist/hero-grid-pattern-efficiency.cjs"
-  }
-,
+    "require": "./dist/hero-grid-pattern-efficiency.cjs",
+    "exportName": "HeroGridPatternEfficiency"
+  },
   {
     "path": "./blocks/hero/hero-grid-pattern-solutions",
     "types": "./dist/hero-grid-pattern-solutions.d.ts",
     "import": "./dist/hero-grid-pattern-solutions.js",
-    "require": "./dist/hero-grid-pattern-solutions.cjs"
-  }
-,
+    "require": "./dist/hero-grid-pattern-solutions.cjs",
+    "exportName": "HeroGridPatternSolutions"
+  },
   {
     "path": "./blocks/hero/hero-hiring-animated-text",
     "types": "./dist/hero-hiring-animated-text.d.ts",
     "import": "./dist/hero-hiring-animated-text.js",
-    "require": "./dist/hero-hiring-animated-text.cjs"
-  }
-,
+    "require": "./dist/hero-hiring-animated-text.cjs",
+    "exportName": "HeroHiringAnimatedText"
+  },
   {
     "path": "./blocks/hero/hero-image-left-content",
     "types": "./dist/hero-image-left-content.d.ts",
     "import": "./dist/hero-image-left-content.js",
-    "require": "./dist/hero-image-left-content.cjs"
-  }
-,
+    "require": "./dist/hero-image-left-content.cjs",
+    "exportName": "HeroImageLeftContent"
+  },
   {
     "path": "./blocks/hero/hero-image-slider",
     "types": "./dist/hero-image-slider.d.ts",
     "import": "./dist/hero-image-slider.js",
-    "require": "./dist/hero-image-slider.cjs"
-  }
-,
+    "require": "./dist/hero-image-slider.cjs",
+    "exportName": "HeroImageSlider"
+  },
   {
     "path": "./blocks/hero/hero-innovation-image-grid",
     "types": "./dist/hero-innovation-image-grid.d.ts",
     "import": "./dist/hero-innovation-image-grid.js",
-    "require": "./dist/hero-innovation-image-grid.cjs"
-  }
-,
+    "require": "./dist/hero-innovation-image-grid.cjs",
+    "exportName": "HeroInnovationImageGrid"
+  },
   {
     "path": "./blocks/hero/hero-logo-centered-screenshot",
     "types": "./dist/hero-logo-centered-screenshot.d.ts",
     "import": "./dist/hero-logo-centered-screenshot.js",
-    "require": "./dist/hero-logo-centered-screenshot.cjs"
-  }
-,
+    "require": "./dist/hero-logo-centered-screenshot.cjs",
+    "exportName": "HeroLogoCenteredScreenshot"
+  },
   {
     "path": "./blocks/hero/hero-marketplace-scattered-images",
     "types": "./dist/hero-marketplace-scattered-images.d.ts",
     "import": "./dist/hero-marketplace-scattered-images.js",
-    "require": "./dist/hero-marketplace-scattered-images.cjs"
-  }
-,
+    "require": "./dist/hero-marketplace-scattered-images.cjs",
+    "exportName": "HeroMarketplaceScatteredImages"
+  },
   {
     "path": "./blocks/hero/hero-mental-health-team",
     "types": "./dist/hero-mental-health-team.d.ts",
     "import": "./dist/hero-mental-health-team.js",
-    "require": "./dist/hero-mental-health-team.cjs"
-  }
-,
+    "require": "./dist/hero-mental-health-team.cjs",
+    "exportName": "HeroMentalHealthTeam"
+  },
   {
     "path": "./blocks/hero/hero-mentorship-video-split",
     "types": "./dist/hero-mentorship-video-split.d.ts",
     "import": "./dist/hero-mentorship-video-split.js",
-    "require": "./dist/hero-mentorship-video-split.cjs"
-  }
-,
+    "require": "./dist/hero-mentorship-video-split.cjs",
+    "exportName": "HeroMentorshipVideoSplit"
+  },
   {
     "path": "./blocks/hero/hero-minimal-centered-dark",
     "types": "./dist/hero-minimal-centered-dark.d.ts",
     "import": "./dist/hero-minimal-centered-dark.js",
-    "require": "./dist/hero-minimal-centered-dark.cjs"
-  }
-,
+    "require": "./dist/hero-minimal-centered-dark.cjs",
+    "exportName": "HeroMinimalCenteredDark"
+  },
   {
     "path": "./blocks/hero/hero-mobile-app-download",
     "types": "./dist/hero-mobile-app-download.d.ts",
     "import": "./dist/hero-mobile-app-download.js",
-    "require": "./dist/hero-mobile-app-download.cjs"
-  }
-,
+    "require": "./dist/hero-mobile-app-download.cjs",
+    "exportName": "HeroMobileAppDownload"
+  },
   {
     "path": "./blocks/hero/hero-newsletter-minimal",
     "types": "./dist/hero-newsletter-minimal.d.ts",
     "import": "./dist/hero-newsletter-minimal.js",
-    "require": "./dist/hero-newsletter-minimal.cjs"
-  }
-,
+    "require": "./dist/hero-newsletter-minimal.cjs",
+    "exportName": "HeroNewsletterMinimal"
+  },
   {
     "path": "./blocks/hero/hero-overlay-cta-grid",
     "types": "./dist/hero-overlay-cta-grid.d.ts",
     "import": "./dist/hero-overlay-cta-grid.js",
-    "require": "./dist/hero-overlay-cta-grid.cjs"
-  }
-,
+    "require": "./dist/hero-overlay-cta-grid.cjs",
+    "exportName": "HeroOverlayCtaGrid"
+  },
   {
     "path": "./blocks/hero/hero-pattern-badge-logos",
     "types": "./dist/hero-pattern-badge-logos.d.ts",
     "import": "./dist/hero-pattern-badge-logos.js",
-    "require": "./dist/hero-pattern-badge-logos.cjs"
-  }
-,
+    "require": "./dist/hero-pattern-badge-logos.cjs",
+    "exportName": "HeroPatternBadgeLogos"
+  },
   {
     "path": "./blocks/hero/hero-pattern-logo-tech-stack",
     "types": "./dist/hero-pattern-logo-tech-stack.d.ts",
     "import": "./dist/hero-pattern-logo-tech-stack.js",
-    "require": "./dist/hero-pattern-logo-tech-stack.cjs"
-  }
-,
+    "require": "./dist/hero-pattern-logo-tech-stack.cjs",
+    "exportName": "HeroPatternLogoTechStack"
+  },
   {
     "path": "./blocks/hero/hero-platform-features-grid",
     "types": "./dist/hero-platform-features-grid.d.ts",
     "import": "./dist/hero-platform-features-grid.js",
-    "require": "./dist/hero-platform-features-grid.cjs"
-  }
-,
+    "require": "./dist/hero-platform-features-grid.cjs",
+    "exportName": "HeroPlatformFeaturesGrid"
+  },
   {
     "path": "./blocks/hero/hero-portfolio-creative",
     "types": "./dist/hero-portfolio-creative.d.ts",
     "import": "./dist/hero-portfolio-creative.js",
-    "require": "./dist/hero-portfolio-creative.cjs"
-  }
-,
+    "require": "./dist/hero-portfolio-creative.cjs",
+    "exportName": "HeroPortfolioCreative"
+  },
   {
     "path": "./blocks/hero/hero-premium-split-avatars",
     "types": "./dist/hero-premium-split-avatars.d.ts",
     "import": "./dist/hero-premium-split-avatars.js",
-    "require": "./dist/hero-premium-split-avatars.cjs"
-  }
-,
+    "require": "./dist/hero-premium-split-avatars.cjs",
+    "exportName": "HeroPremiumSplitAvatars"
+  },
   {
     "path": "./blocks/hero/hero-presentation-platform-video",
     "types": "./dist/hero-presentation-platform-video.d.ts",
     "import": "./dist/hero-presentation-platform-video.js",
-    "require": "./dist/hero-presentation-platform-video.cjs"
-  }
-,
+    "require": "./dist/hero-presentation-platform-video.cjs",
+    "exportName": "HeroPresentationPlatformVideo"
+  },
   {
     "path": "./blocks/hero/hero-pricing-comparison",
     "types": "./dist/hero-pricing-comparison.d.ts",
     "import": "./dist/hero-pricing-comparison.js",
-    "require": "./dist/hero-pricing-comparison.cjs"
-  }
-,
-  {
-    "path": "./blocks/hero/hero-product-showcase-floating",
-    "types": "./dist/hero-product-showcase-floating.d.ts",
-    "import": "./dist/hero-product-showcase-floating.js",
-    "require": "./dist/hero-product-showcase-floating.cjs"
-  }
-,
+    "require": "./dist/hero-pricing-comparison.cjs",
+    "exportName": "HeroPricingComparison"
+  },
   {
     "path": "./blocks/hero/hero-productivity-launcher-video",
     "types": "./dist/hero-productivity-launcher-video.d.ts",
     "import": "./dist/hero-productivity-launcher-video.js",
-    "require": "./dist/hero-productivity-launcher-video.cjs"
-  }
-,
+    "require": "./dist/hero-productivity-launcher-video.cjs",
+    "exportName": "HeroProductivityLauncherVideo"
+  },
+  {
+    "path": "./blocks/hero/hero-product-showcase-floating",
+    "types": "./dist/hero-product-showcase-floating.d.ts",
+    "import": "./dist/hero-product-showcase-floating.js",
+    "require": "./dist/hero-product-showcase-floating.cjs",
+    "exportName": "HeroProductShowcaseFloating"
+  },
   {
     "path": "./blocks/hero/hero-saas-dashboard-preview",
     "types": "./dist/hero-saas-dashboard-preview.d.ts",
     "import": "./dist/hero-saas-dashboard-preview.js",
-    "require": "./dist/hero-saas-dashboard-preview.cjs"
-  }
-,
+    "require": "./dist/hero-saas-dashboard-preview.cjs",
+    "exportName": "HeroSaasDashboardPreview"
+  },
   {
     "path": "./blocks/hero/hero-shared-inbox-layered",
     "types": "./dist/hero-shared-inbox-layered.d.ts",
     "import": "./dist/hero-shared-inbox-layered.js",
-    "require": "./dist/hero-shared-inbox-layered.cjs"
-  }
-,
+    "require": "./dist/hero-shared-inbox-layered.cjs",
+    "exportName": "HeroSharedInboxLayered"
+  },
   {
     "path": "./blocks/hero/hero-simple-centered-image",
     "types": "./dist/hero-simple-centered-image.d.ts",
     "import": "./dist/hero-simple-centered-image.js",
-    "require": "./dist/hero-simple-centered-image.cjs"
-  }
-,
+    "require": "./dist/hero-simple-centered-image.cjs",
+    "exportName": "HeroSimpleCenteredImage"
+  },
   {
     "path": "./blocks/hero/hero-software-growth-video-dialog",
     "types": "./dist/hero-software-growth-video-dialog.d.ts",
     "import": "./dist/hero-software-growth-video-dialog.js",
-    "require": "./dist/hero-software-growth-video-dialog.cjs"
-  }
-,
+    "require": "./dist/hero-software-growth-video-dialog.cjs",
+    "exportName": "HeroSoftwareGrowthVideoDialog"
+  },
   {
     "path": "./blocks/hero/hero-spiral-pattern-cards",
     "types": "./dist/hero-spiral-pattern-cards.d.ts",
     "import": "./dist/hero-spiral-pattern-cards.js",
-    "require": "./dist/hero-spiral-pattern-cards.cjs"
-  }
-,
+    "require": "./dist/hero-spiral-pattern-cards.cjs",
+    "exportName": "HeroSpiralPatternCards"
+  },
   {
     "path": "./blocks/hero/hero-split-geometric-shapes",
     "types": "./dist/hero-split-geometric-shapes.d.ts",
     "import": "./dist/hero-split-geometric-shapes.js",
-    "require": "./dist/hero-split-geometric-shapes.cjs"
-  }
-,
+    "require": "./dist/hero-split-geometric-shapes.cjs",
+    "exportName": "HeroSplitGeometricShapes"
+  },
   {
     "path": "./blocks/hero/hero-split-icon-cards",
     "types": "./dist/hero-split-icon-cards.d.ts",
     "import": "./dist/hero-split-icon-cards.js",
-    "require": "./dist/hero-split-icon-cards.cjs"
-  }
-,
+    "require": "./dist/hero-split-icon-cards.cjs",
+    "exportName": "HeroSplitIconCards"
+  },
   {
     "path": "./blocks/hero/hero-split-image-newsletter",
     "types": "./dist/hero-split-image-newsletter.d.ts",
     "import": "./dist/hero-split-image-newsletter.js",
-    "require": "./dist/hero-split-image-newsletter.cjs"
-  }
-,
+    "require": "./dist/hero-split-image-newsletter.cjs",
+    "exportName": "HeroSplitImageNewsletter"
+  },
   {
     "path": "./blocks/hero/hero-split-spiral-shapes",
     "types": "./dist/hero-split-spiral-shapes.d.ts",
     "import": "./dist/hero-split-spiral-shapes.js",
-    "require": "./dist/hero-split-spiral-shapes.cjs"
-  }
-,
+    "require": "./dist/hero-split-spiral-shapes.cjs",
+    "exportName": "HeroSplitSpiralShapes"
+  },
   {
     "path": "./blocks/hero/hero-startup-launch-cta",
     "types": "./dist/hero-startup-launch-cta.d.ts",
     "import": "./dist/hero-startup-launch-cta.js",
-    "require": "./dist/hero-startup-launch-cta.cjs"
-  }
-,
+    "require": "./dist/hero-startup-launch-cta.cjs",
+    "exportName": "HeroStartupLaunchCta"
+  },
   {
     "path": "./blocks/hero/hero-stats-social-proof",
     "types": "./dist/hero-stats-social-proof.d.ts",
     "import": "./dist/hero-stats-social-proof.js",
-    "require": "./dist/hero-stats-social-proof.cjs"
-  }
-,
+    "require": "./dist/hero-stats-social-proof.cjs",
+    "exportName": "HeroStatsSocialProof"
+  },
   {
     "path": "./blocks/hero/hero-task-timer-animated",
     "types": "./dist/hero-task-timer-animated.d.ts",
     "import": "./dist/hero-task-timer-animated.js",
-    "require": "./dist/hero-task-timer-animated.cjs"
-  }
-,
+    "require": "./dist/hero-task-timer-animated.cjs",
+    "exportName": "HeroTaskTimerAnimated"
+  },
   {
     "path": "./blocks/hero/hero-tech-carousel",
     "types": "./dist/hero-tech-carousel.d.ts",
     "import": "./dist/hero-tech-carousel.js",
-    "require": "./dist/hero-tech-carousel.cjs"
-  }
-,
+    "require": "./dist/hero-tech-carousel.cjs",
+    "exportName": "HeroTechCarousel"
+  },
   {
     "path": "./blocks/hero/hero-testimonial-image-grid",
     "types": "./dist/hero-testimonial-image-grid.d.ts",
     "import": "./dist/hero-testimonial-image-grid.js",
-    "require": "./dist/hero-testimonial-image-grid.cjs"
-  }
-,
+    "require": "./dist/hero-testimonial-image-grid.cjs",
+    "exportName": "HeroTestimonialImageGrid"
+  },
   {
     "path": "./blocks/hero/hero-therapy-testimonial-grid",
     "types": "./dist/hero-therapy-testimonial-grid.d.ts",
     "import": "./dist/hero-therapy-testimonial-grid.js",
-    "require": "./dist/hero-therapy-testimonial-grid.cjs"
-  }
-,
+    "require": "./dist/hero-therapy-testimonial-grid.cjs",
+    "exportName": "HeroTherapyTestimonialGrid"
+  },
   {
     "path": "./blocks/hero/hero-ui-library-showcase",
     "types": "./dist/hero-ui-library-showcase.d.ts",
     "import": "./dist/hero-ui-library-showcase.js",
-    "require": "./dist/hero-ui-library-showcase.cjs"
-  }
-,
+    "require": "./dist/hero-ui-library-showcase.cjs",
+    "exportName": "HeroUiLibraryShowcase"
+  },
   {
     "path": "./blocks/hero/hero-video-background-dark",
     "types": "./dist/hero-video-background-dark.d.ts",
     "import": "./dist/hero-video-background-dark.js",
-    "require": "./dist/hero-video-background-dark.cjs"
-  }
-,
+    "require": "./dist/hero-video-background-dark.cjs",
+    "exportName": "HeroVideoBackgroundDark"
+  },
   {
     "path": "./blocks/hero/hero-video-dialog-gradient",
     "types": "./dist/hero-video-dialog-gradient.d.ts",
     "import": "./dist/hero-video-dialog-gradient.js",
-    "require": "./dist/hero-video-dialog-gradient.cjs"
-  }
-,
+    "require": "./dist/hero-video-dialog-gradient.cjs",
+    "exportName": "HeroVideoDialogGradient"
+  },
   {
     "path": "./blocks/hero/hero-video-overlay-stars",
     "types": "./dist/hero-video-overlay-stars.d.ts",
     "import": "./dist/hero-video-overlay-stars.js",
-    "require": "./dist/hero-video-overlay-stars.cjs"
-  }
-,
+    "require": "./dist/hero-video-overlay-stars.cjs",
+    "exportName": "HeroVideoOverlayStars"
+  },
   {
     "path": "./blocks/hero/hero-welcome-asymmetric-images",
     "types": "./dist/hero-welcome-asymmetric-images.d.ts",
     "import": "./dist/hero-welcome-asymmetric-images.js",
-    "require": "./dist/hero-welcome-asymmetric-images.cjs"
+    "require": "./dist/hero-welcome-asymmetric-images.cjs",
+    "exportName": "HeroWelcomeAsymmetricImages"
   }
-
 ]

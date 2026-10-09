@@ -1,6 +1,6 @@
 {
   "name": "@opensite/ui",
-  "version": "3.17.3",
+  "version": "4.0.0",
   "description": "Foundational UI component library for OpenSite Semantic Site Builder with tree-shakable exports and abstract styling",
   "keywords": [
     "react",
@@ -526,15 +526,15 @@
       "import": "./dist/carousel-animated-sections.js",
       "require": "./dist/carousel-animated-sections.cjs"
     },
-    "./blocks/carousel/carousel-auto-progress-slides": {
-      "types": "./dist/carousel-auto-progress-slides.d.ts",
-      "import": "./dist/carousel-auto-progress-slides.js",
-      "require": "./dist/carousel-auto-progress-slides.cjs"
-    },
     "./blocks/carousel/carousel-autoplay-progress": {
       "types": "./dist/carousel-autoplay-progress.d.ts",
       "import": "./dist/carousel-autoplay-progress.js",
       "require": "./dist/carousel-autoplay-progress.cjs"
+    },
+    "./blocks/carousel/carousel-auto-progress-slides": {
+      "types": "./dist/carousel-auto-progress-slides.d.ts",
+      "import": "./dist/carousel-auto-progress-slides.js",
+      "require": "./dist/carousel-auto-progress-slides.cjs"
     },
     "./blocks/carousel/carousel-feature-badge": {
       "types": "./dist/carousel-feature-badge.d.ts",
@@ -1421,15 +1421,15 @@
       "import": "./dist/testimonial-carousel-cards.js",
       "require": "./dist/testimonial-carousel-cards.cjs"
     },
-    "./blocks/hero/hero-ad-campaign-expert": {
-      "types": "./dist/hero-ad-campaign-expert.d.ts",
-      "import": "./dist/hero-ad-campaign-expert.js",
-      "require": "./dist/hero-ad-campaign-expert.cjs"
-    },
     "./blocks/hero/hero-adaptable-product-grid": {
       "types": "./dist/hero-adaptable-product-grid.d.ts",
       "import": "./dist/hero-adaptable-product-grid.js",
       "require": "./dist/hero-adaptable-product-grid.cjs"
+    },
+    "./blocks/hero/hero-ad-campaign-expert": {
+      "types": "./dist/hero-ad-campaign-expert.d.ts",
+      "import": "./dist/hero-ad-campaign-expert.js",
+      "require": "./dist/hero-ad-campaign-expert.cjs"
     },
     "./blocks/hero/hero-agency-animated-images": {
       "types": "./dist/hero-agency-animated-images.d.ts",
@@ -1706,15 +1706,15 @@
       "import": "./dist/hero-pricing-comparison.js",
       "require": "./dist/hero-pricing-comparison.cjs"
     },
-    "./blocks/hero/hero-product-showcase-floating": {
-      "types": "./dist/hero-product-showcase-floating.d.ts",
-      "import": "./dist/hero-product-showcase-floating.js",
-      "require": "./dist/hero-product-showcase-floating.cjs"
-    },
     "./blocks/hero/hero-productivity-launcher-video": {
       "types": "./dist/hero-productivity-launcher-video.d.ts",
       "import": "./dist/hero-productivity-launcher-video.js",
       "require": "./dist/hero-productivity-launcher-video.cjs"
+    },
+    "./blocks/hero/hero-product-showcase-floating": {
+      "types": "./dist/hero-product-showcase-floating.d.ts",
+      "import": "./dist/hero-product-showcase-floating.js",
+      "require": "./dist/hero-product-showcase-floating.cjs"
     },
     "./blocks/hero/hero-saas-dashboard-preview": {
       "types": "./dist/hero-saas-dashboard-preview.d.ts",
@@ -2631,15 +2631,15 @@
       "import": "./dist/services-list-expandable-cards.js",
       "require": "./dist/services-list-expandable-cards.cjs"
     },
-    "./blocks/services-list/services-list-feature-spotlight": {
-      "types": "./dist/services-list-feature-spotlight.d.ts",
-      "import": "./dist/services-list-feature-spotlight.js",
-      "require": "./dist/services-list-feature-spotlight.cjs"
-    },
     "./blocks/services-list/services-list-featured-highlight": {
       "types": "./dist/services-list-featured-highlight.d.ts",
       "import": "./dist/services-list-featured-highlight.js",
       "require": "./dist/services-list-featured-highlight.cjs"
+    },
+    "./blocks/services-list/services-list-feature-spotlight": {
+      "types": "./dist/services-list-feature-spotlight.d.ts",
+      "import": "./dist/services-list-feature-spotlight.js",
+      "require": "./dist/services-list-feature-spotlight.cjs"
     },
     "./blocks/services-list/services-list-hero-cards": {
       "types": "./dist/services-list-hero-cards.d.ts",
@@ -3056,15 +3056,15 @@
       "import": "./dist/timeline-horizontal-phases.js",
       "require": "./dist/timeline-horizontal-phases.cjs"
     },
-    "./blocks/timeline/timeline-product-launch": {
-      "types": "./dist/timeline-product-launch.d.ts",
-      "import": "./dist/timeline-product-launch.js",
-      "require": "./dist/timeline-product-launch.cjs"
-    },
     "./blocks/timeline/timeline-productivity-list": {
       "types": "./dist/timeline-productivity-list.d.ts",
       "import": "./dist/timeline-productivity-list.js",
       "require": "./dist/timeline-productivity-list.cjs"
+    },
+    "./blocks/timeline/timeline-product-launch": {
+      "types": "./dist/timeline-product-launch.d.ts",
+      "import": "./dist/timeline-product-launch.js",
+      "require": "./dist/timeline-product-launch.cjs"
     },
     "./blocks/timeline/timeline-scroll-highlight": {
       "types": "./dist/timeline-scroll-highlight.d.ts",
@@ -3391,6 +3391,15 @@
       "import": "./dist/registry.js",
       "require": "./dist/registry.cjs"
     },
+    "./registry/metadata": {
+      "types": "./dist/registry/metadata.d.ts",
+      "import": "./dist/registry/metadata.js",
+      "require": "./dist/registry/metadata.cjs"
+    },
+    "./registry/loader": {
+      "types": "./dist/registry/loader.d.ts",
+      "import": "./dist/registry/loader.js"
+    },
     "./utils": {
       "types": "./dist/utils.d.ts",
       "import": "./dist/utils.js",
@@ -3413,7 +3422,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "pnpm run generate:exports && pnpm run build:lib && pnpm run export:registry",
-    "build:lib": "tsup",
+    "build:lib": "tsup && tsup --config tsup.loader.config.ts",
     "dev": "tsup --watch",
     "test": "vitest",
     "test:ci": "./scripts/test-ci-silent.sh",

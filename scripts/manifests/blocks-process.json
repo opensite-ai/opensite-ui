@@ -3,63 +3,63 @@
     "path": "./blocks/process/process-expandable-timeline",
     "types": "./dist/process-expandable-timeline.d.ts",
     "import": "./dist/process-expandable-timeline.js",
-    "require": "./dist/process-expandable-timeline.cjs"
-  }
-,
+    "require": "./dist/process-expandable-timeline.cjs",
+    "exportName": "ProcessExpandableTimeline"
+  },
   {
     "path": "./blocks/process/process-hover-cards",
     "types": "./dist/process-hover-cards.d.ts",
     "import": "./dist/process-hover-cards.js",
-    "require": "./dist/process-hover-cards.cjs"
-  }
-,
+    "require": "./dist/process-hover-cards.cjs",
+    "exportName": "ProcessHoverCards"
+  },
   {
     "path": "./blocks/process/process-icon-timeline",
     "types": "./dist/process-icon-timeline.d.ts",
     "import": "./dist/process-icon-timeline.js",
-    "require": "./dist/process-icon-timeline.cjs"
-  }
-,
+    "require": "./dist/process-icon-timeline.cjs",
+    "exportName": "ProcessIconTimeline"
+  },
   {
     "path": "./blocks/process/process-mission-principles",
     "types": "./dist/process-mission-principles.d.ts",
     "import": "./dist/process-mission-principles.js",
-    "require": "./dist/process-mission-principles.cjs"
-  }
-,
+    "require": "./dist/process-mission-principles.cjs",
+    "exportName": "ProcessMissionPrinciples"
+  },
   {
     "path": "./blocks/process/process-numbered-services",
     "types": "./dist/process-numbered-services.d.ts",
     "import": "./dist/process-numbered-services.js",
-    "require": "./dist/process-numbered-services.cjs"
-  }
-,
+    "require": "./dist/process-numbered-services.cjs",
+    "exportName": "ProcessNumberedServices"
+  },
   {
     "path": "./blocks/process/process-roadmap-timeline",
     "types": "./dist/process-roadmap-timeline.d.ts",
     "import": "./dist/process-roadmap-timeline.js",
-    "require": "./dist/process-roadmap-timeline.cjs"
-  }
-,
+    "require": "./dist/process-roadmap-timeline.cjs",
+    "exportName": "ProcessRoadmapTimeline"
+  },
   {
     "path": "./blocks/process/process-scroll-image",
     "types": "./dist/process-scroll-image.d.ts",
     "import": "./dist/process-scroll-image.js",
-    "require": "./dist/process-scroll-image.cjs"
-  }
-,
+    "require": "./dist/process-scroll-image.cjs",
+    "exportName": "ProcessScrollImage"
+  },
   {
     "path": "./blocks/process/process-steps-grid",
     "types": "./dist/process-steps-grid.d.ts",
     "import": "./dist/process-steps-grid.js",
-    "require": "./dist/process-steps-grid.cjs"
-  }
-,
+    "require": "./dist/process-steps-grid.cjs",
+    "exportName": "ProcessStepsGrid"
+  },
   {
     "path": "./blocks/process/process-sticky-steps",
     "types": "./dist/process-sticky-steps.d.ts",
     "import": "./dist/process-sticky-steps.js",
-    "require": "./dist/process-sticky-steps.cjs"
+    "require": "./dist/process-sticky-steps.cjs",
+    "exportName": "ProcessStickySteps"
   }
-
 ]

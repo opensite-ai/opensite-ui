@@ -3,203 +3,203 @@
     "path": "./blocks/pricing/pricing-addons-cards",
     "types": "./dist/pricing-addons-cards.d.ts",
     "import": "./dist/pricing-addons-cards.js",
-    "require": "./dist/pricing-addons-cards.cjs"
-  }
-,
+    "require": "./dist/pricing-addons-cards.cjs",
+    "exportName": "PricingAddonsCards"
+  },
   {
     "path": "./blocks/pricing/pricing-addons-featured",
     "types": "./dist/pricing-addons-featured.d.ts",
     "import": "./dist/pricing-addons-featured.js",
-    "require": "./dist/pricing-addons-featured.cjs"
-  }
-,
+    "require": "./dist/pricing-addons-featured.cjs",
+    "exportName": "PricingAddonsFeatured"
+  },
   {
     "path": "./blocks/pricing/pricing-collapsible-plans",
     "types": "./dist/pricing-collapsible-plans.d.ts",
     "import": "./dist/pricing-collapsible-plans.js",
-    "require": "./dist/pricing-collapsible-plans.cjs"
-  }
-,
+    "require": "./dist/pricing-collapsible-plans.cjs",
+    "exportName": "PricingCollapsiblePlans"
+  },
   {
     "path": "./blocks/pricing/pricing-columns-toggle",
     "types": "./dist/pricing-columns-toggle.d.ts",
     "import": "./dist/pricing-columns-toggle.js",
-    "require": "./dist/pricing-columns-toggle.cjs"
-  }
-,
+    "require": "./dist/pricing-columns-toggle.cjs",
+    "exportName": "PricingColumnsToggle"
+  },
   {
     "path": "./blocks/pricing/pricing-comparison-headers",
     "types": "./dist/pricing-comparison-headers.d.ts",
     "import": "./dist/pricing-comparison-headers.js",
-    "require": "./dist/pricing-comparison-headers.cjs"
-  }
-,
+    "require": "./dist/pricing-comparison-headers.cjs",
+    "exportName": "PricingComparisonHeaders"
+  },
   {
     "path": "./blocks/pricing/pricing-comparison-table",
     "types": "./dist/pricing-comparison-table.d.ts",
     "import": "./dist/pricing-comparison-table.js",
-    "require": "./dist/pricing-comparison-table.cjs"
-  }
-,
+    "require": "./dist/pricing-comparison-table.cjs",
+    "exportName": "PricingComparisonTable"
+  },
   {
     "path": "./blocks/pricing/pricing-discount-card",
     "types": "./dist/pricing-discount-card.d.ts",
     "import": "./dist/pricing-discount-card.js",
-    "require": "./dist/pricing-discount-card.cjs"
-  }
-,
+    "require": "./dist/pricing-discount-card.cjs",
+    "exportName": "PricingDiscountCard"
+  },
   {
     "path": "./blocks/pricing/pricing-enterprise-contact",
     "types": "./dist/pricing-enterprise-contact.d.ts",
     "import": "./dist/pricing-enterprise-contact.js",
-    "require": "./dist/pricing-enterprise-contact.cjs"
-  }
-,
+    "require": "./dist/pricing-enterprise-contact.cjs",
+    "exportName": "PricingEnterpriseContact"
+  },
   {
     "path": "./blocks/pricing/pricing-feature-matrix",
     "types": "./dist/pricing-feature-matrix.d.ts",
     "import": "./dist/pricing-feature-matrix.js",
-    "require": "./dist/pricing-feature-matrix.cjs"
-  }
-,
+    "require": "./dist/pricing-feature-matrix.cjs",
+    "exportName": "PricingFeatureMatrix"
+  },
   {
     "path": "./blocks/pricing/pricing-four-tier-toggle",
     "types": "./dist/pricing-four-tier-toggle.d.ts",
     "import": "./dist/pricing-four-tier-toggle.js",
-    "require": "./dist/pricing-four-tier-toggle.cjs"
-  }
-,
+    "require": "./dist/pricing-four-tier-toggle.cjs",
+    "exportName": "PricingFourTierToggle"
+  },
   {
     "path": "./blocks/pricing/pricing-full-comparison",
     "types": "./dist/pricing-full-comparison.d.ts",
     "import": "./dist/pricing-full-comparison.js",
-    "require": "./dist/pricing-full-comparison.cjs"
-  }
-,
+    "require": "./dist/pricing-full-comparison.cjs",
+    "exportName": "PricingFullComparison"
+  },
   {
     "path": "./blocks/pricing/pricing-gradient-cards",
     "types": "./dist/pricing-gradient-cards.d.ts",
     "import": "./dist/pricing-gradient-cards.js",
-    "require": "./dist/pricing-gradient-cards.cjs"
-  }
-,
+    "require": "./dist/pricing-gradient-cards.cjs",
+    "exportName": "PricingGradientCards"
+  },
   {
     "path": "./blocks/pricing/pricing-icon-headers",
     "types": "./dist/pricing-icon-headers.d.ts",
     "import": "./dist/pricing-icon-headers.js",
-    "require": "./dist/pricing-icon-headers.cjs"
-  }
-,
+    "require": "./dist/pricing-icon-headers.cjs",
+    "exportName": "PricingIconHeaders"
+  },
   {
     "path": "./blocks/pricing/pricing-minimal-cards",
     "types": "./dist/pricing-minimal-cards.d.ts",
     "import": "./dist/pricing-minimal-cards.js",
-    "require": "./dist/pricing-minimal-cards.cjs"
-  }
-,
+    "require": "./dist/pricing-minimal-cards.cjs",
+    "exportName": "PricingMinimalCards"
+  },
   {
     "path": "./blocks/pricing/pricing-packages-radio",
     "types": "./dist/pricing-packages-radio.d.ts",
     "import": "./dist/pricing-packages-radio.js",
-    "require": "./dist/pricing-packages-radio.cjs"
-  }
-,
+    "require": "./dist/pricing-packages-radio.cjs",
+    "exportName": "PricingPackagesRadio"
+  },
   {
     "path": "./blocks/pricing/pricing-popular-highlight",
     "types": "./dist/pricing-popular-highlight.d.ts",
     "import": "./dist/pricing-popular-highlight.js",
-    "require": "./dist/pricing-popular-highlight.cjs"
-  }
-,
+    "require": "./dist/pricing-popular-highlight.cjs",
+    "exportName": "PricingPopularHighlight"
+  },
   {
     "path": "./blocks/pricing/pricing-radio-toggle",
     "types": "./dist/pricing-radio-toggle.d.ts",
     "import": "./dist/pricing-radio-toggle.js",
-    "require": "./dist/pricing-radio-toggle.cjs"
-  }
-,
+    "require": "./dist/pricing-radio-toggle.cjs",
+    "exportName": "PricingRadioToggle"
+  },
   {
     "path": "./blocks/pricing/pricing-responsive-table",
     "types": "./dist/pricing-responsive-table.d.ts",
     "import": "./dist/pricing-responsive-table.js",
-    "require": "./dist/pricing-responsive-table.cjs"
-  }
-,
+    "require": "./dist/pricing-responsive-table.cjs",
+    "exportName": "PricingResponsiveTable"
+  },
   {
     "path": "./blocks/pricing/pricing-services-cards",
     "types": "./dist/pricing-services-cards.d.ts",
     "import": "./dist/pricing-services-cards.js",
-    "require": "./dist/pricing-services-cards.cjs"
-  }
-,
+    "require": "./dist/pricing-services-cards.cjs",
+    "exportName": "PricingServicesCards"
+  },
   {
     "path": "./blocks/pricing/pricing-simple-card",
     "types": "./dist/pricing-simple-card.d.ts",
     "import": "./dist/pricing-simple-card.js",
-    "require": "./dist/pricing-simple-card.cjs"
-  }
-,
+    "require": "./dist/pricing-simple-card.cjs",
+    "exportName": "PricingSimpleCard"
+  },
   {
     "path": "./blocks/pricing/pricing-single-card",
     "types": "./dist/pricing-single-card.d.ts",
     "import": "./dist/pricing-single-card.js",
-    "require": "./dist/pricing-single-card.cjs"
-  }
-,
+    "require": "./dist/pricing-single-card.cjs",
+    "exportName": "PricingSingleCard"
+  },
   {
     "path": "./blocks/pricing/pricing-split-layout",
     "types": "./dist/pricing-split-layout.d.ts",
     "import": "./dist/pricing-split-layout.js",
-    "require": "./dist/pricing-split-layout.cjs"
-  }
-,
+    "require": "./dist/pricing-split-layout.cjs",
+    "exportName": "PricingSplitLayout"
+  },
   {
     "path": "./blocks/pricing/pricing-spotlight-card",
     "types": "./dist/pricing-spotlight-card.d.ts",
     "import": "./dist/pricing-spotlight-card.js",
-    "require": "./dist/pricing-spotlight-card.cjs"
-  }
-,
+    "require": "./dist/pricing-spotlight-card.cjs",
+    "exportName": "PricingSpotlightCard"
+  },
   {
     "path": "./blocks/pricing/pricing-switch-cards",
     "types": "./dist/pricing-switch-cards.d.ts",
     "import": "./dist/pricing-switch-cards.js",
-    "require": "./dist/pricing-switch-cards.cjs"
-  }
-,
+    "require": "./dist/pricing-switch-cards.cjs",
+    "exportName": "PricingSwitchCards"
+  },
   {
     "path": "./blocks/pricing/pricing-tabs-toggle",
     "types": "./dist/pricing-tabs-toggle.d.ts",
     "import": "./dist/pricing-tabs-toggle.js",
-    "require": "./dist/pricing-tabs-toggle.cjs"
-  }
-,
+    "require": "./dist/pricing-tabs-toggle.cjs",
+    "exportName": "PricingTabsToggle"
+  },
   {
     "path": "./blocks/pricing/pricing-tier-grid",
     "types": "./dist/pricing-tier-grid.d.ts",
     "import": "./dist/pricing-tier-grid.js",
-    "require": "./dist/pricing-tier-grid.cjs"
-  }
-,
+    "require": "./dist/pricing-tier-grid.cjs",
+    "exportName": "PricingTierGrid"
+  },
   {
     "path": "./blocks/pricing/pricing-toggle-cards",
     "types": "./dist/pricing-toggle-cards.d.ts",
     "import": "./dist/pricing-toggle-cards.js",
-    "require": "./dist/pricing-toggle-cards.cjs"
-  }
-,
+    "require": "./dist/pricing-toggle-cards.cjs",
+    "exportName": "PricingToggleCards"
+  },
   {
     "path": "./blocks/pricing/pricing-toggle-period",
     "types": "./dist/pricing-toggle-period.d.ts",
     "import": "./dist/pricing-toggle-period.js",
-    "require": "./dist/pricing-toggle-period.cjs"
-  }
-,
+    "require": "./dist/pricing-toggle-period.cjs",
+    "exportName": "PricingTogglePeriod"
+  },
   {
     "path": "./blocks/pricing/pricing-two-column-basic",
     "types": "./dist/pricing-two-column-basic.d.ts",
     "import": "./dist/pricing-two-column-basic.js",
-    "require": "./dist/pricing-two-column-basic.cjs"
+    "require": "./dist/pricing-two-column-basic.cjs",
+    "exportName": "PricingTwoColumnBasic"
   }
-
 ]

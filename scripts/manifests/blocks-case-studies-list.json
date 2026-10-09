@@ -3,28 +3,28 @@
     "path": "./blocks/case-studies-list/case-studies-featured-border",
     "types": "./dist/case-studies-featured-border.d.ts",
     "import": "./dist/case-studies-featured-border.js",
-    "require": "./dist/case-studies-featured-border.cjs"
-  }
-,
+    "require": "./dist/case-studies-featured-border.cjs",
+    "exportName": "CaseStudiesFeaturedBorder"
+  },
   {
     "path": "./blocks/case-studies-list/case-studies-image-grid",
     "types": "./dist/case-studies-image-grid.d.ts",
     "import": "./dist/case-studies-image-grid.js",
-    "require": "./dist/case-studies-image-grid.cjs"
-  }
-,
+    "require": "./dist/case-studies-image-grid.cjs",
+    "exportName": "CaseStudiesImageGrid"
+  },
   {
     "path": "./blocks/case-studies-list/case-studies-stats-card",
     "types": "./dist/case-studies-stats-card.d.ts",
     "import": "./dist/case-studies-stats-card.js",
-    "require": "./dist/case-studies-stats-card.cjs"
-  }
-,
+    "require": "./dist/case-studies-stats-card.cjs",
+    "exportName": "CaseStudiesStatsCard"
+  },
   {
     "path": "./blocks/case-studies-list/case-studies-testimonial-stats",
     "types": "./dist/case-studies-testimonial-stats.d.ts",
     "import": "./dist/case-studies-testimonial-stats.js",
-    "require": "./dist/case-studies-testimonial-stats.cjs"
+    "require": "./dist/case-studies-testimonial-stats.cjs",
+    "exportName": "CaseStudiesTestimonialStats"
   }
-
 ]

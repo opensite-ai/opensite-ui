@@ -3,119 +3,119 @@
     "path": "./blocks/gallery/auto-scroll-carousel",
     "types": "./dist/auto-scroll-carousel.d.ts",
     "import": "./dist/auto-scroll-carousel.js",
-    "require": "./dist/auto-scroll-carousel.cjs"
-  }
-,
+    "require": "./dist/auto-scroll-carousel.cjs",
+    "exportName": "AutoScrollCarousel"
+  },
   {
     "path": "./blocks/gallery/blur-vignette-grid",
     "types": "./dist/blur-vignette-grid.d.ts",
     "import": "./dist/blur-vignette-grid.js",
-    "require": "./dist/blur-vignette-grid.cjs"
-  }
-,
+    "require": "./dist/blur-vignette-grid.cjs",
+    "exportName": "BlurVignetteGrid"
+  },
   {
     "path": "./blocks/gallery/carousel-badge-cards",
     "types": "./dist/carousel-badge-cards.d.ts",
     "import": "./dist/carousel-badge-cards.js",
-    "require": "./dist/carousel-badge-cards.cjs"
-  }
-,
+    "require": "./dist/carousel-badge-cards.cjs",
+    "exportName": "CarouselBadgeCards"
+  },
   {
     "path": "./blocks/gallery/carousel-demo-link",
     "types": "./dist/carousel-demo-link.d.ts",
     "import": "./dist/carousel-demo-link.js",
-    "require": "./dist/carousel-demo-link.cjs"
-  }
-,
+    "require": "./dist/carousel-demo-link.cjs",
+    "exportName": "CarouselDemoLink"
+  },
   {
     "path": "./blocks/gallery/carousel-gradient-overlay",
     "types": "./dist/carousel-gradient-overlay.d.ts",
     "import": "./dist/carousel-gradient-overlay.js",
-    "require": "./dist/carousel-gradient-overlay.cjs"
-  }
-,
+    "require": "./dist/carousel-gradient-overlay.cjs",
+    "exportName": "CarouselGradientOverlay"
+  },
   {
     "path": "./blocks/gallery/carousel-gradient-text",
     "types": "./dist/carousel-gradient-text.d.ts",
     "import": "./dist/carousel-gradient-text.js",
-    "require": "./dist/carousel-gradient-text.cjs"
-  }
-,
+    "require": "./dist/carousel-gradient-text.cjs",
+    "exportName": "CarouselGradientText"
+  },
   {
     "path": "./blocks/gallery/carousel-icon-sidebar",
     "types": "./dist/carousel-icon-sidebar.d.ts",
     "import": "./dist/carousel-icon-sidebar.js",
-    "require": "./dist/carousel-icon-sidebar.cjs"
-  }
-,
+    "require": "./dist/carousel-icon-sidebar.cjs",
+    "exportName": "CarouselIconSidebar"
+  },
   {
     "path": "./blocks/gallery/carousel-icon-tabs",
     "types": "./dist/carousel-icon-tabs.d.ts",
     "import": "./dist/carousel-icon-tabs.js",
-    "require": "./dist/carousel-icon-tabs.cjs"
-  }
-,
+    "require": "./dist/carousel-icon-tabs.cjs",
+    "exportName": "CarouselIconTabs"
+  },
   {
     "path": "./blocks/gallery/carousel-scale-focus",
     "types": "./dist/carousel-scale-focus.d.ts",
     "import": "./dist/carousel-scale-focus.js",
-    "require": "./dist/carousel-scale-focus.cjs"
-  }
-,
+    "require": "./dist/carousel-scale-focus.cjs",
+    "exportName": "CarouselScaleFocus"
+  },
   {
     "path": "./blocks/gallery/carousel-sidebar-resources",
     "types": "./dist/carousel-sidebar-resources.d.ts",
     "import": "./dist/carousel-sidebar-resources.js",
-    "require": "./dist/carousel-sidebar-resources.cjs"
-  }
-,
+    "require": "./dist/carousel-sidebar-resources.cjs",
+    "exportName": "CarouselSidebarResources"
+  },
   {
     "path": "./blocks/gallery/carousel-tabs-content",
     "types": "./dist/carousel-tabs-content.d.ts",
     "import": "./dist/carousel-tabs-content.js",
-    "require": "./dist/carousel-tabs-content.cjs"
-  }
-,
+    "require": "./dist/carousel-tabs-content.cjs",
+    "exportName": "CarouselTabsContent"
+  },
   {
     "path": "./blocks/gallery/expandable-case-study-cards",
     "types": "./dist/expandable-case-study-cards.d.ts",
     "import": "./dist/expandable-case-study-cards.js",
-    "require": "./dist/expandable-case-study-cards.cjs"
-  }
-,
+    "require": "./dist/expandable-case-study-cards.cjs",
+    "exportName": "ExpandableCaseStudyCards"
+  },
   {
     "path": "./blocks/gallery/instagram-post-grid",
     "types": "./dist/instagram-post-grid.d.ts",
     "import": "./dist/instagram-post-grid.js",
-    "require": "./dist/instagram-post-grid.cjs"
-  }
-,
+    "require": "./dist/instagram-post-grid.cjs",
+    "exportName": "InstagramPostGrid"
+  },
   {
     "path": "./blocks/gallery/interior-carousel",
     "types": "./dist/interior-carousel.d.ts",
     "import": "./dist/interior-carousel.js",
-    "require": "./dist/interior-carousel.cjs"
-  }
-,
+    "require": "./dist/interior-carousel.cjs",
+    "exportName": "InteriorCarousel"
+  },
   {
     "path": "./blocks/gallery/masonry-motion-grid",
     "types": "./dist/masonry-motion-grid.d.ts",
     "import": "./dist/masonry-motion-grid.js",
-    "require": "./dist/masonry-motion-grid.cjs"
-  }
-,
+    "require": "./dist/masonry-motion-grid.cjs",
+    "exportName": "MasonryMotionGrid"
+  },
   {
     "path": "./blocks/gallery/service-hover-carousel",
     "types": "./dist/service-hover-carousel.d.ts",
     "import": "./dist/service-hover-carousel.js",
-    "require": "./dist/service-hover-carousel.cjs"
-  }
-,
+    "require": "./dist/service-hover-carousel.cjs",
+    "exportName": "ServiceHoverCarousel"
+  },
   {
     "path": "./blocks/gallery/testimonial-carousel-cards",
     "types": "./dist/testimonial-carousel-cards.d.ts",
     "import": "./dist/testimonial-carousel-cards.js",
-    "require": "./dist/testimonial-carousel-cards.cjs"
+    "require": "./dist/testimonial-carousel-cards.cjs",
+    "exportName": "TestimonialCarouselCards"
   }
-
 ]
