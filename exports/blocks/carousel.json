@@ -4,15 +4,15 @@
     "import": "./dist/carousel-animated-sections.js",
     "require": "./dist/carousel-animated-sections.cjs"
   },
-  "./blocks/carousel/carousel-auto-progress-slides": {
-    "types": "./dist/carousel-auto-progress-slides.d.ts",
-    "import": "./dist/carousel-auto-progress-slides.js",
-    "require": "./dist/carousel-auto-progress-slides.cjs"
-  },
   "./blocks/carousel/carousel-autoplay-progress": {
     "types": "./dist/carousel-autoplay-progress.d.ts",
     "import": "./dist/carousel-autoplay-progress.js",
     "require": "./dist/carousel-autoplay-progress.cjs"
+  },
+  "./blocks/carousel/carousel-auto-progress-slides": {
+    "types": "./dist/carousel-auto-progress-slides.d.ts",
+    "import": "./dist/carousel-auto-progress-slides.js",
+    "require": "./dist/carousel-auto-progress-slides.cjs"
   },
   "./blocks/carousel/carousel-feature-badge": {
     "types": "./dist/carousel-feature-badge.d.ts",

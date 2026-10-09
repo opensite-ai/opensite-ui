@@ -42,18 +42,18 @@
     "exportName": "TimelineHorizontalPhases"
   },
   {
-    "path": "./blocks/timeline/timeline-product-launch",
-    "types": "./dist/timeline-product-launch.d.ts",
-    "import": "./dist/timeline-product-launch.js",
-    "require": "./dist/timeline-product-launch.cjs",
-    "exportName": "TimelineProductLaunch"
-  },
-  {
     "path": "./blocks/timeline/timeline-productivity-list",
     "types": "./dist/timeline-productivity-list.d.ts",
     "import": "./dist/timeline-productivity-list.js",
     "require": "./dist/timeline-productivity-list.cjs",
     "exportName": "TimelineProductivityList"
+  },
+  {
+    "path": "./blocks/timeline/timeline-product-launch",
+    "types": "./dist/timeline-product-launch.d.ts",
+    "import": "./dist/timeline-product-launch.js",
+    "require": "./dist/timeline-product-launch.cjs",
+    "exportName": "TimelineProductLaunch"
   },
   {
     "path": "./blocks/timeline/timeline-scroll-highlight",

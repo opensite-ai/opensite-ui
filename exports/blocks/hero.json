@@ -1,13 +1,13 @@
 {
-  "./blocks/hero/hero-ad-campaign-expert": {
-    "types": "./dist/hero-ad-campaign-expert.d.ts",
-    "import": "./dist/hero-ad-campaign-expert.js",
-    "require": "./dist/hero-ad-campaign-expert.cjs"
-  },
   "./blocks/hero/hero-adaptable-product-grid": {
     "types": "./dist/hero-adaptable-product-grid.d.ts",
     "import": "./dist/hero-adaptable-product-grid.js",
     "require": "./dist/hero-adaptable-product-grid.cjs"
+  },
+  "./blocks/hero/hero-ad-campaign-expert": {
+    "types": "./dist/hero-ad-campaign-expert.d.ts",
+    "import": "./dist/hero-ad-campaign-expert.js",
+    "require": "./dist/hero-ad-campaign-expert.cjs"
   },
   "./blocks/hero/hero-agency-animated-images": {
     "types": "./dist/hero-agency-animated-images.d.ts",
@@ -284,15 +284,15 @@
     "import": "./dist/hero-pricing-comparison.js",
     "require": "./dist/hero-pricing-comparison.cjs"
   },
-  "./blocks/hero/hero-product-showcase-floating": {
-    "types": "./dist/hero-product-showcase-floating.d.ts",
-    "import": "./dist/hero-product-showcase-floating.js",
-    "require": "./dist/hero-product-showcase-floating.cjs"
-  },
   "./blocks/hero/hero-productivity-launcher-video": {
     "types": "./dist/hero-productivity-launcher-video.d.ts",
     "import": "./dist/hero-productivity-launcher-video.js",
     "require": "./dist/hero-productivity-launcher-video.cjs"
+  },
+  "./blocks/hero/hero-product-showcase-floating": {
+    "types": "./dist/hero-product-showcase-floating.d.ts",
+    "import": "./dist/hero-product-showcase-floating.js",
+    "require": "./dist/hero-product-showcase-floating.cjs"
   },
   "./blocks/hero/hero-saas-dashboard-preview": {
     "types": "./dist/hero-saas-dashboard-preview.d.ts",

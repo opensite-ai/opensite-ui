@@ -29,15 +29,15 @@
     "import": "./dist/timeline-horizontal-phases.js",
     "require": "./dist/timeline-horizontal-phases.cjs"
   },
-  "./blocks/timeline/timeline-product-launch": {
-    "types": "./dist/timeline-product-launch.d.ts",
-    "import": "./dist/timeline-product-launch.js",
-    "require": "./dist/timeline-product-launch.cjs"
-  },
   "./blocks/timeline/timeline-productivity-list": {
     "types": "./dist/timeline-productivity-list.d.ts",
     "import": "./dist/timeline-productivity-list.js",
     "require": "./dist/timeline-productivity-list.cjs"
+  },
+  "./blocks/timeline/timeline-product-launch": {
+    "types": "./dist/timeline-product-launch.d.ts",
+    "import": "./dist/timeline-product-launch.js",
+    "require": "./dist/timeline-product-launch.cjs"
   },
   "./blocks/timeline/timeline-scroll-highlight": {
     "types": "./dist/timeline-scroll-highlight.d.ts",

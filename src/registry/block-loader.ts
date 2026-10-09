@@ -402,13 +402,13 @@ const BLOCK_LOADERS: Record<string, BlockLoader> = {
     import("../carousel-animated-sections").then(
       (module) => module.CarouselAnimatedSections,
     ),
-  "carousel-auto-progress-slides": () =>
-    import("../carousel-auto-progress-slides").then(
-      (module) => module.CarouselAutoProgressSlides,
-    ),
   "carousel-autoplay-progress": () =>
     import("../carousel-autoplay-progress").then(
       (module) => module.CarouselAutoplayProgress,
+    ),
+  "carousel-auto-progress-slides": () =>
+    import("../carousel-auto-progress-slides").then(
+      (module) => module.CarouselAutoProgressSlides,
     ),
   "carousel-feature-badge": () =>
     import("../carousel-feature-badge").then(
@@ -1118,13 +1118,13 @@ const BLOCK_LOADERS: Record<string, BlockLoader> = {
     import("../testimonial-carousel-cards").then(
       (module) => module.TestimonialCarouselCards,
     ),
-  "hero-ad-campaign-expert": () =>
-    import("../hero-ad-campaign-expert").then(
-      (module) => module.HeroAdCampaignExpert,
-    ),
   "hero-adaptable-product-grid": () =>
     import("../hero-adaptable-product-grid").then(
       (module) => module.HeroAdaptableProductGrid,
+    ),
+  "hero-ad-campaign-expert": () =>
+    import("../hero-ad-campaign-expert").then(
+      (module) => module.HeroAdCampaignExpert,
     ),
   "hero-agency-animated-images": () =>
     import("../hero-agency-animated-images").then(
@@ -1346,13 +1346,13 @@ const BLOCK_LOADERS: Record<string, BlockLoader> = {
     import("../hero-pricing-comparison").then(
       (module) => module.HeroPricingComparison,
     ),
-  "hero-product-showcase-floating": () =>
-    import("../hero-product-showcase-floating").then(
-      (module) => module.HeroProductShowcaseFloating,
-    ),
   "hero-productivity-launcher-video": () =>
     import("../hero-productivity-launcher-video").then(
       (module) => module.HeroProductivityLauncherVideo,
+    ),
+  "hero-product-showcase-floating": () =>
+    import("../hero-product-showcase-floating").then(
+      (module) => module.HeroProductShowcaseFloating,
     ),
   "hero-saas-dashboard-preview": () =>
     import("../hero-saas-dashboard-preview").then(
@@ -2086,13 +2086,13 @@ const BLOCK_LOADERS: Record<string, BlockLoader> = {
     import("../services-list-expandable-cards").then(
       (module) => module.ServicesListExpandableCards,
     ),
-  "services-list-feature-spotlight": () =>
-    import("../services-list-feature-spotlight").then(
-      (module) => module.ServicesListFeatureSpotlight,
-    ),
   "services-list-featured-highlight": () =>
     import("../services-list-featured-highlight").then(
       (module) => module.ServicesListFeaturedHighlight,
+    ),
+  "services-list-feature-spotlight": () =>
+    import("../services-list-feature-spotlight").then(
+      (module) => module.ServicesListFeatureSpotlight,
     ),
   "services-list-hero-cards": () =>
     import("../services-list-hero-cards").then(
@@ -2426,13 +2426,13 @@ const BLOCK_LOADERS: Record<string, BlockLoader> = {
     import("../timeline-horizontal-phases").then(
       (module) => module.TimelineHorizontalPhases,
     ),
-  "timeline-product-launch": () =>
-    import("../timeline-product-launch").then(
-      (module) => module.TimelineProductLaunch,
-    ),
   "timeline-productivity-list": () =>
     import("../timeline-productivity-list").then(
       (module) => module.TimelineProductivityList,
+    ),
+  "timeline-product-launch": () =>
+    import("../timeline-product-launch").then(
+      (module) => module.TimelineProductLaunch,
     ),
   "timeline-scroll-highlight": () =>
     import("../timeline-scroll-highlight").then(

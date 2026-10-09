@@ -1,17 +1,17 @@
 [
   {
-    "path": "./blocks/hero/hero-ad-campaign-expert",
-    "types": "./dist/hero-ad-campaign-expert.d.ts",
-    "import": "./dist/hero-ad-campaign-expert.js",
-    "require": "./dist/hero-ad-campaign-expert.cjs",
-    "exportName": "HeroAdCampaignExpert"
-  },
-  {
     "path": "./blocks/hero/hero-adaptable-product-grid",
     "types": "./dist/hero-adaptable-product-grid.d.ts",
     "import": "./dist/hero-adaptable-product-grid.js",
     "require": "./dist/hero-adaptable-product-grid.cjs",
     "exportName": "HeroAdaptableProductGrid"
+  },
+  {
+    "path": "./blocks/hero/hero-ad-campaign-expert",
+    "types": "./dist/hero-ad-campaign-expert.d.ts",
+    "import": "./dist/hero-ad-campaign-expert.js",
+    "require": "./dist/hero-ad-campaign-expert.cjs",
+    "exportName": "HeroAdCampaignExpert"
   },
   {
     "path": "./blocks/hero/hero-agency-animated-images",
@@ -399,18 +399,18 @@
     "exportName": "HeroPricingComparison"
   },
   {
-    "path": "./blocks/hero/hero-product-showcase-floating",
-    "types": "./dist/hero-product-showcase-floating.d.ts",
-    "import": "./dist/hero-product-showcase-floating.js",
-    "require": "./dist/hero-product-showcase-floating.cjs",
-    "exportName": "HeroProductShowcaseFloating"
-  },
-  {
     "path": "./blocks/hero/hero-productivity-launcher-video",
     "types": "./dist/hero-productivity-launcher-video.d.ts",
     "import": "./dist/hero-productivity-launcher-video.js",
     "require": "./dist/hero-productivity-launcher-video.cjs",
     "exportName": "HeroProductivityLauncherVideo"
+  },
+  {
+    "path": "./blocks/hero/hero-product-showcase-floating",
+    "types": "./dist/hero-product-showcase-floating.d.ts",
+    "import": "./dist/hero-product-showcase-floating.js",
+    "require": "./dist/hero-product-showcase-floating.cjs",
+    "exportName": "HeroProductShowcaseFloating"
   },
   {
     "path": "./blocks/hero/hero-saas-dashboard-preview",
