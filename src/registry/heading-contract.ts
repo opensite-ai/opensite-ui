@@ -38,7 +38,20 @@ function entry(
 
 /** Heading contract by block id. */
 export const BLOCK_HEADING_CONTRACT: Readonly<Record<string, BlockHeadingContract>> =
-  Object.freeze({});
+  Object.freeze({
+    "about-interactive-tabs": entry("title", 1),
+    "about-location-info-hero": entry("headline", 2),
+    "about-mission-features": entry("title", 1),
+    "about-split-hero": entry("heading", 1),
+    "about-story-hero": entry("title", 1),
+    "contact-careers": entry("heading", 1),
+    "hero-announcement-badge": entry("heading", 1),
+    "hero-architecture-fullscreen": entry("heading", 1),
+    "hero-image-left-content": entry("heading", 1),
+    "hero-platform-features-grid": entry("heading", 1),
+    "process-icon-timeline": entry("heading", 1),
+    "timeline-tabbed-phases": entry("heading", 1),
+  });
 
 /**
  * Look up a block's heading contract by block id (`hero-announcement-badge`)

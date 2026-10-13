@@ -11,6 +11,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface TabItem {
   /**
@@ -39,6 +40,11 @@ export interface AboutInteractiveTabsProps {
    * Main heading/title
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Subtitle/description text
    */
@@ -126,6 +132,7 @@ export interface AboutInteractiveTabsProps {
 export function AboutInteractiveTabs({
   sectionId = "about-interactive-tabs",
   title,
+  headingLevel,
   subtitle,
   tabs,
   tabsSlot,
@@ -147,6 +154,7 @@ export function AboutInteractiveTabs({
   pattern,
   patternOpacity,
 }: AboutInteractiveTabsProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const [activeTab, setActiveTab] = React.useState(tabs?.[0]?.id ?? "");
 
   const activeContent = useMemo(() => {
@@ -269,14 +277,14 @@ export function AboutInteractiveTabs({
       <div className={cn("mx-auto max-w-3xl text-center", headerClassName)}>
         {title &&
           (typeof title === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "text-4xl font-bold tracking-tight md:text-5xl text-balance",
                 titleClassName,
               )}
             >
               {title}
-            </h1>
+            </HeadingTag>
           ) : (
             title
           ))}

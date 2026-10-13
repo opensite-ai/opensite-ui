@@ -16,6 +16,7 @@ import type {
 import { BrandLogo } from "../../ui/brand-logo";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroArchitectureFullscreenProps {
   /**
@@ -26,6 +27,11 @@ export interface HeroArchitectureFullscreenProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text
    */
@@ -105,6 +111,7 @@ export function HeroArchitectureFullscreen({
   sectionId = "hero-architecture-fullscreen",
   tagline,
   heading,
+  headingLevel,
   description,
   action,
   actionSlot,
@@ -123,6 +130,8 @@ export function HeroArchitectureFullscreen({
   logoSlot,
   logoClassName,
 }: HeroArchitectureFullscreenProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
+  const MotionHeading = motion[HeadingTag];
   const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
@@ -198,7 +207,7 @@ export function HeroArchitectureFullscreen({
 
             {heading &&
               (typeof heading === "string" ? (
-                <motion.h1
+                <MotionHeading
                   className={cn(
                     "text-6xl font-bold md:text-7xl lg:text-8xl text-white text-balance text-shadow-lg tracking-tight leading-[1.1]",
                     headingClassName,
@@ -241,7 +250,7 @@ export function HeroArchitectureFullscreen({
                       )}
                     </span>
                   ))}
-                </motion.h1>
+                </MotionHeading>
               ) : (
                 <div className={headingClassName}>{heading}</div>
               ))}
