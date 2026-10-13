@@ -14,6 +14,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Step item configuration for ProcessStickySteps
@@ -46,6 +47,11 @@ export interface ProcessStickyStepsProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -159,6 +165,7 @@ const CornerIllustration = (props: React.SVGProps<SVGSVGElement>) => {
 export function ProcessStickySteps({
   sectionId = "process-sticky-steps",
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -177,6 +184,7 @@ export function ProcessStickySteps({
   patternOpacity,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: ProcessStickyStepsProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const renderSteps = useMemo(() => {
     if (stepsSlot) return stepsSlot;
     if (!steps?.length) return null;
@@ -256,7 +264,7 @@ export function ProcessStickySteps({
           <div className="relative w-fit text-5xl font-semibold tracking-tight lg:text-7xl">
             {heading &&
               (typeof heading === "string" ? (
-                <h1 className={cn("w-fit", headingClassName)}>{heading}</h1>
+                <HeadingTag className={cn("w-fit", headingClassName)}>{heading}</HeadingTag>
               ) : (
                 heading
               ))}

@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/content-group";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroPresentationPlatformVideoProps {
   /**
@@ -29,6 +30,11 @@ export interface HeroPresentationPlatformVideoProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -118,6 +124,7 @@ export function HeroPresentationPlatformVideo({
   sectionId = "hero-presentation-platform-video",
   subtitle,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -139,6 +146,7 @@ export function HeroPresentationPlatformVideo({
   logoSlot,
   logoClassName,
 }: HeroPresentationPlatformVideoProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const contentItems = useMemo(() => {
     const items: ContentGroupItem[] = [];
 
@@ -159,7 +167,7 @@ export function HeroPresentationPlatformVideo({
       if (typeof heading === "string") {
         items.push({
           _type: "text",
-          as: "h1",
+          as: HeadingTag,
           className: cn(
             "text-5xl font-medium md:text-6xl lg:text-7xl text-pretty",
             headingClassName,
@@ -188,7 +196,7 @@ export function HeroPresentationPlatformVideo({
     }
 
     return items;
-  }, [subtitle, heading, headingClassName, description, descriptionClassName]);
+  }, [subtitle, heading, headingClassName, description, descriptionClassName, HeadingTag]);
 
   const renderVideo = useMemo(() => {
     if (videoSlot) return videoSlot;

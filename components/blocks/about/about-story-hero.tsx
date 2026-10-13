@@ -12,12 +12,18 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface AboutStoryHeroProps {
   /**
    * Main heading/title
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Subtitle/tagline text
    */
@@ -103,6 +109,7 @@ export interface AboutStoryHeroProps {
 export function AboutStoryHero({
   sectionId = "about-story-hero",
   title,
+  headingLevel,
   subtitle,
   content,
   heroImage,
@@ -122,6 +129,7 @@ export function AboutStoryHero({
   pattern,
   patternOpacity,
 }: AboutStoryHeroProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const teamInfoContent = useMemo(() => {
     if (teamInfoSlot) return teamInfoSlot;
     if (!teamInfo) return null;
@@ -176,7 +184,7 @@ export function AboutStoryHero({
       if (typeof title === "string") {
         items.push({
           _type: "text",
-          as: "h1",
+          as: HeadingTag,
           className: cn("text-4xl font-bold tracking-tight md:text-5xl", title),
           children: title,
         });
@@ -206,6 +214,7 @@ export function AboutStoryHero({
     titleClassName,
     content,
     bodyClassName,
+    HeadingTag,
   ]);
 
   return (

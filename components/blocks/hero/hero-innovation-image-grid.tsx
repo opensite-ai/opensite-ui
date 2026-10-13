@@ -19,12 +19,18 @@ import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroInnovationImageGridProps {
   /**
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -112,6 +118,7 @@ export interface HeroInnovationImageGridProps {
 export function HeroInnovationImageGrid({
   sectionId = "hero-innovation-image-grid",
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -133,6 +140,7 @@ export function HeroInnovationImageGrid({
   logoSlot,
   logoClassName,
 }: HeroInnovationImageGridProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
@@ -221,23 +229,23 @@ export function HeroInnovationImageGrid({
                 
                 {heading &&
                   (typeof heading === "string" ? (
-                    <h1
+                    <HeadingTag
                       className={cn(
                         "mb-3 text-4xl font-bold md:text-5xl lg:text-6xl text-balance",
                         headingClassName,
                       )}
                     >
                       {heading}
-                    </h1>
+                    </HeadingTag>
                   ) : (
-                    <h1
+                    <HeadingTag
                       className={cn(
                         "mb-3 text-4xl font-bold md:text-5xl lg:text-6xl text-balance",
                         headingClassName,
                       )}
                     >
                       {heading}
-                    </h1>
+                    </HeadingTag>
                   ))}
                 {description &&
                   (typeof description === "string" ? (

@@ -8,10 +8,9 @@ import { CardContent } from "../../ui/card";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 import { SocialLinkIcon } from "@/components/ui/social-link-icon";
 import { BlockActions } from "@/components/ui/block-actions";
-import { ActionConfig } from "@page-speed/maps/components/geo-map";
 import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface TwitterTestimonialItem extends SocialTestimonialItem {}

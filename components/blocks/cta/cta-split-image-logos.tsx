@@ -13,12 +13,18 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface CtaSplitImageLogosProps {
   /**
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description content below the heading
    */
@@ -136,6 +142,7 @@ export interface CtaSplitImageLogosProps {
 export function CtaSplitImageLogos({
   sectionId = "cta-split-image-logos",
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -159,6 +166,7 @@ export function CtaSplitImageLogos({
   patternOpacity,
   optixFlowConfig,
 }: CtaSplitImageLogosProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
@@ -255,14 +263,14 @@ export function CtaSplitImageLogos({
           >
             {heading && (
               typeof heading === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "my-6 text-pretty text-4xl font-bold lg:text-6xl",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
                 <div className={cn("my-6", headingClassName)}>{heading}</div>
               )

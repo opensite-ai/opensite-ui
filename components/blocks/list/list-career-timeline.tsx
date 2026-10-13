@@ -7,6 +7,7 @@ import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ListExperienceItem {
   /**
@@ -51,6 +52,11 @@ export interface ListCareerTimelineProps {
    * Main heading text (supports line breaks)
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Additional CSS classes for the heading
    */
@@ -160,6 +166,7 @@ export function ListCareerTimeline({
   sectionLabel,
   sectionLabelClassName,
   heading,
+  headingLevel,
   headingClassName,
   experienceLabel,
   experienceLabelClassName,
@@ -180,6 +187,7 @@ export function ListCareerTimeline({
   pattern,
   patternOpacity,
 }: ListCareerTimelineProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const renderExperiences = useMemo(() => {
     if (experiencesSlot) return experiencesSlot;
     if (!experiences || experiences.length === 0) return null;
@@ -291,9 +299,9 @@ export function ListCareerTimeline({
               ))}
             {heading &&
               (typeof heading === "string" ? (
-                <h1 className={cn("text-4xl md:text-6xl", headingClassName)}>
+                <HeadingTag className={cn("text-4xl md:text-6xl", headingClassName)}>
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
                 <div className={cn("text-4xl md:text-6xl", headingClassName)}>
                   {heading}

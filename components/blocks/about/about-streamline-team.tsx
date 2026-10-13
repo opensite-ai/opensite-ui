@@ -15,6 +15,7 @@ import type {
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
 import { DynamicIcon } from "@/src";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface AboutStreamlineTeamProps {
   /**
@@ -29,6 +30,11 @@ export interface AboutStreamlineTeamProps {
    * Main title
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Additional CSS classes for the title
    */
@@ -135,6 +141,7 @@ export function AboutStreamlineTeam({
   sectionId = "about-streamline-team",
   className,
   title,
+  headingLevel,
   titleClassName,
   description,
   descriptionClassName,
@@ -160,6 +167,7 @@ export function AboutStreamlineTeam({
   pattern,
   patternOpacity,
 }: AboutStreamlineTeamProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
@@ -241,14 +249,14 @@ export function AboutStreamlineTeam({
         <div className="pl-0 md:pl-8 lg:pl-16">
           {title &&
             (typeof title === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-4xl font-bold tracking-tight md:text-5xl",
                   titleClassName,
                 )}
               >
                 {title}
-              </h1>
+              </HeadingTag>
             ) : (
               title
             ))}

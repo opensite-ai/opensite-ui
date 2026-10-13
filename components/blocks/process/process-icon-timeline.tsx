@@ -11,6 +11,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Step item configuration for ProcessIconTimeline
@@ -47,6 +48,11 @@ export interface ProcessIconTimelineProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -129,6 +135,7 @@ export interface ProcessIconTimelineProps {
 export function ProcessIconTimeline({
   sectionId = "process-icon-timeline",
   heading,
+  headingLevel,
   description,
   steps,
   stepsSlot,
@@ -147,6 +154,7 @@ export function ProcessIconTimeline({
   patternOpacity,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: ProcessIconTimelineProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   // Handle backwards compatibility
   const resolvedHeading = heading;
 
@@ -250,14 +258,14 @@ export function ProcessIconTimeline({
         <div className={cn("mb-16 max-w-2xl", headerClassName)}>
           {resolvedHeading &&
             (typeof resolvedHeading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "mb-4 text-4xl font-semibold tracking-tight lg:text-5xl",
                   headingClassName,
                 )}
               >
                 {resolvedHeading}
-              </h1>
+              </HeadingTag>
             ) : (
               resolvedHeading
             ))}

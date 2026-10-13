@@ -16,6 +16,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ArticleSplitAnimatedProps {
   /**
@@ -62,6 +63,11 @@ export interface ArticleSplitAnimatedProps {
    * Article title
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Article description
    */
@@ -167,6 +173,7 @@ export function ArticleSplitAnimatedComponent({
   metaClassName,
   ctaClassName,
   title,
+  headingLevel,
   description,
   image,
   imageAlt,
@@ -191,6 +198,7 @@ export function ArticleSplitAnimatedComponent({
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   spacing = "lg",
 }: ArticleSplitAnimatedProps) {
+  const HeadingTag = headingTag(headingLevel, 2);
   const MotionWrapper = enableAnimations ? motion.div : "div";
 
   const categoryContent = React.useMemo(() => {
@@ -368,14 +376,14 @@ export function ArticleSplitAnimatedComponent({
 
             {title &&
               (typeof title === "string" ? (
-                <h2
+                <HeadingTag
                   className={cn(
                     "mt-4 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl",
                     titleClassName,
                   )}
                 >
                   {title}
-                </h2>
+                </HeadingTag>
               ) : (
                 title
               ))}

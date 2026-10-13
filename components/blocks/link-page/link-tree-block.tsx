@@ -32,6 +32,7 @@ import {
   type LinkPageLogoAspect,
   type LinkPageLogoBannerAspect,
 } from "./logo-aspect";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Link item for the link tree
@@ -328,6 +329,11 @@ export interface LinkTreeBlockProps {
   optixFlowConfig?: OptixFlowConfig;
   /** Optional Section ID */
   sectionId?: string;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
 }
 
 /**
@@ -426,7 +432,9 @@ export function LinkTreeBlock({
   patternClassName,
   backgroundPattern,
   optixFlowConfig,
+  headingLevel,
 }: LinkTreeBlockProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const resolvedBackground = background;
   const resolvedPattern = pattern ?? backgroundPattern;
 
@@ -575,14 +583,14 @@ export function LinkTreeBlock({
         <div className="space-y-1">
           {brandName &&
             (typeof brandName === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-2xl font-bold tracking-tight",
                   nameClassName,
                 )}
               >
                 {brandName}
-              </h1>
+              </HeadingTag>
             ) : (
               <div className={nameClassName}>{brandName}</div>
             ))}
@@ -618,6 +626,7 @@ export function LinkTreeBlock({
     nameClassName,
     brandTagline,
     taglineClassName,
+    HeadingTag,
   ]);
 
   const renderLinks = React.useMemo(() => {

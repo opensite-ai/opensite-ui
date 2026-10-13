@@ -16,6 +16,7 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import { PatternName } from "@/components/ui/pattern-background";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ProjectScrollRevealItem {
   id: number;
@@ -30,6 +31,11 @@ export interface ProjectScrollRevealProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Array of project configurations
    */
@@ -260,6 +266,7 @@ const ProjectItem = ({
 export function ProjectScrollReveal({
   sectionId = "project-scroll-reveal",
   heading,
+  headingLevel,
   projects,
   projectsSlot,
   optixFlowConfig,
@@ -273,6 +280,7 @@ export function ProjectScrollReveal({
   gridClassName,
   cardClassName,
 }: ProjectScrollRevealProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -309,14 +317,14 @@ export function ProjectScrollReveal({
       <div className={cn("container space-y-16", containerClassName)}>
         {heading &&
           (typeof heading === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "text-center text-4xl font-semibold md:text-6xl",
                 headingClassName,
               )}
             >
               {heading}
-            </h1>
+            </HeadingTag>
           ) : (
             <div className={headingClassName}>{heading}</div>
           ))}

@@ -22,6 +22,7 @@ const clientEntryNames = new Set([
   "brand-logo",
 
   "pressable",
+  "button",
   "hooks",
   "use-navigation",
   "use-responsive-layout",

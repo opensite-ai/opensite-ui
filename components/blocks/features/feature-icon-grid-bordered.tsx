@@ -255,7 +255,7 @@ export function FeatureIconGridBordered({
           <div className="flex flex-col">
             {label &&
               (typeof label === "string" ? (
-                <p className={cn("mb-4 text-sm", labelClassName)}>{label}</p>
+                <span className={cn("block mb-4 text-sm", labelClassName)}>{label}</span>
               ) : (
                 <div className={cn("mb-4 text-sm", labelClassName)}>
                   {label}

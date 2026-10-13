@@ -17,6 +17,7 @@ import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroMinimalCenteredDarkProps {
   /**
@@ -31,6 +32,11 @@ export interface HeroMinimalCenteredDarkProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Highlighted text within heading (gradient styled)
    */
@@ -119,6 +125,7 @@ export function HeroMinimalCenteredDark({
   sectionId = "hero-minimal-centered-dark",
   badge,
   heading,
+  headingLevel,
   headingHighlight,
   description,
   actions,
@@ -140,6 +147,7 @@ export function HeroMinimalCenteredDark({
   logoSlot,
   logoClassName,
 }: HeroMinimalCenteredDarkProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderStats = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
@@ -178,25 +186,25 @@ export function HeroMinimalCenteredDark({
         )}
         {(heading || headingHighlight) &&
           (typeof heading === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "mt-8 max-w-4xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-balance",
                 headingClassName,
               )}
             >
               {heading}
-            </h1>
+            </HeadingTag>
           ) : heading ? (
             <div className={headingClassName}>{heading}</div>
           ) : headingHighlight ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "mt-8 max-w-4xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-balance",
                 headingClassName,
               )}
             >
               {headingHighlight}
-            </h1>
+            </HeadingTag>
           ) : null)}
         {description &&
           (typeof description === "string" ? (

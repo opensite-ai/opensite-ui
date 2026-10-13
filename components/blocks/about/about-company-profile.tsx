@@ -16,6 +16,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface BreakoutConfig {
   /**
@@ -44,6 +45,11 @@ export interface AboutCompanyProfileProps {
    * Main heading/title
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Main description text
    */
@@ -169,6 +175,7 @@ export interface AboutCompanyProfileProps {
 export function AboutCompanyProfile({
   sectionId = "about-company-profile",
   title,
+  headingLevel,
   description,
   mainImage,
   secondaryImage,
@@ -198,6 +205,7 @@ export function AboutCompanyProfile({
   pattern,
   patternOpacity,
 }: AboutCompanyProfileProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const breakoutContent = useMemo(() => {
     if (breakoutSlot) return breakoutSlot;
     if (!breakout) return null;
@@ -347,14 +355,14 @@ export function AboutCompanyProfile({
       <div className="mb-6 md:mb-14 grid gap-5 md:grid-cols-2 text-left">
         {title &&
           (typeof title === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "text-5xl font-semibold text-balance",
                 titleClassName,
               )}
             >
               {title}
-            </h1>
+            </HeadingTag>
           ) : (
             title
           ))}

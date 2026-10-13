@@ -11,6 +11,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Comparison row data for two-column table
@@ -27,6 +28,11 @@ export interface ComparisonTableTwoColumnProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -132,6 +138,7 @@ export interface ComparisonTableTwoColumnProps {
 export function ComparisonTableTwoColumn({
   sectionId = "comparison-table-two-column",
   heading,
+  headingLevel,
   description,
   rows,
   tableSlot,
@@ -155,6 +162,7 @@ export function ComparisonTableTwoColumn({
   patternOpacity,
   optixFlowConfig,
 }: ComparisonTableTwoColumnProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const tableContent = React.useMemo(() => {
     if (tableSlot) return tableSlot;
     if (!rows || rows.length === 0) return null;
@@ -248,13 +256,13 @@ export function ComparisonTableTwoColumn({
     if (!heading) return null;
     if (typeof heading === "string") {
       return (
-        <h1 className={cn("mb-8 text-3xl font-bold md:mb-12 md:text-5xl", headingClassName)}>
+        <HeadingTag className={cn("mb-8 text-3xl font-bold md:mb-12 md:text-5xl", headingClassName)}>
           {heading}
-        </h1>
+        </HeadingTag>
       );
     }
     return <div className={headingClassName}>{heading}</div>;
-  }, [heading, headingClassName]);
+  }, [heading, headingClassName, HeadingTag]);
 
   const descriptionContent = React.useMemo(() => {
     if (!description) return null;

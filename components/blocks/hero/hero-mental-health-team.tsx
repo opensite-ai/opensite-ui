@@ -15,6 +15,7 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroMentalHealthTeamProps {
   /**
@@ -25,6 +26,11 @@ export interface HeroMentalHealthTeamProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Array of 2 small images (expects 2 images)
    */
@@ -120,6 +126,7 @@ export function HeroMentalHealthTeam({
   actionsSlot,
   actionsClassName,
   heading,
+  headingLevel,
   smallImages,
   smallImagesSlot,
   testimonial,
@@ -137,6 +144,7 @@ export function HeroMentalHealthTeam({
   gridClassName,
   optixFlowConfig,
 }: HeroMentalHealthTeamProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderSmallImages = useMemo(() => {
     if (smallImagesSlot) return smallImagesSlot;
     if (!smallImages || smallImages.length === 0) return null;
@@ -254,14 +262,14 @@ export function HeroMentalHealthTeam({
         >
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-center text-4xl leading-tight font-medium sm:text-5xl md:text-6xl text-balance",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ) : (
               heading
             ))}

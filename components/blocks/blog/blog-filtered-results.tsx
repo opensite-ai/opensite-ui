@@ -31,6 +31,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Breadcrumb item configuration
@@ -60,6 +61,11 @@ export interface BlogFilteredResultsProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -435,6 +441,7 @@ const BreadcrumbBlog = React.memo(function BreadcrumbBlog({
 export function BlogFilteredResultsComponent({
   sectionId = "blog-filtered-results",
   heading,
+  headingLevel,
   description,
   allContentHeading,
   breadcrumb,
@@ -466,6 +473,7 @@ export function BlogFilteredResultsComponent({
   containerClassName = "mx-auto w-full px-4 lg:px-8 max-w-full md:max-w-7xl relative z-10 flex items-center flex-col",
   patternOpacity,
 }: BlogFilteredResultsProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const effectivePostsPerPage = postsPerPage || POSTS_PER_PAGE;
 
   const [visibleCount, setVisibleCount] = useState(effectivePostsPerPage);
@@ -694,14 +702,14 @@ export function BlogFilteredResultsComponent({
               <div className="flex w-full flex-col gap-5">
                 {heading &&
                   (typeof heading === "string" ? (
-                    <h1
+                    <HeadingTag
                       className={cn(
                         "text-[2.5rem] leading-[1.2] font-semibold md:text-5xl lg:text-6xl",
                         headingClassName,
                       )}
                     >
                       {heading}
-                    </h1>
+                    </HeadingTag>
                   ) : (
                     <div className={headingClassName}>{heading}</div>
                   ))}

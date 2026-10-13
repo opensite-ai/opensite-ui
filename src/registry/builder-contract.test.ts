@@ -5,6 +5,7 @@ import {
   BUILDER_CONTRACT_VERSION,
   createBuilderContractBundle,
 } from "./builder-contract";
+import { BLOCK_HEADING_CONTRACT } from "./heading-contract";
 import type { BlockRegistryEntry, BuilderContractBlockSource } from "./types";
 
 function HeroSimpleCenteredImage() {
@@ -935,6 +936,44 @@ describe("createBuilderContractBundle", () => {
       expect(block.examples.exampleProps).toBeNull();
       expect(block.examples).not.toHaveProperty("defaultData");
     }
+  });
+
+  it("attaches the heading contract only to blocks that accept headingLevel", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: SAMPLE_BLOCKS,
+      uiVersion: "3.2.1",
+    });
+    const byId = Object.fromEntries(
+      bundle.blocks.map((block) => [block.componentId, block]),
+    );
+
+    expect(byId["hero-simple-centered-image"].headingContract).toEqual({
+      titleProp: "heading",
+      defaultHeadingLevel: 1,
+      supportsHeadingLevel: true,
+      canLeadPage: true,
+      eyebrowProps: [],
+    });
+    expect(byId["navbar-image-preview"].headingContract).toBeNull();
+    expect(byId["footer-split-image-accordion"].headingContract).toBeNull();
+    expect(byId["about-story-expertise"].headingContract).toBeNull();
+  });
+});
+
+describe("BLOCK_REGISTRY heading contract in the builder bundle", () => {
+  it("carries every heading-contract entry and no others", () => {
+    const bundle = createBuilderContractBundle({
+      blocks: Object.values(BLOCK_REGISTRY),
+      uiVersion: "test",
+    });
+    const withContract = bundle.blocks.filter((block) => block.headingContract);
+
+    expect(withContract.map((block) => block.componentId).sort()).toEqual(
+      Object.keys(BLOCK_HEADING_CONTRACT).sort(),
+    );
+    withContract.forEach((block) =>
+      expect(block.headingContract).toEqual(BLOCK_HEADING_CONTRACT[block.componentId]),
+    );
   });
 });
 

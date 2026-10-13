@@ -13,6 +13,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface GalleryImageItem {
   src: string;
@@ -32,6 +33,11 @@ export interface AboutVisionGalleryProps {
    * Main title
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Additional CSS classes for the title
    */
@@ -156,6 +162,7 @@ export function AboutVisionGallery({
   sectionId = "about-vision-gallery",
   className,
   title,
+  headingLevel,
   titleClassName,
   subtitle,
   subtitleClassName,
@@ -182,6 +189,7 @@ export function AboutVisionGallery({
   pattern,
   patternOpacity,
 }: AboutVisionGalleryProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const imagesContent = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
@@ -241,14 +249,14 @@ export function AboutVisionGallery({
         <div className="mx-auto flex max-w-3xl flex-col gap-8 pb-6 md:pb-18 text-center">
           {title &&
             (typeof title === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-4xl font-semibold md:text-7xl text-balance",
                   titleClassName,
                 )}
               >
                 {title}
-              </h1>
+              </HeadingTag>
             ) : (
               <div className={titleClassName}>{title}</div>
             ))}

@@ -29,6 +29,7 @@ import {
 import { patternSvgs } from "../../../lib/patternSvgs";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import type { OptixFlowConfig } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ResourceListHeroFilterBreadcrumbItem {
   /**
@@ -96,6 +97,11 @@ export interface ResourceListHeroFilterProps {
    * Main heading content
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Additional CSS classes for the title
    */
@@ -604,6 +610,7 @@ const ResourceCard = ({
 export function ResourceListHeroFilter({
   className,
   title,
+  headingLevel,
   titleClassName,
   description,
   descriptionClassName,
@@ -634,6 +641,7 @@ export function ResourceListHeroFilter({
   onError,
   optixFlowConfig,
 }: ResourceListHeroFilterProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderedBreadcrumb = useMemo(() => {
     if (breadcrumbSlot) return breadcrumbSlot;
     if (!breadcrumb || breadcrumb.length === 0) return null;
@@ -691,9 +699,9 @@ export function ResourceListHeroFilter({
               <div className="flex w-full flex-col gap-5">
                 {title && (
                   typeof title === "string" ? (
-                    <h1 className={cn("text-[2.5rem] leading-[1.2] font-semibold md:text-5xl lg:text-6xl", titleClassName)}>
+                    <HeadingTag className={cn("text-[2.5rem] leading-[1.2] font-semibold md:text-5xl lg:text-6xl", titleClassName)}>
                       {title}
-                    </h1>
+                    </HeadingTag>
                   ) : (
                     <div className={titleClassName}>{title}</div>
                   )

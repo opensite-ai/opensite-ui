@@ -10,6 +10,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Feature item with inclusion status
@@ -35,6 +36,11 @@ export interface ComparisonFeatureCardsProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -138,6 +144,7 @@ export interface ComparisonFeatureCardsProps {
 export function ComparisonFeatureCards({
   sectionId = "comparison-feature-cards",
   heading,
+  headingLevel,
   description,
   productA,
   productB,
@@ -160,6 +167,7 @@ export function ComparisonFeatureCards({
   patternOpacity,
   optixFlowConfig,
 }: ComparisonFeatureCardsProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const renderCard = React.useCallback(
     (product: ProductCard, isHighlighted: boolean) => (
       <div
@@ -228,13 +236,13 @@ export function ComparisonFeatureCards({
     if (!heading) return null;
     if (typeof heading === "string") {
       return (
-        <h1 className={cn("mb-6 text-4xl font-semibold md:text-7xl", headingClassName)}>
+        <HeadingTag className={cn("mb-6 text-4xl font-semibold md:text-7xl", headingClassName)}>
           {heading}
-        </h1>
+        </HeadingTag>
       );
     }
     return <div className={headingClassName}>{heading}</div>;
-  }, [heading, headingClassName]);
+  }, [heading, headingClassName, HeadingTag]);
 
   const descriptionContent = React.useMemo(() => {
     if (!description) return null;

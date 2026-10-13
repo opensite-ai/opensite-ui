@@ -21,6 +21,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroDesignCarouselPortfolioProps {
   /**
@@ -43,6 +44,11 @@ export interface HeroDesignCarouselPortfolioProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -126,6 +132,7 @@ export function HeroDesignCarouselPortfolio({
   features,
   featuresSlot,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -145,6 +152,7 @@ export function HeroDesignCarouselPortfolio({
   carouselClassName,
   optixFlowConfig,
 }: HeroDesignCarouselPortfolioProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderLogo = useMemo(() => {
     if (logoSlot) return logoSlot;
     if (!logo) return null;
@@ -257,14 +265,14 @@ export function HeroDesignCarouselPortfolio({
             <div className="flex flex-1 flex-col gap-4">
               {heading &&
                 (typeof heading === "string" ? (
-                  <h1
+                  <HeadingTag
                     className={cn(
                       "max-w-6xl text-4xl tracking-tighter lg:text-7xl xl:text-9xl font-semibold",
                       headingClassName,
                     )}
                   >
                     {heading}
-                  </h1>
+                  </HeadingTag>
                 ) : (
                   heading
                 ))}

@@ -240,9 +240,9 @@ export function ContactImage({
       if (typeof eyebrow === "string") {
         items.push({
           _type: "text",
-          as: "p",
+          as: "span",
           className: cn(
-            "text-sm font-semibold uppercase tracking-[0.2em] opacity-70",
+            "block text-sm font-semibold uppercase tracking-[0.2em] opacity-70",
             eyebrowClassName,
           ),
           children: eyebrow,

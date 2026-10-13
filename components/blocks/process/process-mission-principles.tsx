@@ -10,6 +10,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Principle item configuration for ProcessMissionPrinciples
@@ -128,6 +129,11 @@ export interface ProcessMissionPrinciplesProps {
   containerClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
 }
 
 /**
@@ -157,7 +163,9 @@ export function ProcessMissionPrinciples({
   pattern,
   patternOpacity,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
+  headingLevel,
 }: ProcessMissionPrinciplesProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   // Handle backwards compatibility
   const resolvedMissionHeading = missionHeading;
 
@@ -252,14 +260,14 @@ export function ProcessMissionPrinciples({
             ))}
           {resolvedMissionHeading &&
             (typeof resolvedMissionHeading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "mb-6 text-4xl font-semibold tracking-tight lg:text-5xl",
                   missionHeadingClassName,
                 )}
               >
                 {resolvedMissionHeading}
-              </h1>
+              </HeadingTag>
             ) : (
               <div className={missionHeadingClassName}>
                 {resolvedMissionHeading}

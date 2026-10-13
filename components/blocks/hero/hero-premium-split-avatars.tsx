@@ -22,6 +22,7 @@ import {
 import { BrandLogo } from "../../ui/brand-logo";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export type { DirectionConfig };
 
@@ -53,6 +54,11 @@ export interface HeroPremiumSplitAvatarsProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -162,6 +168,7 @@ export function HeroPremiumSplitAvatars({
   brandSuffix,
   brandSlot,
   heading,
+  headingLevel,
   description,
   action,
   actionSlot,
@@ -187,6 +194,7 @@ export function HeroPremiumSplitAvatars({
   logoSlot,
   logoClassName,
 }: HeroPremiumSplitAvatarsProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const responsiveClassName = useMemo(() => {
     const desktopOrder =
       directionConfig.desktop === "mediaRight"
@@ -203,12 +211,12 @@ export function HeroPremiumSplitAvatars({
     if (brandSlot) return brandSlot;
 
     return (
-      <h1 className="text-4xl ">
+      <HeadingTag className="text-4xl ">
         {brandName}{" "}
         {brandSuffix && <span className="pb-1 border-b-2">{brandSuffix}</span>}
-      </h1>
+      </HeadingTag>
     );
-  }, [brandSlot, brandName, brandSuffix]);
+  }, [brandSlot, brandName, brandSuffix, HeadingTag]);
 
   const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;

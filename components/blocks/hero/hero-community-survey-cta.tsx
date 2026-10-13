@@ -18,6 +18,7 @@ import { BlockActions } from "@/components/ui/block-actions";
 import { Badge } from "@/src";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroCommunitySurveyCtaProps {
   /**
@@ -40,6 +41,11 @@ export interface HeroCommunitySurveyCtaProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -139,6 +145,7 @@ export function HeroCommunitySurveyCta({
   announcementHref,
   announcementSlot,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -162,6 +169,7 @@ export function HeroCommunitySurveyCta({
   logoSlot,
   logoClassName,
 }: HeroCommunitySurveyCtaProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderAnnouncement = useMemo(() => {
     if (announcementSlot) return announcementSlot;
 
@@ -326,14 +334,14 @@ export function HeroCommunitySurveyCta({
           
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "max-w-4xl text-4xl font-semibold text-balance lg:text-6xl",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ) : (
               <div className={headingClassName}>{heading}</div>
             ))}

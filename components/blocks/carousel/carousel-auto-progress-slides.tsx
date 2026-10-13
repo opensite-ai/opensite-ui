@@ -33,6 +33,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface SlideItem {
   /**
@@ -58,6 +59,11 @@ export interface CarouselAutoProgressSlidesProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Subheading/description text
    */
@@ -157,6 +163,7 @@ const variants: Variants = {
 export function CarouselAutoProgressSlides({
   sectionId = "carousel-auto-progress-slides",
   heading,
+  headingLevel,
   subheading,
   items,
   slidesSlot,
@@ -176,6 +183,7 @@ export function CarouselAutoProgressSlides({
   pattern,
   patternOpacity,
 }: CarouselAutoProgressSlidesProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const progress = useMotionValue(100);
   const [direction, setDirection] = React.useState(1);
@@ -244,9 +252,9 @@ export function CarouselAutoProgressSlides({
       <div className={cn("text-center", headerClassName)}>
         {heading &&
           (typeof heading === "string" ? (
-            <h1 className={cn("text-6xl tracking-tighter", headingClassName)}>
+            <HeadingTag className={cn("text-6xl tracking-tighter", headingClassName)}>
               {heading}
-            </h1>
+            </HeadingTag>
           ) : (
             <div className={headingClassName}>{heading}</div>
           ))}

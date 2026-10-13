@@ -3,6 +3,9 @@
  * Run with: node validate-exports.mjs
  */
 
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+
 console.log("🔍 Validating @opensite/ui exports...\n");
 
 let passedTests = 0;
@@ -110,6 +113,35 @@ test("CommonJS compatibility", async () => {
   for (const file of cjsFiles) {
     if (!fs.existsSync(file)) {
       throw new Error(`Missing CJS file: ${file}`);
+    }
+  }
+});
+
+function declarationFiles(dir) {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const path = join(dir, entry.name);
+    if (entry.isDirectory()) return declarationFiles(path);
+    return /\.d\.c?ts$/.test(entry.name) ? [path] : [];
+  });
+}
+
+// Published types must use the package's own ActionConfig
+test("No declaration imports ActionConfig from @page-speed/maps", () => {
+  const offenders = declarationFiles("./dist").filter((file) =>
+    /import\s+(?:type\s+)?\{[^}]*\bActionConfig\b[^}]*\}\s+from\s+["']@page-speed\/maps/.test(
+      readFileSync(file, "utf-8"),
+    ),
+  );
+  if (offenders.length > 0) {
+    throw new Error(`ActionConfig imported from @page-speed/maps in: ${offenders.join(", ")}`);
+  }
+});
+
+// button imports pressable (and the router), so it must be a client module
+test('Button entry starts with "use client"', () => {
+  for (const file of ["./dist/button.js", "./dist/button.cjs"]) {
+    if (!readFileSync(file, "utf-8").startsWith('"use client"')) {
+      throw new Error(`${file} is missing the "use client" directive`);
     }
   }
 });

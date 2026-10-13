@@ -13,6 +13,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Service item configuration for ProcessNumberedServices
@@ -61,6 +62,11 @@ export interface ProcessNumberedServicesProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -143,6 +149,7 @@ export interface ProcessNumberedServicesProps {
 export function ProcessNumberedServices({
   sectionId = "process-numbered-services",
   heading,
+  headingLevel,
   description,
   services,
   servicesSlot,
@@ -161,6 +168,7 @@ export function ProcessNumberedServices({
   patternOpacity,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: ProcessNumberedServicesProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   // Handle backwards compatibility
   const resolvedHeading = heading;
 
@@ -304,14 +312,14 @@ export function ProcessNumberedServices({
         <div className={cn("mb-16 max-w-2xl", headerClassName)}>
           {resolvedHeading &&
             (typeof resolvedHeading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "mb-4 text-4xl font-semibold tracking-tight lg:text-5xl",
                   headingClassName,
                 )}
               >
                 {resolvedHeading}
-              </h1>
+              </HeadingTag>
             ) : (
               <div className={headingClassName}>{resolvedHeading}</div>
             ))}

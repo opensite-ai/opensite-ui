@@ -17,6 +17,7 @@ import { Badge } from "@/src";
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroSpiralPatternCardsProps {
   /**
@@ -27,6 +28,11 @@ export interface HeroSpiralPatternCardsProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -112,6 +118,7 @@ export function HeroSpiralPatternCards({
   sectionId = "hero-spiral-pattern-cards",
   badgeText,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -132,6 +139,7 @@ export function HeroSpiralPatternCards({
   logoSlot,
   logoClassName,
 }: HeroSpiralPatternCardsProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
@@ -219,23 +227,23 @@ export function HeroSpiralPatternCards({
           
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "my-3 text-2xl font-bold sm:text-4xl md:my-6 lg:text-5xl text-balance",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ) : (
-              <h1
+              <HeadingTag
                 className={cn(
                   "my-3 text-2xl font-bold sm:text-4xl md:my-6 lg:text-5xl text-balance",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ))}
           {description &&
             (typeof description === "string" ? (

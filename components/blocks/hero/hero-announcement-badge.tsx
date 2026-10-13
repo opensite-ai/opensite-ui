@@ -14,6 +14,7 @@ import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroAnnouncementBadgeProps {
   /**
@@ -28,6 +29,11 @@ export interface HeroAnnouncementBadgeProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -101,6 +107,7 @@ export function HeroAnnouncementBadge({
   badge,
   badgeIcon,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -118,6 +125,7 @@ export function HeroAnnouncementBadge({
   logoSlot,
   logoClassName,
 }: HeroAnnouncementBadgeProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   return (
     <Section
       id={sectionId}
@@ -141,7 +149,7 @@ export function HeroAnnouncementBadge({
               </span>
             )}
             {typeof badge === "string" ? (
-              <p className="truncate whitespace-nowrap pr-2">{badge}</p>
+              <span className="block truncate whitespace-nowrap pr-2">{badge}</span>
             ) : (
               badge
             )}
@@ -160,14 +168,14 @@ export function HeroAnnouncementBadge({
         
         {heading &&
           (typeof heading === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "text-4xl leading-none font-bold tracking-tighter md:text-[7vw] lg:text-8xl",
                 headingClassName,
               )}
             >
               {heading}
-            </h1>
+            </HeadingTag>
           ) : (
             <div className={headingClassName}>{heading}</div>
           ))}

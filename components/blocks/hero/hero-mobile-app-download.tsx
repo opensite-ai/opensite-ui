@@ -18,6 +18,7 @@ import type { PatternName } from "../../ui/pattern-background";
 import { Badge } from "@/src";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface AppStoreAction extends ActionConfig {
   /**
@@ -74,6 +75,11 @@ export interface HeroMobileAppDownloadProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -184,6 +190,7 @@ export function HeroMobileAppDownload({
   badgeIcon,
   badgeSlot,
   heading,
+  headingLevel,
   storeActions,
   storeActionsSlot,
   ratingValue,
@@ -210,6 +217,7 @@ export function HeroMobileAppDownload({
   logoSlot,
   logoClassName,
 }: HeroMobileAppDownloadProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
 
@@ -371,23 +379,23 @@ export function HeroMobileAppDownload({
             
             {heading &&
               (typeof heading === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ))}
             {description &&
               (typeof description === "string" ? (

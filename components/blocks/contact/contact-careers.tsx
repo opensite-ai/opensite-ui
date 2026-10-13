@@ -26,6 +26,7 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   formContainer: "",
@@ -159,6 +160,11 @@ export interface ContactCareersProps {
    */
   heading?: React.ReactNode;
   /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
+  /**
    * Description text below the heading
    */
   description?: React.ReactNode;
@@ -289,6 +295,7 @@ export interface ContactCareersProps {
 export function ContactCareers({
   sectionId = "contact-careers",
   heading,
+  headingLevel,
   description,
   className,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
@@ -315,6 +322,7 @@ export function ContactCareers({
   formCardTitle,
   formCardDescription,
 }: ContactCareersProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   // Memoize the job listings accordion content
   const jobListingsContent = useMemo(() => {
     if (sidebarComponent) return sidebarComponent;
@@ -372,7 +380,7 @@ export function ContactCareers({
       if (typeof heading === "string") {
         items.push({
           _type: "text",
-          as: "h1",
+          as: HeadingTag,
           className: cn(
             "text-4xl font-bold tracking-tight md:text-6xl text-balance",
             headingClassName,
@@ -401,7 +409,7 @@ export function ContactCareers({
     }
 
     return items;
-  }, [heading, headingClassName, description, descriptionClassName]);
+  }, [heading, headingClassName, description, descriptionClassName, HeadingTag]);
 
   const hasSidebar =
     sidebarComponent || (jobListings && jobListings.length > 0);

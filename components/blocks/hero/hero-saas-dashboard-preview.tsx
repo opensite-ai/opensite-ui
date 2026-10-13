@@ -24,6 +24,7 @@ import {
 } from "@page-speed/forms/integration";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 const DEFAULT_FORM_FIELDS: FormFieldConfig[] = [
   {
@@ -64,6 +65,11 @@ export interface HeroSaasDashboardPreviewProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -178,6 +184,7 @@ export function HeroSaasDashboardPreview({
   badgeIcon,
   badgeSlot,
   heading,
+  headingLevel,
   description,
   formFields = DEFAULT_FORM_FIELDS,
   formConfig,
@@ -205,6 +212,7 @@ export function HeroSaasDashboardPreview({
   logoSlot,
   logoClassName,
 }: HeroSaasDashboardPreviewProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const {
     uploadTokens,
     uploadProgress,
@@ -395,14 +403,14 @@ export function HeroSaasDashboardPreview({
 
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ) : (
               heading
             ))}

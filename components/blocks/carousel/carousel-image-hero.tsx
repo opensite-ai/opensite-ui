@@ -31,6 +31,7 @@ import type {
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
 import { Badge } from "@/src";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface CarouselImageHeroProps {
   /**
@@ -41,6 +42,11 @@ export interface CarouselImageHeroProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -125,6 +131,7 @@ export function CarouselImageHero({
   sectionId = "carousel-image-hero",
   badge,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -145,6 +152,7 @@ export function CarouselImageHero({
   pattern,
   patternOpacity,
 }: CarouselImageHeroProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const hasImages = React.useMemo(() => {
     return images && images?.length > 0;
   }, [images]);
@@ -317,7 +325,7 @@ export function CarouselImageHero({
               ))}
             {heading &&
               (typeof heading === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-4xl font-bold sm:text-5xl md:text-6xl text-balance",
                     headingClassName,
@@ -325,7 +333,7 @@ export function CarouselImageHero({
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
                 heading
               ))}

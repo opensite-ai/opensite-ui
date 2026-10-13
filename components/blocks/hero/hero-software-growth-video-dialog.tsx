@@ -31,6 +31,7 @@ import type { PatternName } from "../../ui/pattern-background";
 import { ActionComponent } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * @deprecated Use modalVideo prop with MediaItem type instead
@@ -51,6 +52,11 @@ export interface HeroSoftwareGrowthVideoDialogProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -149,6 +155,7 @@ export interface HeroSoftwareGrowthVideoDialogProps {
 export function HeroSoftwareGrowthVideoDialog({
   videoAspectRatio = "horizontal",
   heading,
+  headingLevel,
   description,
   videoAction,
   actions,
@@ -172,6 +179,7 @@ export function HeroSoftwareGrowthVideoDialog({
   logoSlot,
   logoClassName,
 }: HeroSoftwareGrowthVideoDialogProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [skinClasses, setSkinClasses] = useState<any>(null);
   const [skinStyle, setSkinStyle] = useState<any>(null);
@@ -282,23 +290,23 @@ export function HeroSoftwareGrowthVideoDialog({
 
               {heading &&
                 (typeof heading === "string" ? (
-                  <h1
+                  <HeadingTag
                     className={cn(
                       "max-w-[1000px] text-center text-[3.125rem] leading-none md:text-[4.25rem] lg:text-[5.5rem] text-balance font-semibold",
                       headingClassName,
                     )}
                   >
                     {heading}
-                  </h1>
+                  </HeadingTag>
                 ) : (
-                  <h1
+                  <HeadingTag
                     className={cn(
                       "max-w-[1000px] text-center text-[3.125rem] leading-none md:text-[4.25rem] lg:text-[5.5rem] text-balance font-semibold",
                       headingClassName,
                     )}
                   >
                     {heading}
-                  </h1>
+                  </HeadingTag>
                 ))}
               {description &&
                 (typeof description === "string" ? (

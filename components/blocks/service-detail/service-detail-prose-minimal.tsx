@@ -9,6 +9,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ProseMinimalContentSection {
   title?: React.ReactNode;
@@ -26,6 +27,11 @@ export interface ProseMinimalServicesList {
 
 export interface ServiceDetailProseMinimalProps {
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   titleClassName?: string;
   headerClassName?: string;
   introTitle?: React.ReactNode;
@@ -50,6 +56,7 @@ export interface ServiceDetailProseMinimalProps {
 
 export function ServiceDetailProseMinimal({
   title,
+  headingLevel,
   titleClassName,
   headerClassName,
   introTitle,
@@ -70,6 +77,7 @@ export function ServiceDetailProseMinimal({
   bodyPattern,
   bodyPatternOpacity,
 }: ServiceDetailProseMinimalProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderIntro = () => {
     if (introSlot) return introSlot;
 
@@ -172,14 +180,14 @@ export function ServiceDetailProseMinimal({
       <Section background={headerBackground} spacing="lg">
         <div className={cn("text-center", headerClassName)}>
           {title && (
-            <h1
+            <HeadingTag
               className={cn(
                 "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
                 titleClassName,
               )}
             >
               {typeof title === "string" ? title : title}
-            </h1>
+            </HeadingTag>
           )}
         </div>
       </Section>

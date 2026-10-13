@@ -32,6 +32,7 @@ import type {
   LinkPageLogoAspect,
   LinkPageLogoBannerAspect,
 } from "./logo-aspect";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Link card item for the grid cards link page
@@ -58,6 +59,11 @@ export interface LinkPageGridCardsProps {
    * Profile name displayed at the top
    */
   name?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Optional bio or description
    */
@@ -274,6 +280,7 @@ export interface LinkPageGridCardsProps {
 export function LinkPageGridCards({
   sectionId = "link-page-grid-cards",
   name,
+  headingLevel,
   bio,
   avatar,
   avatarUrl,
@@ -315,6 +322,7 @@ export function LinkPageGridCards({
   patternClassName,
   optixFlowConfig,
 }: LinkPageGridCardsProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   // Banner mode requires an actual src: stored payloads routinely carry
   // {"alt": "...", "src": null}, and those must fall back to legacy behavior.
   const isBannerMode = logoAspect === "banner" && Boolean(logoBannerImage?.src);
@@ -383,9 +391,9 @@ export function LinkPageGridCards({
         <div className="space-y-1">
           {name &&
             (typeof name === "string" ? (
-              <h1 className={cn("text-2xl font-bold", nameClassName)}>
+              <HeadingTag className={cn("text-2xl font-bold", nameClassName)}>
                 {name}
-              </h1>
+              </HeadingTag>
             ) : (
               <div className={nameClassName}>{name}</div>
             ))}
@@ -414,6 +422,7 @@ export function LinkPageGridCards({
     bio,
     bioClassName,
     headerClassName,
+    HeadingTag,
   ]);
 
   const renderSocialLinks = useMemo(() => {

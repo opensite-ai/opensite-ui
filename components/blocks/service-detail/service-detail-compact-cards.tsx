@@ -14,6 +14,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface CompactExpertiseItem {
   icon?: string;
@@ -48,6 +49,11 @@ export interface CompactContentSection {
 
 export interface ServiceDetailCompactCardsProps {
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   titleClassName?: string;
   serviceIcon?: {
     src: string;
@@ -90,6 +96,7 @@ export interface ServiceDetailCompactCardsProps {
 export function ServiceDetailCompactCards({
   sectionId = "service-detail-compact-cards",
   title,
+  headingLevel,
   titleClassName,
   serviceIcon,
   serviceIconSlot,
@@ -123,6 +130,7 @@ export function ServiceDetailCompactCards({
   patternOpacity,
   optixFlowConfig,
 }: ServiceDetailCompactCardsProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderServiceIcon = () => {
     if (serviceIconSlot) return <DynamicIcon name={serviceIconSlot} />;
     if (!serviceIcon) return null;
@@ -367,14 +375,14 @@ export function ServiceDetailCompactCards({
             {renderServiceIcon()}
             <div className="space-y-4">
               {title && (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-4xl font-medium tracking-tight md:text-5xl",
                     titleClassName,
                   )}
                 >
                   {typeof title === "string" ? title : title}
-                </h1>
+                </HeadingTag>
               )}
               {introDescription && (
                 <p

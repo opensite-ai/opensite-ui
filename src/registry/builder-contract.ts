@@ -1,3 +1,4 @@
+import { getBlockHeadingContract, type BlockHeadingContract } from "./heading-contract";
 import type {
   BlockCategory,
   BlockMetadataEntry,
@@ -82,6 +83,11 @@ function inferLayoutRole(
   return "page";
 }
 
+function headingContractFor(blockId: string): BlockHeadingContract | null {
+  const contract = getBlockHeadingContract(blockId);
+  return contract ? { ...contract, eyebrowProps: [...contract.eyebrowProps] } : null;
+}
+
 function normalizeBlock(
   block: BlockMetadataEntry,
   source: BuilderContractBlockSource | undefined,
@@ -122,6 +128,7 @@ function normalizeBlock(
         BlockMetadataEntry["usageRequirements"]
       >)
       : null,
+    headingContract: headingContractFor(block.id),
   };
 }
 

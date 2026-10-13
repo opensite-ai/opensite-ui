@@ -13,12 +13,18 @@ import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroWelcomeAsymmetricImagesProps {
   /**
    * Main heading text
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Supporting description text
    */
@@ -109,6 +115,7 @@ export interface HeroWelcomeAsymmetricImagesProps {
 export function HeroWelcomeAsymmetricImages({
   sectionId = "hero-welcome-asymmetric-images",
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -129,6 +136,7 @@ export function HeroWelcomeAsymmetricImages({
   logoSlot,
   logoClassName,
 }: HeroWelcomeAsymmetricImagesProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length < 4) return null;
@@ -196,14 +204,14 @@ export function HeroWelcomeAsymmetricImages({
             
             {heading &&
               (typeof heading === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "mb-8 text-4xl font-normal text-balance md:text-7xl",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
                 heading
               ))}

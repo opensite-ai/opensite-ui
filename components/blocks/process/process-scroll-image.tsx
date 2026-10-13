@@ -15,6 +15,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 const usePrevious = <T,>(value: T): T | undefined => {
   const [prev, setPrev] = React.useState<T | undefined>(undefined);
@@ -59,6 +60,11 @@ export interface ProcessScrollImageProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -209,6 +215,7 @@ const ProcessCard = ({
 export function ProcessScrollImage({
   sectionId = "process-scroll-image",
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -230,6 +237,7 @@ export function ProcessScrollImage({
   optixFlowConfig,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: ProcessScrollImageProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const [active, setActive] = React.useState<number>(0);
   const previousActive = usePrevious(active);
   const resolvedHeading = heading;
@@ -328,14 +336,14 @@ export function ProcessScrollImage({
         >
           {resolvedHeading &&
             (typeof resolvedHeading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "relative w-fit text-5xl font-semibold tracking-tight lg:text-7xl",
                   headingClassName,
                 )}
               >
                 {resolvedHeading}
-              </h1>
+              </HeadingTag>
             ) : (
               resolvedHeading
             ))}

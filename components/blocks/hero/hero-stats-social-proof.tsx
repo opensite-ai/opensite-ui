@@ -17,6 +17,7 @@ import { Badge, DynamicIcon } from "@/src";
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroStatsSocialProofProps {
   /**
@@ -31,6 +32,11 @@ export interface HeroStatsSocialProofProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -148,6 +154,7 @@ export function HeroStatsSocialProof({
   badge,
   badgeIcon,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -175,6 +182,7 @@ export function HeroStatsSocialProof({
   logoSlot,
   logoClassName,
 }: HeroStatsSocialProofProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderStats = useMemo(() => {
     if (statsSlot) return statsSlot;
     if (!stats || stats.length === 0) return null;
@@ -256,14 +264,14 @@ export function HeroStatsSocialProof({
             
             {heading &&
               (typeof heading === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
                 <div className={headingClassName}>{heading}</div>
               ))}

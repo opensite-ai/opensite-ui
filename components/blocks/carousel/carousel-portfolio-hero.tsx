@@ -35,6 +35,7 @@ import type {
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
 import { Badge } from "@/src";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface PortfolioSlide {
   /**
@@ -155,6 +156,11 @@ export interface CarouselPortfolioHeroProps {
   slideMediaBrightness?: "10" | "20" | "25" | "30" | "40" | "50" | "75" | "100";
   /** Optional Section ID */
   sectionId?: string;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
 }
 
 export function CarouselPortfolioHero({
@@ -180,7 +186,9 @@ export function CarouselPortfolioHero({
   patternOpacity,
   slideMediaBrightness,
   slideMediaOverlayIntensity = "high",
+  headingLevel,
 }: CarouselPortfolioHeroProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
 
@@ -280,14 +288,14 @@ export function CarouselPortfolioHero({
 
             {currentSlide?.title &&
               (typeof currentSlide.title === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-4xl font-bold sm:text-5xl md:text-6xl text-balance text-shadow-lg text-white",
                     titleClassName,
                   )}
                 >
                   {currentSlide.title}
-                </h1>
+                </HeadingTag>
               ) : (
                 <div className={titleClassName}>{currentSlide.title}</div>
               ))}

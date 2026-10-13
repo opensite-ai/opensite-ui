@@ -16,6 +16,7 @@ import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface LayeredImageConfig {
   /**
@@ -41,6 +42,11 @@ export interface HeroSharedInboxLayeredProps {
    * Main heading content (can include line breaks)
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -133,6 +139,7 @@ export function HeroSharedInboxLayered({
   eyebrow,
   eyebrowClassName,
   heading,
+  headingLevel,
   description,
   layeredImages,
   layeredImagesSlot,
@@ -155,6 +162,7 @@ export function HeroSharedInboxLayered({
   logoSlot,
   logoClassName,
 }: HeroSharedInboxLayeredProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderLayeredImages = useMemo(() => {
     if (layeredImagesSlot) return layeredImagesSlot;
     if (!layeredImages) return null;
@@ -241,14 +249,14 @@ export function HeroSharedInboxLayered({
             
             {heading &&
               (typeof heading === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-4xl font-semibold text-balance md:text-7xl",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
                 heading
               ))}

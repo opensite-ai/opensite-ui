@@ -328,14 +328,14 @@ export function OfferModalMembershipImage({
             <div className="space-y-2.5">
               {overline &&
                 (typeof overline === "string" ? (
-                  <p
+                  <span
                     className={cn(
-                      "text-center text-sm font-bold uppercase leading-none",
+                      "block text-center text-sm font-bold uppercase leading-none",
                       overlineClassName,
                     )}
                   >
                     {overline}
-                  </p>
+                  </span>
                 ) : (
                   <div className={overlineClassName}>{overline}</div>
                 ))}

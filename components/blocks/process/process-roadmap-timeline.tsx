@@ -12,6 +12,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { Badge } from "@/src";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Milestone status type
@@ -53,6 +54,11 @@ export interface ProcessRoadmapTimelineProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -173,6 +179,7 @@ const StatusBadge = ({
 export function ProcessRoadmapTimeline({
   sectionId = "process-roadmap-timeline",
   heading,
+  headingLevel,
   description,
   milestones,
   milestonesSlot,
@@ -192,6 +199,7 @@ export function ProcessRoadmapTimeline({
   patternOpacity,
   patternClassName,
 }: ProcessRoadmapTimelineProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   // Handle backwards compatibility
   const resolvedHeading = heading;
 
@@ -315,14 +323,14 @@ export function ProcessRoadmapTimeline({
         <div className={cn("mb-16 text-center", headerClassName)}>
           {resolvedHeading &&
             (typeof resolvedHeading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "mb-4 text-4xl font-semibold tracking-tight lg:text-5xl text-balance",
                   headingClassName,
                 )}
               >
                 {resolvedHeading}
-              </h1>
+              </HeadingTag>
             ) : (
               <div className={headingClassName}>{resolvedHeading}</div>
             ))}

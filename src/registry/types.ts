@@ -4,6 +4,8 @@
  * Shared type definitions for the block registry system.
  */
 
+import type { BlockHeadingContract } from "./heading-contract";
+
 export type BlockCategory =
   | "about"
   | "features"
@@ -322,6 +324,12 @@ export interface BuilderContractBlock {
    * registry entry does not declare any.
    */
   usageRequirements: BlockUsageRequirements | null;
+  /**
+   * Heading contract when the block's primary title accepts `headingLevel`.
+   * Null when it doesn't, so don't pass `headingLevel` to that block.
+   * Optional because bundles exported before 4.1.0 don't carry it.
+   */
+  headingContract?: BlockHeadingContract | null;
 }
 
 export interface BuilderContractMetadata {

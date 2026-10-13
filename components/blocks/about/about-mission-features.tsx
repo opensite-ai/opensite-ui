@@ -14,12 +14,18 @@ import type {
 } from "../../../src/types";
 import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 import { DynamicIcon, Pressable } from "@/src";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface AboutMissionFeaturesProps {
   /**
    * Main heading/title
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Main description text
    */
@@ -137,6 +143,7 @@ export interface AboutMissionFeaturesProps {
 export function AboutMissionFeatures({
   sectionId = "about-mission-features",
   title,
+  headingLevel,
   description,
   missionLabel,
   missionText,
@@ -164,6 +171,7 @@ export function AboutMissionFeatures({
   pattern,
   patternOpacity,
 }: AboutMissionFeaturesProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
@@ -219,7 +227,7 @@ export function AboutMissionFeatures({
       if (typeof title === "string") {
         items.push({
           _type: "text",
-          as: "h1",
+          as: HeadingTag,
           className: cn(
             "text-4xl font-semibold tracking-tighter lg:text-7xl",
             titleClassName,
@@ -248,7 +256,7 @@ export function AboutMissionFeatures({
     }
 
     return items;
-  }, [title, titleClassName, description, descriptionClassName]);
+  }, [title, titleClassName, description, descriptionClassName, HeadingTag]);
 
   return (
     <Section

@@ -28,6 +28,7 @@ import { VideoDialogConfig } from "./hero-video-dialog-gradient";
 import { ActionComponent } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroCreativeStudioStackedProps {
   /**
@@ -38,6 +39,11 @@ export interface HeroCreativeStudioStackedProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -152,6 +158,7 @@ export function HeroCreativeStudioStacked({
   videoAspectRatio = "horizontal",
   tagline,
   heading,
+  headingLevel,
   description,
   videoAction,
   patternClassName,
@@ -179,6 +186,7 @@ export function HeroCreativeStudioStacked({
   logoSlot,
   logoClassName,
 }: HeroCreativeStudioStackedProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [skinClasses, setSkinClasses] = useState<any>(null);
   const [skinStyle, setSkinStyle] = useState<any>(null);
@@ -301,14 +309,14 @@ export function HeroCreativeStudioStacked({
             <div className={cn("flex flex-col gap-6", contentClassName)}>
               {tagline &&
                 (typeof tagline === "string" ? (
-                  <p
+                  <span
                     className={cn(
-                      "text-sm font-medium tracking-wider uppercase",
+                      "block text-sm font-medium tracking-wider uppercase",
                       taglineClassName,
                     )}
                   >
                     {tagline}
-                  </p>
+                  </span>
                 ) : (
                   <div className={taglineClassName}>{tagline}</div>
                 ))}
@@ -326,14 +334,14 @@ export function HeroCreativeStudioStacked({
                 
                 {heading &&
                   (typeof heading === "string" ? (
-                    <h1
+                    <HeadingTag
                       className={cn(
                         "max-w-[920px] text-left text-4xl leading-tight font-semibold md:text-6xl lg:text-7xl text-balance",
                         headingClassName,
                       )}
                     >
                       {heading}
-                    </h1>
+                    </HeadingTag>
                   ) : (
                     heading
                   ))}

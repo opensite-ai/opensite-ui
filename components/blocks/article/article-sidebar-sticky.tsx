@@ -16,6 +16,7 @@ import type {
 import type { PatternName } from "../../ui/pattern-background";
 import { SocialShare } from "@page-speed/social-share";
 import { LongformContent } from "@/components/ui/longform-content";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ArticleSidebarStickyProps {
   /**
@@ -78,6 +79,11 @@ export interface ArticleSidebarStickyProps {
    * Article title
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Author name
    */
@@ -161,6 +167,7 @@ export function ArticleSidebarStickyComponent({
   backIcon,
   backLinkSlot,
   title,
+  headingLevel,
   summary,
   summaryClassName,
   authorName,
@@ -181,6 +188,7 @@ export function ArticleSidebarStickyComponent({
   patternOpacity,
   sidebarContent,
 }: ArticleSidebarStickyProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const backLinkContent = React.useMemo(() => {
     if (backLinkSlot) return backLinkSlot;
     if (!backHref && !backText) return null;
@@ -300,14 +308,14 @@ export function ArticleSidebarStickyComponent({
             <div className="space-y-2 mb-4 md:mb-8">
               {title &&
                 (typeof title === "string" ? (
-                  <h1
+                  <HeadingTag
                     className={cn(
                       "text-4xl font-bold tracking-tight md:text-5xl",
                       titleClassName,
                     )}
                   >
                     {title}
-                  </h1>
+                  </HeadingTag>
                 ) : (
                   title
                 ))}

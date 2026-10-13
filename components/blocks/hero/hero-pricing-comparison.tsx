@@ -11,6 +11,7 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface PricingPlan {
   /**
@@ -60,6 +61,11 @@ export interface HeroPricingComparisonProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -133,6 +139,7 @@ export function HeroPricingComparison({
   badgeText,
   badgeSlot,
   heading,
+  headingLevel,
   description,
   plans,
   plansSlot,
@@ -150,6 +157,7 @@ export function HeroPricingComparison({
   logoSlot,
   logoClassName,
 }: HeroPricingComparisonProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!badgeText) return null;
@@ -245,13 +253,13 @@ export function HeroPricingComparison({
           
           {heading && (
             typeof heading === "string" ? (
-              <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+              <HeadingTag className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                 {heading}
-              </h1>
+              </HeadingTag>
             ) : (
-              <h1 className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
+              <HeadingTag className={cn("text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl", headingClassName)}>
                 {heading}
-              </h1>
+              </HeadingTag>
             )
           )}
           {description && (

@@ -10,6 +10,7 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import { PatternName } from "@/components/ui/pattern-background";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ProjectCardOverlayItem {
   id: number;
@@ -24,6 +25,11 @@ export interface ProjectCardOverlayProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Subheading/eyebrow content
    */
@@ -182,6 +188,7 @@ const ProjectCard = ({
 export function ProjectCardOverlay({
   sectionId = "project-card-overlay",
   heading,
+  headingLevel,
   subheading,
   projects,
   projectsSlot,
@@ -198,6 +205,7 @@ export function ProjectCardOverlay({
   gridClassName,
   cardClassName,
 }: ProjectCardOverlayProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderedProjects = useMemo(() => {
     if (projectsSlot) return projectsSlot;
     if (!projects || projects.length === 0) return null;
@@ -246,7 +254,7 @@ export function ProjectCardOverlay({
           </div>
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-6xl leading-none font-black tracking-tight md:text-8xl lg:text-9xl",
                   headingClassName,
@@ -257,7 +265,7 @@ export function ProjectCardOverlay({
                     {word}
                   </span>
                 ))}
-              </h1>
+              </HeadingTag>
             ) : (
               <div className={headingClassName}>{heading}</div>
             ))}

@@ -29,12 +29,18 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroConversionVideoPlayProps {
   /**
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -139,6 +145,7 @@ export interface HeroConversionVideoPlayProps {
 
 export function HeroConversionVideoPlay({
   heading,
+  headingLevel,
   description,
   primaryAction,
   videoButtonLabel = "Play Video",
@@ -165,6 +172,7 @@ export function HeroConversionVideoPlay({
   logosClassName,
   optixFlowConfig,
 }: HeroConversionVideoPlayProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [skinClasses, setSkinClasses] = useState<any>(null);
   const [skinStyle, setSkinStyle] = useState<any>(null);
@@ -263,14 +271,14 @@ export function HeroConversionVideoPlay({
                 <div className="flex flex-col items-center gap-7">
                   {heading &&
                     (typeof heading === "string" ? (
-                      <h1
+                      <HeadingTag
                         className={cn(
                           "max-w-[920px] text-center text-4xl leading-tight font-semibold md:text-6xl lg:text-7xl text-balance",
                           headingClassName,
                         )}
                       >
                         {heading}
-                      </h1>
+                      </HeadingTag>
                     ) : (
                       <div className={headingClassName}>{heading}</div>
                     ))}

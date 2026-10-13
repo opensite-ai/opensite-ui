@@ -16,6 +16,7 @@ import type {
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
 import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface AboutDeveloperStoryProps {
   /**
@@ -30,6 +31,11 @@ export interface AboutDeveloperStoryProps {
    * Main title
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Additional CSS classes for the title
    */
@@ -133,6 +139,7 @@ export function AboutDeveloperStory({
   sectionId = "about-developer-story",
   className,
   title,
+  headingLevel,
   titleClassName,
   description,
   descriptionClassName,
@@ -158,6 +165,7 @@ export function AboutDeveloperStory({
   pattern,
   patternOpacity,
 }: AboutDeveloperStoryProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const logosContent = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
@@ -242,7 +250,7 @@ export function AboutDeveloperStory({
       if (typeof title === "string") {
         items.push({
           _type: "text",
-          as: "h1",
+          as: HeadingTag,
           className: cn(
             "text-4xl font-bold tracking-tight md:text-6xl text-balance",
             titleClassName,
@@ -271,7 +279,7 @@ export function AboutDeveloperStory({
     }
 
     return items;
-  }, [title, titleClassName, description, descriptionClassName]);
+  }, [title, titleClassName, description, descriptionClassName, HeadingTag]);
 
   return (
     <Section

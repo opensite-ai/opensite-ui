@@ -25,6 +25,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface CaseStudyStatsMetricsProps {
   /**
@@ -39,6 +40,11 @@ export interface CaseStudyStatsMetricsProps {
    * Main title/heading content
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Subtitle/description below the title
    */
@@ -235,6 +241,7 @@ export function CaseStudyStatsMetrics({
   breadcrumbs,
   breadcrumbsSlot,
   title,
+  headingLevel,
   subtitle,
   heroImageSrc,
   heroImageAlt,
@@ -276,6 +283,7 @@ export function CaseStudyStatsMetrics({
   companyLogoClassName,
   optixFlowConfig,
 }: CaseStudyStatsMetricsProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const breadcrumbsContent = useMemo(() => {
     if (breadcrumbsSlot) return breadcrumbsSlot;
     if (!breadcrumbs || breadcrumbs.length === 0) return null;
@@ -535,14 +543,14 @@ export function CaseStudyStatsMetrics({
                 <div>
                   {title &&
                     (typeof title === "string" ? (
-                      <h1
+                      <HeadingTag
                         className={cn(
                           "text-3xl font-extrabold text-pretty",
                           titleClassName,
                         )}
                       >
                         {title}
-                      </h1>
+                      </HeadingTag>
                     ) : (
                       <div className={titleClassName}>{title}</div>
                     ))}

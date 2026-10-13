@@ -16,6 +16,7 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import BrandLogo from "@/components/ui/brand-logo";
 import { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroPlatformFeaturesGridProps {
   /**
@@ -43,6 +44,11 @@ export interface HeroPlatformFeaturesGridProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Action configuration for CTA button
    */
@@ -111,6 +117,7 @@ export function HeroPlatformFeaturesGrid({
   subtitle,
   description,
   heading,
+  headingLevel,
   action,
   actionSlot,
   features,
@@ -126,6 +133,7 @@ export function HeroPlatformFeaturesGrid({
   featuresClassName,
   optixFlowConfig,
 }: HeroPlatformFeaturesGridProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
@@ -230,14 +238,14 @@ export function HeroPlatformFeaturesGrid({
             ))}
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-4xl font-semibold text-balance lg:text-6xl",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ) : (
               heading
             ))}

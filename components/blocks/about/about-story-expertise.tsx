@@ -340,14 +340,14 @@ export function AboutStoryExpertise({
           <div className="space-y-6">
             {eyebrow &&
               (typeof eyebrow === "string" ? (
-                <p
+                <span
                   className={cn(
-                    "text-sm font-semibold uppercase tracking-[0.2em]",
+                    "block text-sm font-semibold uppercase tracking-[0.2em]",
                     eyebrowClassName,
                   )}
                 >
                   {eyebrow}
-                </p>
+                </span>
               ) : (
                 eyebrow
               ))}

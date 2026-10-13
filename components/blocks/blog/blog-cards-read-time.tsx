@@ -17,6 +17,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface BlogCardsReadTimeProps {
   /**
@@ -27,6 +28,11 @@ export interface BlogCardsReadTimeProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -111,6 +117,7 @@ export function BlogCardsReadTime({
   sectionId = "blog-cards-read-time",
   badge,
   heading,
+  headingLevel,
   description,
   posts,
   postsSlot,
@@ -131,6 +138,7 @@ export function BlogCardsReadTime({
   pattern,
   patternOpacity,
 }: BlogCardsReadTimeProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderedViewAllAction = React.useMemo(() => {
     if (viewAllSlot) return viewAllSlot;
     if (!viewAllAction) return null;
@@ -266,14 +274,14 @@ export function BlogCardsReadTime({
           )}
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-4xl font-semibold text-balance",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ) : (
               <div className={headingClassName}>{heading}</div>
             ))}

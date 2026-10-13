@@ -8,6 +8,7 @@ import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import { PatternName } from "@/components/ui/pattern-background";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ProjectShowcaseAlternatingItem {
   title: string;
@@ -21,6 +22,11 @@ export interface ProjectShowcaseAlternatingProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Array of project configurations
    */
@@ -86,6 +92,7 @@ export interface ProjectShowcaseAlternatingProps {
 export function ProjectShowcaseAlternating({
   sectionId = "project-showcase-alternating",
   heading,
+  headingLevel,
   projects,
   projectsSlot,
   optixFlowConfig,
@@ -99,6 +106,7 @@ export function ProjectShowcaseAlternating({
   listClassName,
   cardClassName,
 }: ProjectShowcaseAlternatingProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderedProjects = useMemo(() => {
     if (projectsSlot) return projectsSlot;
     if (!projects || projects.length === 0) return null;
@@ -146,14 +154,14 @@ export function ProjectShowcaseAlternating({
       <div className={cn("container", containerClassName)}>
         {heading &&
           (typeof heading === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "mb-16 font-serif text-4xl font-normal tracking-wide text-foreground md:mb-24 md:text-6xl lg:text-7xl",
                 headingClassName,
               )}
             >
               {heading}
-            </h1>
+            </HeadingTag>
           ) : (
             <div className={headingClassName}>{heading}</div>
           ))}

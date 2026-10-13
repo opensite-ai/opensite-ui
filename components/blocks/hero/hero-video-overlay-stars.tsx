@@ -16,6 +16,7 @@ import type {
 } from "../../../src/types";
 import type { LogoConfig } from "../navbars/types";
 import { BlockActions } from "@/components/ui/block-actions";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Configuration for the primary action button
@@ -67,6 +68,11 @@ export interface HeroVideoOverlayStarsProps {
    * Main heading text
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Action buttons configuration
    */
@@ -153,6 +159,7 @@ export function HeroVideoOverlayStars({
   logoSlot,
   logoClassName,
   heading,
+  headingLevel,
   actions,
   actionsSlot,
   actionsClassName,
@@ -172,6 +179,7 @@ export function HeroVideoOverlayStars({
   videoSrc,
   videoSlot,
 }: HeroVideoOverlayStarsProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderTrust = useMemo(() => {
     if (trustSlot) return trustSlot;
     if (!trust) return null;
@@ -239,23 +247,23 @@ export function HeroVideoOverlayStars({
           <div className={cn("flex w-full flex-col gap-8", contentClassName)}>
             {heading &&
               (typeof heading === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-5xl font-semibold md:text-6xl text-balance text-white text-shadow-lg",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-5xl font-semibold md:text-6xl text-balance text-white text-shadow-lg",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ))}
             {description &&
               (typeof description === "string" ? (

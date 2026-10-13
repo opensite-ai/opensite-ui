@@ -17,6 +17,7 @@ import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroCenteredGradientCtaProps {
   /**
@@ -31,6 +32,11 @@ export interface HeroCenteredGradientCtaProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Highlighted text within heading (gradient styled)
    */
@@ -124,6 +130,7 @@ export function HeroCenteredGradientCta({
   badge,
   badgeIcon,
   heading,
+  headingLevel,
   headingHighlight,
   description,
   actions,
@@ -145,6 +152,7 @@ export function HeroCenteredGradientCta({
   logoSlot,
   logoClassName,
 }: HeroCenteredGradientCtaProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderFeatures = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
@@ -193,18 +201,18 @@ export function HeroCenteredGradientCta({
         )}
         {(heading || headingHighlight) &&
           (typeof heading === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "max-w-full md:max-w-md text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-balance",
                 headingClassName,
               )}
             >
               {heading}
-            </h1>
+            </HeadingTag>
           ) : heading ? (
             <div className={headingClassName}>{heading}</div>
           ) : headingHighlight ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "max-w-full md:max-w-md text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl text-balance",
                 headingClassName,
@@ -213,7 +221,7 @@ export function HeroCenteredGradientCta({
               <span className="bg-linear-to-r from-primary to-purple-600 bg-clip-text text-transparent">
                 {headingHighlight}
               </span>
-            </h1>
+            </HeadingTag>
           ) : null)}
         {description &&
           (typeof description === "string" ? (

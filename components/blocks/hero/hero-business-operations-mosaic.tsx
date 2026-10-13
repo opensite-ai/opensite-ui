@@ -17,12 +17,18 @@ import type {
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroBusinessOperationsMosaicProps {
   /**
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -110,6 +116,7 @@ export interface HeroBusinessOperationsMosaicProps {
 export function HeroBusinessOperationsMosaic({
   sectionId = "hero-business-operations-mosaic",
   heading,
+  headingLevel,
   description,
   descriptionClassName,
   images,
@@ -131,6 +138,7 @@ export function HeroBusinessOperationsMosaic({
   logoSlot,
   logoClassName,
 }: HeroBusinessOperationsMosaicProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderMosaic = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
@@ -219,14 +227,14 @@ export function HeroBusinessOperationsMosaic({
           
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-4xl md:text-5xl lg:text-6xl font-semibold text-pretty leading-tight",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ) : (
               heading
             ))}

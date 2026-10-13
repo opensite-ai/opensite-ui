@@ -20,6 +20,7 @@ import type {
   SectionBackground,
 } from "../../../src/types";
 import type { DirectionConfig } from "@/src/types/blocks";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export type { DirectionConfig };
 
@@ -44,6 +45,11 @@ export interface AboutSplitHeroProps {
    * Main heading text
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Additional CSS classes for the heading
    */
@@ -140,6 +146,7 @@ export function AboutSplitHero({
   brandHighlight,
   brandHighlightClassName,
   heading,
+  headingLevel,
   headingClassName,
   description,
   descriptionClassName,
@@ -157,6 +164,7 @@ export function AboutSplitHero({
   patternOpacity,
   directionConfig = { desktop: "mediaRight", mobile: "mediaTop" },
 }: AboutSplitHeroProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const ctaContent = useMemo(() => {
     if (ctaSlot) return ctaSlot;
     if (!ctaAction) return null;
@@ -255,14 +263,14 @@ export function AboutSplitHero({
           {/* Heading */}
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl xl:text-6xl",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ) : (
               <div className={headingClassName}>{heading}</div>
             ))}

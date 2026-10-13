@@ -27,6 +27,7 @@ import type { PatternName } from "../../ui/pattern-background";
 import { SocialLinkIcon } from "@/src";
 import { SocialShare } from "@page-speed/social-share";
 import { LongformContent } from "@/components/ui/longform-content";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ArticleChapter {
   id: string;
@@ -120,6 +121,11 @@ export interface ArticleChaptersAuthorProps {
    * Article title
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Article subtitle
    */
@@ -234,6 +240,7 @@ export function ArticleChaptersAuthorComponent({
   breadcrumbsSlot,
   currentPage,
   title,
+  headingLevel,
   subtitle,
   chapters,
   chaptersSlot,
@@ -258,6 +265,7 @@ export function ArticleChaptersAuthorComponent({
   pattern,
   patternOpacity,
 }: ArticleChaptersAuthorProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const [activeChapter, setActiveChapter] = React.useState<string>(
     chapters?.[0]?.id || "",
   );
@@ -542,14 +550,14 @@ export function ArticleChaptersAuthorComponent({
         <div className={cn("mb-12 text-center px-8 md:px-0", headerClassName)}>
           {title &&
             (typeof title === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance",
                   titleClassName,
                 )}
               >
                 {title}
-              </h1>
+              </HeadingTag>
             ) : (
               title
             ))}

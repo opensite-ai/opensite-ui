@@ -233,7 +233,7 @@ export function FeatureIconGridAccent({
             <div className="flex flex-col items-center space-y-4 text-center sm:space-y-6 md:max-w-3xl md:text-center">
               {label &&
                 (typeof label === "string" ? (
-                  <p className={cn("text-sm", labelClassName)}>{label}</p>
+                  <span className={cn("block text-sm", labelClassName)}>{label}</span>
                 ) : (
                   <div className={labelClassName}>{label}</div>
                 ))}

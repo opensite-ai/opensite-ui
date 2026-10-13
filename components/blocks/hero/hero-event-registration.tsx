@@ -19,6 +19,7 @@ import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
 import { LogoConfig } from "../navbars/types";
 import BrandLogo from "@/components/ui/brand-logo";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface DirectionConfig {
   desktop: "mediaRight" | "mediaLeft";
@@ -42,6 +43,11 @@ export interface HeroEventRegistrationProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -162,6 +168,7 @@ export function HeroEventRegistration({
   badgeIcon,
   badgeSlot,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -190,6 +197,7 @@ export function HeroEventRegistration({
   logoClassName,
   directionConfig = { desktop: "mediaRight", mobile: "mediaTop" },
 }: HeroEventRegistrationProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!badgeText && !badgeIcon) return null;
@@ -390,14 +398,14 @@ export function HeroEventRegistration({
             )}
             {heading &&
               (typeof heading === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-pretty",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
                 heading
               ))}

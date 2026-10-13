@@ -9,12 +9,18 @@ import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import { PatternName } from "@/components/ui/pattern-background";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ProjectNatureMosaicProps {
   /**
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description content
    */
@@ -96,6 +102,7 @@ export interface ProjectNatureMosaicProps {
 export function ProjectNatureMosaic({
   sectionId = "project-nature-mosaic",
   heading,
+  headingLevel,
   description,
   linkText,
   linkHref,
@@ -113,6 +120,7 @@ export function ProjectNatureMosaic({
   descriptionClassName,
   linkClassName,
 }: ProjectNatureMosaicProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderedImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
@@ -170,14 +178,14 @@ export function ProjectNatureMosaic({
       <div className={cn("container", containerClassName)}>
         {heading &&
           (typeof heading === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "mb-12 text-xl leading-tight font-medium md:text-3xl whitespace-pre-line",
                 headingClassName,
               )}
             >
               {heading}
-            </h1>
+            </HeadingTag>
           ) : (
             <div className={headingClassName}>{heading}</div>
           ))}

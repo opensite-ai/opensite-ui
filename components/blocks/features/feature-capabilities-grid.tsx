@@ -247,9 +247,9 @@ export function FeatureCapabilitiesGrid({
           <div className="flex flex-col space-y-4 md:space-y-6">
             {eyebrow &&
               (typeof eyebrow === "string" ? (
-                <p className={cn("text-sm tracking-widest", eyebrowClassName)}>
+                <span className={cn("block text-sm tracking-widest", eyebrowClassName)}>
                   {eyebrow}
-                </p>
+                </span>
               ) : (
                 eyebrow
               ))}

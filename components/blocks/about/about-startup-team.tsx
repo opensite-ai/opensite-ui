@@ -13,6 +13,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /** Special value for the "All" tab */
 const ALL_TAB_VALUE = "__all__";
@@ -61,6 +62,11 @@ export interface AboutStartupTeamProps {
    * Main title
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Additional CSS classes for the title
    */
@@ -145,6 +151,7 @@ export function AboutStartupTeam({
   sectionId = "about-startup-team",
   className,
   title,
+  headingLevel,
   titleClassName,
   description,
   descriptionClassName,
@@ -166,6 +173,7 @@ export function AboutStartupTeam({
   onTabChange,
   allTabLabel = "All",
 }: AboutStartupTeamProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   // Build effective tabs: add "All" tab at the beginning if sidebarLinks and teamMembers are provided
   const effectiveTabs = useMemo(() => {
     if (
@@ -373,14 +381,14 @@ export function AboutStartupTeam({
           <div className="min-w-0 lg:col-span-3">
             {title &&
               (typeof title === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-4xl font-bold tracking-tight md:text-5xl",
                     titleClassName,
                   )}
                 >
                   {title}
-                </h1>
+                </HeadingTag>
               ) : (
                 title
               ))}

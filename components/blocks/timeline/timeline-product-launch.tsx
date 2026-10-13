@@ -8,6 +8,7 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { ActionConfig } from "../../../src/types/blocks";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface TimelineProductLaunchStep {
   number: string;
@@ -23,6 +24,11 @@ export interface TimelineProductLaunchProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below the heading
    */
@@ -129,6 +135,7 @@ export interface TimelineProductLaunchProps {
 export function TimelineProductLaunch({
   sectionId = "timeline-product-launch",
   heading,
+  headingLevel,
   description,
   cardHeading,
   ctaAction,
@@ -153,6 +160,7 @@ export function TimelineProductLaunch({
   id,
   style,
 }: TimelineProductLaunchProps) {
+  const HeadingTag = headingTag(headingLevel, 2);
   const renderCta = React.useMemo(() => {
     if (ctaSlot) {
       return ctaSlot;
@@ -188,14 +196,14 @@ export function TimelineProductLaunch({
     >
       <div className={containerClassName}>
         <div className="flex flex-col">
-          <h1
+          <HeadingTag
             className={cn(
               "mb-2 text-3xl font-semibold md:text-5xl",
               headingClassName,
             )}
           >
             {heading}
-          </h1>
+          </HeadingTag>
           <p
             className={cn(
               "max-w-2xl text-muted-foreground",

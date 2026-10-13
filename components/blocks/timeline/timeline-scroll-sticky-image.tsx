@@ -8,6 +8,7 @@ import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIcons
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface TimelineSection {
   subTitle: React.ReactNode;
@@ -22,6 +23,11 @@ export interface TimelineScrollStickyImageProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Array of timeline sections
    */
@@ -108,6 +114,7 @@ export interface TimelineScrollStickyImageProps {
 export function TimelineScrollStickyImage({
   sectionId = "timeline-scroll-sticky-image",
   heading,
+  headingLevel,
   sections,
   className,
   containerClassName,
@@ -128,6 +135,7 @@ export function TimelineScrollStickyImage({
   style,
   optixFlowConfig,
 }: TimelineScrollStickyImageProps) {
+  const HeadingTag = headingTag(headingLevel, 2);
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -181,14 +189,14 @@ export function TimelineScrollStickyImage({
         style={style}
       >
         <div className={cn("max-w-7xl", containerClassName)}>
-          <h1
+          <HeadingTag
             className={cn(
               "mb-14 max-w-2xl text-4xl font-semibold text-balance md:text-5xl",
               headingClassName,
             )}
           >
             {heading}
-          </h1>
+          </HeadingTag>
         </div>
       </Section>
     );
@@ -206,14 +214,14 @@ export function TimelineScrollStickyImage({
       style={style}
     >
       <div className={cn("max-w-7xl", containerClassName)}>
-        <h1
+        <HeadingTag
           className={cn(
             "mb-14 max-w-2xl text-4xl font-semibold text-balance md:text-5xl",
             headingClassName,
           )}
         >
           {heading}
-        </h1>
+        </HeadingTag>
         <div className={cn("flex justify-between gap-20", sectionsClassName)}>
           <div className="flex flex-col gap-16 md:w-1/2">
             {sections.map((section, index) => (

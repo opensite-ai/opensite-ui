@@ -26,6 +26,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ResourceDetailDocumentSidebarArticle {
   /**
@@ -108,6 +109,11 @@ export interface ResourceDetailDocumentSidebarProps {
    * Page title
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Additional CSS classes for the title
    */
@@ -202,6 +208,7 @@ export function ResourceDetailDocumentSidebar({
   breadcrumbsSlot,
   breadcrumbsClassName,
   title,
+  headingLevel,
   titleClassName,
   article,
   articleSlot,
@@ -216,6 +223,7 @@ export function ResourceDetailDocumentSidebar({
   patternOpacity,
   optixFlowConfig,
 }: ResourceDetailDocumentSidebarProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderedBreadcrumbs = useMemo(() => {
     if (breadcrumbsSlot) return breadcrumbsSlot;
 
@@ -473,14 +481,14 @@ export function ResourceDetailDocumentSidebar({
       {renderedBreadcrumbs}
       {title &&
         (typeof title === "string" ? (
-          <h1
+          <HeadingTag
             className={cn(
               "mt-7 text-3xl font-semibold md:text-5xl",
               titleClassName,
             )}
           >
             {title}
-          </h1>
+          </HeadingTag>
         ) : (
           <div className={titleClassName}>{title}</div>
         ))}

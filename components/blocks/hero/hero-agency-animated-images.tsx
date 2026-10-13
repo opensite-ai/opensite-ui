@@ -18,6 +18,7 @@ import type {
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Animation variants for each image position in the 2x2 grid.
@@ -66,6 +67,11 @@ export interface HeroAgencyAnimatedImagesProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Additional CSS classes for the description
    */
@@ -153,6 +159,7 @@ export interface HeroAgencyAnimatedImagesProps {
 export function HeroAgencyAnimatedImages({
   sectionId = "hero-agency-animated-images",
   heading,
+  headingLevel,
   description,
   descriptionClassName,
   actions,
@@ -174,6 +181,7 @@ export function HeroAgencyAnimatedImages({
   logoSlot,
   logoClassName,
 }: HeroAgencyAnimatedImagesProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderImages = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
@@ -277,14 +285,14 @@ export function HeroAgencyAnimatedImages({
             
             {heading &&
               (typeof heading === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-4xl md:text-5xl lg:text-6xl font-bold text-left text-pretty",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
                 heading
               ))}

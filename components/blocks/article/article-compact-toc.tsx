@@ -25,6 +25,7 @@ import type {
 import type { PatternName } from "../../ui/pattern-background";
 import { SocialShare } from "@page-speed/social-share";
 import { LongformContent } from "@/components/ui/longform-content";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ArticleCompactTocSection {
   id: string;
@@ -89,6 +90,11 @@ export interface ArticleCompactTocProps {
    * Article title
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Article summary/description
    */
@@ -192,6 +198,7 @@ export function ArticleCompactTocComponent({
   breadcrumbsSlot,
   currentPage,
   title,
+  headingLevel,
   authorName,
   authorHref,
   publishDate,
@@ -214,6 +221,7 @@ export function ArticleCompactTocComponent({
   patternOpacity,
   patternClassName,
 }: ArticleCompactTocProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const [activeSection, setActiveSection] = React.useState<string>(
     sections?.[0]?.id || "",
   );
@@ -400,14 +408,14 @@ export function ArticleCompactTocComponent({
           <div className={cn("min-w-0", hasDesktopToc && "lg:flex-1")}>
             {title &&
               (typeof title === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl mb-6",
                     titleClassName,
                   )}
                 >
                   {title}
-                </h1>
+                </HeadingTag>
               ) : (
                 title
               ))}

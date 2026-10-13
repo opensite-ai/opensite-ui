@@ -13,6 +13,7 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { ActionConfig } from "../../../src/types/blocks";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface TimelineTabbedPhase {
   id: string;
@@ -30,6 +31,11 @@ export interface TimelineTabbedPhasesProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Array of timeline phases
    */
@@ -124,6 +130,7 @@ export interface TimelineTabbedPhasesProps {
 export function TimelineTabbedPhases({
   sectionId = "timeline-tabbed-phases",
   heading,
+  headingLevel,
   phases,
   downloadAction,
   downloadSlot,
@@ -146,6 +153,7 @@ export function TimelineTabbedPhases({
   style,
   optixFlowConfig,
 }: TimelineTabbedPhasesProps) {
+  const HeadingTag = headingTag(headingLevel, 2);
   const renderDownloadButton = React.useMemo(() => {
     if (downloadSlot) {
       return downloadSlot;
@@ -195,14 +203,14 @@ export function TimelineTabbedPhases({
             containerClassName,
           )}
         >
-          <h1
+          <HeadingTag
             className={cn(
               "mb-12 text-5xl font-semibold tracking-tighter lg:mb-25 lg:text-7xl",
               headingClassName,
             )}
           >
             {heading}
-          </h1>
+          </HeadingTag>
         </div>
       </Section>
     );
@@ -225,14 +233,14 @@ export function TimelineTabbedPhases({
           containerClassName,
         )}
       >
-        <h1
+        <HeadingTag
           className={cn(
             "mb-12 text-5xl font-semibold tracking-tighter lg:mb-25 lg:text-7xl",
             headingClassName,
           )}
         >
           {heading}
-        </h1>
+        </HeadingTag>
         <Tabs defaultValue={phases[0]?.id || "phase1"} className="w-full">
           <TabsList
             className={cn(

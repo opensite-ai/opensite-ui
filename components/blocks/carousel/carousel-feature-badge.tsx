@@ -22,6 +22,7 @@ import { Section } from "../../ui/section";
 import useEmblaCarousel from "embla-carousel-react";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
+  ActionConfig,
   ContainerMaxWidth,
   ImageItem,
   OptixFlowConfig,
@@ -29,7 +30,6 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
-import { ActionConfig } from "@page-speed/maps/components/geo-map";
 import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 
 export interface CarouselFeatureBadgeProps {

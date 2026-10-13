@@ -15,6 +15,7 @@ import type {
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroCrmStreamlinedProps {
   /**
@@ -25,6 +26,11 @@ export interface HeroCrmStreamlinedProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -117,6 +123,7 @@ export function HeroCrmStreamlined({
   sectionId = "hero-crm-streamlined",
   tagline,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -139,6 +146,7 @@ export function HeroCrmStreamlined({
   logoSlot,
   logoClassName,
 }: HeroCrmStreamlinedProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   return (
     <Section
       id={sectionId}
@@ -155,14 +163,14 @@ export function HeroCrmStreamlined({
             <div className="mt-14 md:mt-0 flex flex-col gap-2">
               {tagline &&
                 (typeof tagline === "string" ? (
-                  <p
+                  <span
                     className={cn(
-                      "text-base font-medium tracking-wider opacity-70 pb-6 uppercase",
+                      "block text-base font-medium tracking-wider opacity-70 pb-6 uppercase",
                       taglineClassName,
                     )}
                   >
                     {tagline}
-                  </p>
+                  </span>
                 ) : (
                   <div className={taglineClassName}>{tagline}</div>
                 ))}
@@ -174,14 +182,14 @@ export function HeroCrmStreamlined({
 
               {heading &&
                 (typeof heading === "string" ? (
-                  <h1
+                  <HeadingTag
                     className={cn(
                       "mb-2 text-4xl font-semibold text-pretty lg:text-5xl",
                       headingClassName,
                     )}
                   >
                     {heading}
-                  </h1>
+                  </HeadingTag>
                 ) : (
                   heading
                 ))}

@@ -12,6 +12,7 @@ import type { CarouselApi } from "../../ui/carousel";
 import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import { PatternName } from "@/components/ui/pattern-background";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ProjectCarouselCinematicItem {
   id: number;
@@ -28,6 +29,11 @@ export interface ProjectCarouselCinematicProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Subheading content
    */
@@ -104,6 +110,7 @@ export interface ProjectCarouselCinematicProps {
 export function ProjectCarouselCinematic({
   sectionId = "project-carousel-cinematic",
   heading,
+  headingLevel,
   subheading,
   projects,
   projectsSlot,
@@ -120,6 +127,7 @@ export function ProjectCarouselCinematic({
   carouselClassName,
   cardClassName,
 }: ProjectCarouselCinematicProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
@@ -180,14 +188,14 @@ export function ProjectCarouselCinematic({
         <div className={cn("mb-16 px-8", headerClassName)}>
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-3xl font-medium tracking-tight lg:text-6xl",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ) : (
               <div className={headingClassName}>{heading}</div>
             ))}

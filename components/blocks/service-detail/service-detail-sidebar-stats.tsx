@@ -12,6 +12,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface SidebarStatsServiceItem {
   iconName?: string;
@@ -37,6 +38,11 @@ export interface SidebarStatsContentSection {
 
 export interface ServiceDetailSidebarStatsProps {
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   titleClassName?: string;
   serviceIcon?: {
     src: string;
@@ -76,6 +82,7 @@ export interface ServiceDetailSidebarStatsProps {
 
 export function ServiceDetailSidebarStats({
   title,
+  headingLevel,
   titleClassName,
   serviceIcon,
   serviceIconSlot,
@@ -109,6 +116,7 @@ export function ServiceDetailSidebarStats({
   bodyPatternOpacity,
   optixFlowConfig,
 }: ServiceDetailSidebarStatsProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderServiceIcon = () => {
     if (serviceIconSlot) return <DynamicIcon name={serviceIconSlot} />;
     if (!serviceIcon) return null;
@@ -269,14 +277,14 @@ export function ServiceDetailSidebarStats({
         >
           {renderServiceIcon()}
           {title && (
-            <h1
+            <HeadingTag
               className={cn(
                 "text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl",
                 titleClassName,
               )}
             >
               {typeof title === "string" ? title : title}
-            </h1>
+            </HeadingTag>
           )}
         </div>
       </Section>

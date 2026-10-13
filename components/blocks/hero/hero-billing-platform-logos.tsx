@@ -18,12 +18,18 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroBillingPlatformLogosProps {
   /**
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -116,6 +122,7 @@ export interface HeroBillingPlatformLogosProps {
 export function HeroBillingPlatformLogos({
   sectionId = "hero-billing-platform-logos",
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -138,6 +145,7 @@ export function HeroBillingPlatformLogos({
   logosClassName,
   optixFlowConfig,
 }: HeroBillingPlatformLogosProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
@@ -210,14 +218,14 @@ export function HeroBillingPlatformLogos({
             <div className="flex flex-col gap-3">
               {heading &&
                 (typeof heading === "string" ? (
-                  <h1
+                  <HeadingTag
                     className={cn(
                       "text-4xl leading-tight md:text-5xl lg:text-[3.5rem]",
                       headingClassName,
                     )}
                   >
                     {heading}
-                  </h1>
+                  </HeadingTag>
                 ) : (
                   <div className={headingClassName}>{heading}</div>
                 ))}

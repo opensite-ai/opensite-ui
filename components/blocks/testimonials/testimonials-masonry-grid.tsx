@@ -7,12 +7,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
+  ActionConfig,
   SectionBackground,
   SectionSpacing,
   TestimonialItem,
 } from "../../../src/types";
 import { Pressable } from "@/src";
-import { ActionConfig } from "@page-speed/maps/components/geo-map";
 import { BlockActions } from "@/components/ui/block-actions";
 
 export interface TestimonialsMasonryGridProps {

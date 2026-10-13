@@ -16,10 +16,16 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { PatternName } from "@/components/ui/pattern-background";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ProjectDetailSidebarNavigationProps {
   /** Main title */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /** Subtitle text */
   subtitle?: React.ReactNode;
   /** Project year */
@@ -77,6 +83,7 @@ export function ProjectDetailSidebarNavigation(
   const {
     sectionId: sectionIdProp,
     title,
+    headingLevel,
     subtitle,
     year,
     category,
@@ -100,6 +107,7 @@ export function ProjectDetailSidebarNavigation(
     heroImageClassName,
     metadataClassName,
   } = props;
+  const HeadingTag = headingTag(headingLevel, 1);
   const sectionId = sectionIdProp ?? "project-detail-sidebar-navigation";
 
   const [activeSection, setActiveSection] = React.useState(
@@ -228,14 +236,14 @@ export function ProjectDetailSidebarNavigation(
               className="mb-12"
             >
               {typeof title === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-4xl font-bold tracking-tight md:text-5xl",
                     titleClassName,
                   )}
                 >
                   {title}
-                </h1>
+                </HeadingTag>
               ) : (
                 <div className={titleClassName}>{title}</div>
               )}

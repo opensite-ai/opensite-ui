@@ -10,6 +10,7 @@ import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import { PatternName } from "@/components/ui/pattern-background";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ProjectBackgroundRevealItem {
   heading: string;
@@ -24,6 +25,11 @@ export interface ProjectBackgroundRevealProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Subheading/eyebrow content
    */
@@ -118,6 +124,7 @@ export interface ProjectBackgroundRevealProps {
 export function ProjectBackgroundReveal({
   sectionId = "project-background-reveal",
   heading,
+  headingLevel,
   subheading,
   description,
   buttonText,
@@ -137,6 +144,7 @@ export function ProjectBackgroundReveal({
   listClassName,
   cardClassName,
 }: ProjectBackgroundRevealProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderedProjects = useMemo(() => {
     if (projectsSlot) return projectsSlot;
     if (!projects || projects.length === 0) return null;
@@ -215,14 +223,14 @@ export function ProjectBackgroundReveal({
             ))}
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-3xl font-bold uppercase md:text-7xl",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ) : (
               <div className={headingClassName}>{heading}</div>
             ))}

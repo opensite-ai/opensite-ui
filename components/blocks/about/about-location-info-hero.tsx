@@ -15,6 +15,7 @@ import type {
 } from "../../../src/types";
 import { PatternName } from "../../ui/pattern-background";
 import { Section } from "../../ui/section";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface AboutLocationInfoHeroHours {
   /**
@@ -43,6 +44,11 @@ export interface AboutLocationInfoHeroProps {
    * Main headline text
    */
   headline?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Additional CSS classes for the headline
    */
@@ -159,6 +165,7 @@ export interface AboutLocationInfoHeroProps {
 export function AboutLocationInfoHero({
   sectionId = "about-location-info-hero",
   headline,
+  headingLevel,
   headlineClassName,
   address,
   addressHref,
@@ -186,6 +193,7 @@ export function AboutLocationInfoHero({
   spacing = "py-12 md:py-32",
   optixFlowConfig,
 }: AboutLocationInfoHeroProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const isSingleImage = (images?.length ?? 0) <= 1;
 
   const actionsContent = useMemo(() => {
@@ -335,14 +343,14 @@ export function AboutLocationInfoHero({
           <div className="flex-1 space-y-6 lg:space-y-8">
             {headline &&
               (typeof headline === "string" ? (
-                <h2
+                <HeadingTag
                   className={cn(
                     "text-balance text-3xl font-bold uppercase leading-tight tracking-tight md:text-4xl lg:text-5xl",
                     headlineClassName,
                   )}
                 >
                   {headline}
-                </h2>
+                </HeadingTag>
               ) : (
                 <div className={headlineClassName}>{headline}</div>
               ))}

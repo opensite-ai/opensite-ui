@@ -8,12 +8,12 @@ import { Img } from "@page-speed/img";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Pressable } from "../../../lib/Pressable";
 import { Section } from "../../ui/section";
-import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import type { ActionConfig, SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
-import { ActionConfig } from "@page-speed/maps/components/geo-map";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroOverlayCtaGridCard {
   /**
@@ -51,6 +51,11 @@ export interface HeroOverlayCtaGridProps {
    * Main heading text
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Supporting description text
    */
@@ -175,6 +180,7 @@ export function HeroOverlayCtaGrid({
   badgeIcon,
   badgeSlot,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -198,6 +204,7 @@ export function HeroOverlayCtaGrid({
   logoSlot,
   logoClassName,
 }: HeroOverlayCtaGridProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!badgeText) return null;
@@ -307,14 +314,14 @@ export function HeroOverlayCtaGrid({
           
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "mt-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl text-balance",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ) : (
               heading
             ))}
