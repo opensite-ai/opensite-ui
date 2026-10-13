@@ -8,6 +8,7 @@ import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface TimelineChangelogItem {
   /**
@@ -30,6 +31,11 @@ export interface TimelineChangelogBadgesProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Array of changelog entries
    */
@@ -108,6 +114,7 @@ export interface TimelineChangelogBadgesProps {
 export function TimelineChangelogBadges({
   sectionId = "timeline-changelog-badges",
   heading,
+  headingLevel,
   entries,
   className,
   containerClassName,
@@ -125,6 +132,7 @@ export function TimelineChangelogBadges({
   id,
   style,
 }: TimelineChangelogBadgesProps) {
+  const HeadingTag = headingTag(headingLevel, 2);
   if (!entries || entries.length === 0) {
     return (
       <Section
@@ -138,14 +146,14 @@ export function TimelineChangelogBadges({
         style={style}
       >
         <div className={containerClassName}>
-          <h1
+          <HeadingTag
             className={cn(
               "mb-10 text-center text-3xl font-bold tracking-tighter lg:text-6xl",
               headingClassName,
             )}
           >
             {heading}
-          </h1>
+          </HeadingTag>
         </div>
       </Section>
     );
@@ -163,14 +171,14 @@ export function TimelineChangelogBadges({
       style={style}
     >
       <div className={containerClassName}>
-        <h1
+        <HeadingTag
           className={cn(
             "mb-10 text-center text-3xl font-bold tracking-tighter lg:text-6xl",
             headingClassName,
           )}
         >
           {heading}
-        </h1>
+        </HeadingTag>
         <div className={cn("relative mx-auto max-w-4xl", entriesClassName)}>
           <Separator
             orientation="vertical"

@@ -13,6 +13,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ListAchievementItem {
   /**
@@ -42,6 +43,11 @@ export interface ListAchievementsShowcaseProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Additional CSS classes for the heading
    */
@@ -141,6 +147,7 @@ export interface ListAchievementsShowcaseProps {
 export function ListAchievementsShowcase({
   sectionId = "list-achievements-showcase",
   heading,
+  headingLevel,
   headingClassName,
   items,
   itemsSlot,
@@ -159,6 +166,7 @@ export function ListAchievementsShowcase({
   pattern,
   patternOpacity,
 }: ListAchievementsShowcaseProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const renderItemAction = useMemo(() => {
     return (item: ListAchievementItem) => {
       const action = item.action ?? defaultAction;
@@ -301,14 +309,14 @@ export function ListAchievementsShowcase({
       <div className={cn("px-0 md:px-8", containerClassName)}>
         {heading &&
           (typeof heading === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "mb-10 px-4 text-3xl font-semibold md:mb-14 md:text-4xl",
                 headingClassName,
               )}
             >
               {heading}
-            </h1>
+            </HeadingTag>
           ) : (
             <div className={cn("mb-10 px-4 md:mb-14", headingClassName)}>
               {heading}

@@ -11,12 +11,18 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface AboutMinimalStoryProps {
   /**
    * Main heading/title
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Story content/body text
    */
@@ -98,6 +104,7 @@ export interface AboutMinimalStoryProps {
 export function AboutMinimalStory({
   sectionId = "about-minimal-story",
   title,
+  headingLevel,
   content,
   author,
   authorSlot,
@@ -115,6 +122,7 @@ export function AboutMinimalStory({
   pattern,
   patternOpacity,
 }: AboutMinimalStoryProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const authorContent = useMemo(() => {
     if (authorSlot) return authorSlot;
     if (!author) return null;
@@ -152,14 +160,14 @@ export function AboutMinimalStory({
 
         {title &&
           (typeof title === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "text-4xl font-bold tracking-tight md:text-5xl",
                 titleClassName,
               )}
             >
               {title}
-            </h1>
+            </HeadingTag>
           ) : (
             title
           ))}

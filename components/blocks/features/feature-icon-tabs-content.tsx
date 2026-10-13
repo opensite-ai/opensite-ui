@@ -16,6 +16,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface FeatureIconTabsContentTabContent {
   /**
@@ -112,6 +113,11 @@ export interface FeatureIconTabsContentProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Supporting description content
    */
@@ -231,6 +237,7 @@ export function FeatureIconTabsContent({
   sectionId = "feature-icon-tabs-content",
   badge,
   heading,
+  headingLevel,
   description,
   tabs,
   tabsSlot,
@@ -252,6 +259,7 @@ export function FeatureIconTabsContent({
   patternOpacity,
   patternClassName,
 }: FeatureIconTabsContentProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const renderTabIcon = useCallback((tab: FeatureIconTabsContentTab) => {
     if (tab.icon) return <DynamicIcon name={tab.icon} size={16} />;
     if (tab.iconName) return <DynamicIcon name={tab.iconName} size={16} />;
@@ -492,14 +500,14 @@ export function FeatureIconTabsContent({
             )}
             {heading &&
               (typeof heading === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "max-w-4xl text-3xl font-semibold md:text-6xl text-balance",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
                 <div
                   className={cn(

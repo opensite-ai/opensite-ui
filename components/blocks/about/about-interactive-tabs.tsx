@@ -41,7 +41,7 @@ export interface AboutInteractiveTabsProps {
    */
   title?: React.ReactNode;
   /**
-   * Heading level for the primary title. Defaults to 1. Page renderers
+   * Heading level for the primary title. Defaults to 2. Page renderers
    * pass 1 for the block that leads the page and 2 elsewhere.
    */
   headingLevel?: HeadingLevel;
@@ -154,7 +154,7 @@ export function AboutInteractiveTabs({
   pattern,
   patternOpacity,
 }: AboutInteractiveTabsProps): React.JSX.Element {
-  const HeadingTag = headingTag(headingLevel, 1);
+  const HeadingTag = headingTag(headingLevel, 2);
   const [activeTab, setActiveTab] = React.useState(tabs?.[0]?.id ?? "");
 
   const activeContent = useMemo(() => {

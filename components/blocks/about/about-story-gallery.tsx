@@ -12,6 +12,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface GalleryImageItem {
   src: string;
@@ -32,6 +33,11 @@ export interface AboutStoryGalleryProps {
    * Main title
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Additional CSS classes for the title
    */
@@ -84,6 +90,7 @@ export function AboutStoryGallery({
   sectionId = "about-story-gallery",
   className,
   title,
+  headingLevel,
   titleClassName,
   description,
   descriptionClassName,
@@ -97,6 +104,7 @@ export function AboutStoryGallery({
   pattern,
   patternOpacity,
 }: AboutStoryGalleryProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
@@ -177,14 +185,14 @@ export function AboutStoryGallery({
       <div className="mx-auto max-w-3xl text-center">
         {title &&
           (typeof title === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "text-4xl font-bold tracking-tight md:text-5xl text-balance",
                 titleClassName,
               )}
             >
               {title}
-            </h1>
+            </HeadingTag>
           ) : (
             <div className={titleClassName}>{title}</div>
           ))}

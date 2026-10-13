@@ -13,6 +13,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ListFeatureComparisonFeature {
   /**
@@ -65,6 +66,11 @@ export interface ListFeatureComparisonProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Additional CSS classes for the heading
    */
@@ -203,6 +209,7 @@ export function ListFeatureComparison({
   badgeSlot,
   badgeClassName,
   heading,
+  headingLevel,
   headingClassName,
   description,
   descriptionClassName,
@@ -228,6 +235,7 @@ export function ListFeatureComparison({
   pattern,
   patternOpacity,
 }: ListFeatureComparisonProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
     if (!badge) return null;
@@ -433,14 +441,14 @@ export function ListFeatureComparison({
       <div className="mb-6 text-center">
         {heading &&
           (typeof heading === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "text-primary mx-auto mb-4 max-w-4xl text-4xl leading-tight font-semibold tracking-tight text-balance lg:leading-[1.1] lg:font-semibold xl:text-5xl xl:tracking-tighter",
                 headingClassName,
               )}
             >
               {heading}
-            </h1>
+            </HeadingTag>
           ) : (
             <div className={cn("mx-auto mb-4 max-w-4xl", headingClassName)}>
               {heading}

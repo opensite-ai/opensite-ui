@@ -22,7 +22,7 @@ export interface AboutMissionFeaturesProps {
    */
   title?: React.ReactNode;
   /**
-   * Heading level for the primary title. Defaults to 1. Page renderers
+   * Heading level for the primary title. Defaults to 2. Page renderers
    * pass 1 for the block that leads the page and 2 elsewhere.
    */
   headingLevel?: HeadingLevel;
@@ -171,7 +171,7 @@ export function AboutMissionFeatures({
   pattern,
   patternOpacity,
 }: AboutMissionFeaturesProps): React.JSX.Element {
-  const HeadingTag = headingTag(headingLevel, 1);
+  const HeadingTag = headingTag(headingLevel, 2);
   const featuresContent = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;

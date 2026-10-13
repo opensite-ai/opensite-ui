@@ -12,12 +12,18 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface CtaPatternBackgroundProps {
   /**
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description content below the heading
    */
@@ -98,6 +104,7 @@ export interface CtaPatternBackgroundProps {
 export function CtaPatternBackground({
   sectionId = "cta-pattern-background",
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -113,6 +120,7 @@ export function CtaPatternBackground({
   pattern,
   patternOpacity,
 }: CtaPatternBackgroundProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const actionsContent = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
@@ -171,14 +179,14 @@ export function CtaPatternBackground({
           <div className={cn("mx-auto max-w-3xl", contentClassName)}>
             {heading && (
               typeof heading === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "mb-4 text-3xl font-semibold text-balance md:text-5xl",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
                 <div className={cn("mb-4", headingClassName)}>{heading}</div>
               )

@@ -11,6 +11,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ShowcaseImageItem {
   src: string;
@@ -63,6 +64,11 @@ export interface AboutStatsShowcaseProps {
    * Main title
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Additional CSS classes for the title
    */
@@ -175,6 +181,7 @@ export function AboutStatsShowcase({
   sectionId = "about-stats-showcase",
   className,
   title,
+  headingLevel,
   titleClassName,
   description,
   descriptionClassName,
@@ -203,6 +210,7 @@ export function AboutStatsShowcase({
   pattern,
   patternOpacity,
 }: AboutStatsShowcaseProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const imagesContent = useMemo(() => {
     if (imagesSlot) return imagesSlot;
     if (!images || images.length === 0) return null;
@@ -462,14 +470,14 @@ export function AboutStatsShowcase({
           <div className="mx-auto flex max-w-3xl flex-col gap-6">
             {title &&
               (typeof title === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-4xl font-medium md:text-6xl text-balance",
                     titleClassName,
                   )}
                 >
                   {title}
-                </h1>
+                </HeadingTag>
               ) : (
                 title
               ))}

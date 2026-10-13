@@ -160,7 +160,7 @@ export interface ContactCareersProps {
    */
   heading?: React.ReactNode;
   /**
-   * Heading level for the primary title. Defaults to 1. Page renderers
+   * Heading level for the primary title. Defaults to 2. Page renderers
    * pass 1 for the block that leads the page and 2 elsewhere.
    */
   headingLevel?: HeadingLevel;
@@ -322,7 +322,7 @@ export function ContactCareers({
   formCardTitle,
   formCardDescription,
 }: ContactCareersProps): React.JSX.Element {
-  const HeadingTag = headingTag(headingLevel, 1);
+  const HeadingTag = headingTag(headingLevel, 2);
   // Memoize the job listings accordion content
   const jobListingsContent = useMemo(() => {
     if (sidebarComponent) return sidebarComponent;

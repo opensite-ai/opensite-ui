@@ -8,6 +8,7 @@ import { Separator } from "../../ui/separator";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface TimelinePhase {
   id: number;
@@ -21,6 +22,11 @@ export interface TimelineHorizontalPhasesProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Current active phase index (0-based)
    */
@@ -107,6 +113,7 @@ export interface TimelineHorizontalPhasesProps {
 export function TimelineHorizontalPhases({
   sectionId = "timeline-horizontal-phases",
   heading,
+  headingLevel,
   currentPhase,
   phases,
   className,
@@ -126,6 +133,7 @@ export function TimelineHorizontalPhases({
   id,
   style,
 }: TimelineHorizontalPhasesProps) {
+  const HeadingTag = headingTag(headingLevel, 2);
   const safeCurrentPhase =
     (phases?.length ?? 0) > 0
       ? Math.max(0, Math.min(currentPhase ?? 0, (phases?.length ?? 1) - 1))
@@ -144,14 +152,14 @@ export function TimelineHorizontalPhases({
         style={style}
       >
         <div className={cn("flex flex-col items-center", containerClassName)}>
-          <h1
+          <HeadingTag
             className={cn(
               "mb-10 text-center text-3xl font-bold tracking-tighter sm:text-6xl",
               headingClassName,
             )}
           >
             {heading}
-          </h1>
+          </HeadingTag>
         </div>
       </Section>
     );
@@ -169,14 +177,14 @@ export function TimelineHorizontalPhases({
       style={style}
     >
       <div className={cn("flex flex-col items-center", containerClassName)}>
-        <h1
+        <HeadingTag
           className={cn(
             "mb-10 text-center text-3xl font-bold tracking-tighter sm:text-6xl",
             headingClassName,
           )}
         >
           {heading}
-        </h1>
+        </HeadingTag>
         <Card
           className={cn(
             "relative w-full border-none shadow-none md:py-16",

@@ -13,6 +13,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface LogosCarouselHeadingLogoItem {
   /**
@@ -42,6 +43,11 @@ export interface LogosCarouselHeadingProps {
    * Main heading text
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Additional CSS classes for the heading
    */
@@ -114,6 +120,7 @@ export function LogosCarouselHeading({
   sectionId = "logos-carousel-heading",
   className,
   heading,
+  headingLevel,
   headingClassName,
   headerClassName,
   logos,
@@ -130,6 +137,7 @@ export function LogosCarouselHeading({
   patternOpacity,
   optixFlowConfig,
 }: LogosCarouselHeadingProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const renderLogos = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
@@ -188,14 +196,14 @@ export function LogosCarouselHeading({
           )}
         >
           {typeof heading === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "my-6 text-2xl font-bold text-pretty lg:text-4xl",
                 headingClassName,
               )}
             >
               {heading}
-            </h1>
+            </HeadingTag>
           ) : (
             <div className={headingClassName}>{heading}</div>
           )}

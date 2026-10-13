@@ -11,6 +11,7 @@ import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIcons
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface TimelineStep {
   title: React.ReactNode;
@@ -24,6 +25,11 @@ export interface TimelineStepperAnimatedProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Array of timeline steps
    */
@@ -218,6 +224,7 @@ const NavButtons = React.memo<{
 export function TimelineStepperAnimated({
   sectionId = "timeline-stepper-animated",
   heading,
+  headingLevel,
   steps,
   initialStep,
   className,
@@ -237,6 +244,7 @@ export function TimelineStepperAnimated({
   style,
   optixFlowConfig,
 }: TimelineStepperAnimatedProps) {
+  const HeadingTag = headingTag(headingLevel, 2);
   const safeInitialStep =
     (steps?.length ?? 0) > 0
       ? Math.max(0, Math.min(initialStep ?? 0, (steps?.length ?? 1) - 1))
@@ -274,14 +282,14 @@ export function TimelineStepperAnimated({
             containerClassName,
           )}
         >
-          <h1
+          <HeadingTag
             className={cn(
               "mb-10 text-center text-6xl font-bold tracking-tighter",
               headingClassName,
             )}
           >
             {heading}
-          </h1>
+          </HeadingTag>
         </div>
       </Section>
     );
@@ -304,14 +312,14 @@ export function TimelineStepperAnimated({
           containerClassName,
         )}
       >
-        <h1
+        <HeadingTag
           className={cn(
             "mb-10 text-center text-6xl font-bold tracking-tighter",
             headingClassName,
           )}
         >
           {heading}
-        </h1>
+        </HeadingTag>
         <div className={processBarClassName}>
           <ProcessBar currentStep={safeCurrentStep} steps={steps} />
         </div>

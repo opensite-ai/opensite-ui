@@ -14,6 +14,7 @@ import type {
 import type { PatternName } from "../../ui/pattern-background";
 import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIconsAndPlaceholders";
 import { patternSvgs } from "../../../lib/patternSvgs";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Social link for team member
@@ -42,6 +43,11 @@ export interface TeamGridAnimatedProps {
    * @default "TEAM"
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Section description
    */
@@ -166,6 +172,7 @@ export interface TeamGridAnimatedProps {
 export function TeamGridAnimated({
   sectionId = "team-grid-animated",
   title,
+  headingLevel,
   description,
   members,
   membersSlot,
@@ -189,6 +196,7 @@ export function TeamGridAnimated({
   socialLinksClassName,
   optixFlowConfig,
 }: TeamGridAnimatedProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const cardColors = [
     "hsl(var(--destructive)/0.1)",
     "hsl(var(--muted))",
@@ -332,7 +340,7 @@ export function TeamGridAnimated({
           <div className="grid gap-2 text-center md:text-left">
             {title &&
               (typeof title === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl",
                     getTextColor(background, "muted"),
@@ -343,7 +351,7 @@ export function TeamGridAnimated({
                     O U R
                   </span>
                   {title}
-                </h1>
+                </HeadingTag>
               ) : (
                 <div className={titleClassName}>{title}</div>
               ))}

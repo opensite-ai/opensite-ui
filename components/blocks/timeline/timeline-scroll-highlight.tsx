@@ -8,6 +8,7 @@ import { blockBrandedIconsAndPlaceholders } from "../../../lib/blockBrandedIcons
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface TimelineScrollItem {
   title: React.ReactNode;
@@ -22,6 +23,11 @@ export interface TimelineScrollHighlightProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Array of timeline items
    */
@@ -104,6 +110,7 @@ export interface TimelineScrollHighlightProps {
 export function TimelineScrollHighlight({
   sectionId = "timeline-scroll-highlight",
   heading,
+  headingLevel,
   items,
   className,
   containerClassName,
@@ -123,6 +130,7 @@ export function TimelineScrollHighlight({
   style,
   optixFlowConfig,
 }: TimelineScrollHighlightProps) {
+  const HeadingTag = headingTag(headingLevel, 2);
   const [activeIndex, setActiveIndex] = useState(0);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -183,14 +191,14 @@ export function TimelineScrollHighlight({
       >
         <div className={containerClassName}>
           {heading && (
-            <h1
+            <HeadingTag
               className={cn(
                 "max-w-4xl text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl",
                 headingClassName,
               )}
             >
               {heading}
-            </h1>
+            </HeadingTag>
           )}
         </div>
       </Section>
@@ -210,14 +218,14 @@ export function TimelineScrollHighlight({
     >
       <div className={containerClassName}>
         {heading && (
-          <h1
+          <HeadingTag
             className={cn(
               "max-w-4xl text-4xl font-medium tracking-tight md:text-5xl lg:text-6xl",
               headingClassName,
             )}
           >
             {heading}
-          </h1>
+          </HeadingTag>
         )}
       </div>
       <div className="relative mt-16 lg:mt-28">

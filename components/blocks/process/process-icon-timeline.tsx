@@ -49,7 +49,7 @@ export interface ProcessIconTimelineProps {
    */
   heading?: React.ReactNode;
   /**
-   * Heading level for the primary title. Defaults to 1. Page renderers
+   * Heading level for the primary title. Defaults to 2. Page renderers
    * pass 1 for the block that leads the page and 2 elsewhere.
    */
   headingLevel?: HeadingLevel;
@@ -154,7 +154,7 @@ export function ProcessIconTimeline({
   patternOpacity,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: ProcessIconTimelineProps): React.JSX.Element {
-  const HeadingTag = headingTag(headingLevel, 1);
+  const HeadingTag = headingTag(headingLevel, 2);
   // Handle backwards compatibility
   const resolvedHeading = heading;
 
