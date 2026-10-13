@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.0] - 2026-10-13
+
+### Added
+
+- `headingLevel?: HeadingLevel` (1-6) on the primary title of 193 blocks. Page renderers pass `1` to the block that leads the page and `2` everywhere else, so each page has exactly one `<h1>`. Omitting the prop keeps the block's default.
+- `HeadingLevel` and `HeadingTagName` types, exported from `@opensite/ui` and `@opensite/ui/types`. Blocks resolve the tag with an internal `headingTag()` helper (`lib/heading-level`).
+- Heading contract: `BLOCK_HEADING_CONTRACT`, `getBlockHeadingContract()` and `BlockHeadingContract` from `@opensite/ui/registry/metadata` (title prop, default level, `canLeadPage`, eyebrow props). Builder-contract bundle blocks carry `headingContract`, or `null` when the block doesn't accept `headingLevel`.
+
+### Changed
+
+- 38 section-only blocks (about, carousel, comparison, contact, cta, features, list, logos, process, team, timeline) now render their title as `<h2>` by default instead of `<h1>`. Pass `headingLevel={1}` when one of them leads a page. Classes are unchanged.
+- In 17 blocks, a string `badge`, `badgeText`, `eyebrow`, `tagline`, `label` or `overline` rendered directly above a heading is now a `<span>` with `block` prepended to its classes, instead of a `<p>`. Rendering is unchanged.
+
+### Fixed
+
+- `hero-announcement-badge` no longer nests a `<p>` inside its badge `<span>`.
+- The published type declarations of 8 blocks (`carousel-feature-badge`, `hero-overlay-cta-grid` and six testimonials blocks) no longer import `ActionConfig` from `@page-speed/maps/components/geo-map`; they use the package's own `ActionConfig`. Unlike the maps type, it has no index signature, so TypeScript callers that pass unlisted keys in `actions` get an excess-property error.
+- `dist/button.js` and `dist/button.cjs` now start with `"use client"`.
+- `validate-exports.mjs` checks both fixes after a build.
+
 ## [0.4.0] - 2026-01-14
 
 ### Breaking Changes
