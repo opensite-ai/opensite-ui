@@ -290,14 +290,14 @@ export function HeroImageSlider({
       >
         {eyebrow ? (
           typeof eyebrow === "string" ? (
-            <p
+            <span
               className={cn(
-                "text-xs font-semibold uppercase tracking-[0.3em] text-white/80",
+                "block text-xs font-semibold uppercase tracking-[0.3em] text-white/80",
                 eyebrowClassName,
               )}
             >
               {eyebrow}
-            </p>
+            </span>
           ) : (
             eyebrow
           )

@@ -212,7 +212,7 @@ export function CtaSplitGradientImage({
           >
             {label && (
               typeof label === "string" ? (
-                <p className={cn("mb-6 font-medium", labelClassName)}>{label}</p>
+                <span className={cn("block mb-6 font-medium", labelClassName)}>{label}</span>
               ) : (
                 <div className={cn("mb-6", labelClassName)}>{label}</div>
               )

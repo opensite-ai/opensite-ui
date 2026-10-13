@@ -309,14 +309,14 @@ export function HeroCreativeStudioStacked({
             <div className={cn("flex flex-col gap-6", contentClassName)}>
               {tagline &&
                 (typeof tagline === "string" ? (
-                  <p
+                  <span
                     className={cn(
-                      "text-sm font-medium tracking-wider uppercase",
+                      "block text-sm font-medium tracking-wider uppercase",
                       taglineClassName,
                     )}
                   >
                     {tagline}
-                  </p>
+                  </span>
                 ) : (
                   <div className={taglineClassName}>{tagline}</div>
                 ))}

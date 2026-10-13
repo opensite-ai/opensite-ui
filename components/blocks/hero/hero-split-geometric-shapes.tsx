@@ -291,7 +291,7 @@ export function HeroSplitGeometricShapes({
             >
               {badgeText &&
                 (typeof badgeText === "string" ? (
-                  <p>{badgeText}</p>
+                  <span className="block">{badgeText}</span>
                 ) : (
                   badgeText
                 ))}

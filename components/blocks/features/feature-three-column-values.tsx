@@ -235,7 +235,7 @@ export function FeatureThreeColumnValues({
           <div className="flex flex-col space-y-4">
             {label &&
               (typeof label === "string" ? (
-                <p className={cn("text-sm", labelClassName)}>{label}</p>
+                <span className={cn("block text-sm", labelClassName)}>{label}</span>
               ) : (
                 <div className={cn("text-sm", labelClassName)}>{label}</div>
               ))}

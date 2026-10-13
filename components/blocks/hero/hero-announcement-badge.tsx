@@ -149,7 +149,7 @@ export function HeroAnnouncementBadge({
               </span>
             )}
             {typeof badge === "string" ? (
-              <p className="truncate whitespace-nowrap pr-2">{badge}</p>
+              <span className="block truncate whitespace-nowrap pr-2">{badge}</span>
             ) : (
               badge
             )}

@@ -188,14 +188,14 @@ export function HeroArchitectureFullscreen({
           <div className="relative">
             {tagline &&
               (typeof tagline === "string" ? (
-                <p
+                <span
                   className={cn(
-                    "text-sm leading-none uppercase text-balance text-white text-shadow-lg",
+                    "block text-sm leading-none uppercase text-balance text-white text-shadow-lg",
                     taglineClassName,
                   )}
                 >
                   {tagline}
-                </p>
+                </span>
               ) : (
                 <div className={taglineClassName}>{tagline}</div>
               ))}

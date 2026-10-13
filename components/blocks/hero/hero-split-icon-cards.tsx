@@ -243,13 +243,13 @@ export function HeroSplitIconCards({
             <>
               {eyebrow &&
                 (typeof eyebrow === "string" ? (
-                  <p
+                  <span
                     className={cn(
-                      "text-xs font-semibold uppercase tracking-[0.25em]",
+                      "block text-xs font-semibold uppercase tracking-[0.25em]",
                     )}
                   >
                     {eyebrow}
-                  </p>
+                  </span>
                 ) : (
                   eyebrow
                 ))}

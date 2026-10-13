@@ -163,14 +163,14 @@ export function HeroCrmStreamlined({
             <div className="mt-14 md:mt-0 flex flex-col gap-2">
               {tagline &&
                 (typeof tagline === "string" ? (
-                  <p
+                  <span
                     className={cn(
-                      "text-base font-medium tracking-wider opacity-70 pb-6 uppercase",
+                      "block text-base font-medium tracking-wider opacity-70 pb-6 uppercase",
                       taglineClassName,
                     )}
                   >
                     {tagline}
-                  </p>
+                  </span>
                 ) : (
                   <div className={taglineClassName}>{tagline}</div>
                 ))}
