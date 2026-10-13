@@ -15,6 +15,7 @@ import type {
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroFullscreenLogoCtaProps {
   /**
@@ -29,6 +30,11 @@ export interface HeroFullscreenLogoCtaProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -94,6 +100,7 @@ export function HeroFullscreenLogoCta({
   logo,
   logoSlot,
   heading,
+  headingLevel,
   description,
   action,
   actionSlot,
@@ -109,6 +116,7 @@ export function HeroFullscreenLogoCta({
   descriptionClassName,
   optixFlowConfig,
 }: HeroFullscreenLogoCtaProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderBackground = useMemo(() => {
     if (!backgroundImage) return null;
 
@@ -194,23 +202,23 @@ export function HeroFullscreenLogoCta({
           <div className={cn("flex w-full flex-col gap-8 md:w-2/3")}>
             {heading &&
               (typeof heading === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-5xl md:text-6xl lg:text-7xl",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-5xl md:text-6xl lg:text-7xl",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ))}
             {description &&
               (typeof description === "string" ? (

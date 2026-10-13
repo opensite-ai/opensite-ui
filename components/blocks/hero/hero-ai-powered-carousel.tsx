@@ -18,6 +18,7 @@ import type {
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroAiPoweredCarouselProps {
   /**
@@ -32,6 +33,11 @@ export interface HeroAiPoweredCarouselProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -125,6 +131,7 @@ export function HeroAiPoweredCarousel({
   badge,
   badgeTagline,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -147,6 +154,7 @@ export function HeroAiPoweredCarousel({
   logoSlot,
   logoClassName,
 }: HeroAiPoweredCarouselProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   return (
     <Section
       id={sectionId}
@@ -184,14 +192,14 @@ export function HeroAiPoweredCarousel({
 
             {heading &&
               (typeof heading === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-3xl font-semibold lg:text-5xl text-balance",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
                 heading
               ))}

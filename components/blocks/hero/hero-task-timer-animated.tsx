@@ -13,12 +13,18 @@ import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroTaskTimerAnimatedProps {
   /**
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Custom slot for heading (overrides heading prop)
    */
@@ -113,6 +119,7 @@ const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
 export function HeroTaskTimerAnimated({
   sectionId = "hero-task-timer-animated",
   heading,
+  headingLevel,
   headingSlot,
   description,
   actions,
@@ -134,6 +141,7 @@ export function HeroTaskTimerAnimated({
   logoSlot,
   logoClassName,
 }: HeroTaskTimerAnimatedProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const initialTotal = timerMinutes * 60 + timerSeconds;
   const [remaining, setRemaining] = useState(initialTotal);
   const [activeTaskIndex, setActiveTaskIndex] = useState(0);
@@ -166,18 +174,18 @@ export function HeroTaskTimerAnimated({
     if (!heading) return null;
 
     return typeof heading === "string" ? (
-      <h1
+      <HeadingTag
         className={cn(
           "max-w-3xl text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance",
           headingClassName,
         )}
       >
         {heading}
-      </h1>
+      </HeadingTag>
     ) : (
       heading
     );
-  }, [headingSlot, heading, headingClassName]);
+  }, [headingSlot, heading, headingClassName, HeadingTag]);
 
   return (
     <Section

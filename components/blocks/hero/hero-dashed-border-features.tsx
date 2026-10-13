@@ -16,6 +16,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroDashedBorderFeaturesProps {
   /**
@@ -51,6 +52,11 @@ export interface HeroDashedBorderFeaturesProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -129,6 +135,7 @@ export function HeroDashedBorderFeatures({
   announcementHref,
   announcementSlot,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -146,6 +153,7 @@ export function HeroDashedBorderFeatures({
   actionsClassName,
   featuresClassName,
 }: HeroDashedBorderFeaturesProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderAnnouncement = useMemo(() => {
     if (announcementSlot) return announcementSlot;
     if (!announcementText || !badgeText) return null;
@@ -286,14 +294,14 @@ export function HeroDashedBorderFeatures({
             )}
             {heading &&
               (typeof heading === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "my-4 mb-6 text-center text-3xl font-semibold lg:text-8xl text-balance",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
                 heading
               ))}

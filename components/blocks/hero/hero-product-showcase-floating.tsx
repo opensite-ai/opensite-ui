@@ -19,6 +19,7 @@ import { Badge } from "@/src";
 import { ContentGroup, ContentGroupItem } from "@/components/ui/content-group";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface FloatingStatItem {
   /**
@@ -71,6 +72,11 @@ export interface HeroProductShowcaseFloatingProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -181,6 +187,7 @@ export function HeroProductShowcaseFloating({
   badgeIcon,
   badgeSlot,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -207,6 +214,7 @@ export function HeroProductShowcaseFloating({
   logoSlot,
   logoClassName,
 }: HeroProductShowcaseFloatingProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const renderBadge = useMemo(() => {
     if (badgeSlot) return badgeSlot;
 
@@ -312,7 +320,7 @@ export function HeroProductShowcaseFloating({
       if (typeof heading === "string") {
         items.push({
           _type: "text",
-          as: "h2",
+          as: HeadingTag,
           className: cn(
             "text-3xl md:text-4xl lg:text-5xl",
             "font-semibold text-balance",
@@ -342,7 +350,7 @@ export function HeroProductShowcaseFloating({
     }
 
     return items;
-  }, [heading, headingClassName, description, descriptionClassName]);
+  }, [heading, headingClassName, description, descriptionClassName, HeadingTag]);
 
   return (
     <Section

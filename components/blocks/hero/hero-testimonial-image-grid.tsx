@@ -16,6 +16,7 @@ import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Configuration for the testimonial section
@@ -65,6 +66,11 @@ export interface HeroTestimonialImageGridProps {
    * Main heading text
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Supporting description text
    */
@@ -159,6 +165,7 @@ export interface HeroTestimonialImageGridProps {
 export function HeroTestimonialImageGrid({
   sectionId = "hero-testimonial-image-grid",
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -180,6 +187,7 @@ export function HeroTestimonialImageGrid({
   logoSlot,
   logoClassName,
 }: HeroTestimonialImageGridProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderTestimonial = useMemo(() => {
     if (testimonialSlot) return testimonialSlot;
     if (!testimonial || !testimonial.avatars) return null;
@@ -265,23 +273,23 @@ export function HeroTestimonialImageGrid({
               
               {heading &&
                 (typeof heading === "string" ? (
-                  <h1
+                  <HeadingTag
                     className={cn(
                       "leading-tighter max-w-[80%] text-4xl font-semibold tracking-tight lg:text-5xl xl:text-7xl text-balance",
                       headingClassName,
                     )}
                   >
                     {heading}
-                  </h1>
+                  </HeadingTag>
                 ) : (
-                  <h1
+                  <HeadingTag
                     className={cn(
                       "leading-tighter max-w-[80%] text-4xl font-semibold tracking-tight lg:text-5xl xl:text-7xl text-balance",
                       headingClassName,
                     )}
                   >
                     {heading}
-                  </h1>
+                  </HeadingTag>
                 ))}
               {description &&
                 (typeof description === "string" ? (

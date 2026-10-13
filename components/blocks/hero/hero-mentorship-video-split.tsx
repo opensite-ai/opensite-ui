@@ -30,12 +30,18 @@ import type {
 } from "../../../src/types";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroMentorshipVideoSplitProps {
   /**
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -133,6 +139,7 @@ export interface HeroMentorshipVideoSplitProps {
 export function HeroMentorshipVideoSplit({
   videoAspectRatio = "horizontal",
   heading,
+  headingLevel,
   description,
   action,
   actionSlot,
@@ -156,6 +163,7 @@ export function HeroMentorshipVideoSplit({
   imageClassName,
   optixFlowConfig,
 }: HeroMentorshipVideoSplitProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [skinClasses, setSkinClasses] = useState<any>(null);
   const [skinStyle, setSkinStyle] = useState<any>(null);
@@ -302,14 +310,14 @@ export function HeroMentorshipVideoSplit({
                 <div className="flex max-w-165 flex-col gap-5 md:gap-8">
                   {heading &&
                     (typeof heading === "string" ? (
-                      <h1
+                      <HeadingTag
                         className={cn(
                           "text-4xl font-semibold lg:text-8xl text-balance text-shadow-lg leading-none",
                           headingClassName,
                         )}
                       >
                         {heading}
-                      </h1>
+                      </HeadingTag>
                     ) : (
                       heading
                     ))}

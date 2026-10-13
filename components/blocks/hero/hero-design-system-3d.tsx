@@ -18,6 +18,7 @@ import type {
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroDesignSystem3dProps {
   /**
@@ -32,6 +33,11 @@ export interface HeroDesignSystem3dProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -125,6 +131,7 @@ export function HeroDesignSystem3d({
   trustBadge,
   trustBadgeSlot,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -147,6 +154,7 @@ export function HeroDesignSystem3d({
   logoSlot,
   logoClassName,
 }: HeroDesignSystem3dProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderTrustBadge = useMemo(() => {
     if (trustBadgeSlot) return trustBadgeSlot;
 
@@ -259,23 +267,23 @@ export function HeroDesignSystem3d({
               
               {heading &&
                 (typeof heading === "string" ? (
-                  <h1
+                  <HeadingTag
                     className={cn(
                       "text-center text-[2.8125rem] leading-none font-bold sm:text-[3.9375rem] lg:text-[5.3125rem]",
                       headingClassName,
                     )}
                   >
                     {heading}
-                  </h1>
+                  </HeadingTag>
                 ) : (
-                  <h1
+                  <HeadingTag
                     className={cn(
                       "text-center text-[2.8125rem] leading-none font-bold sm:text-[3.9375rem] lg:text-[5.3125rem]",
                       headingClassName,
                     )}
                   >
                     {heading}
-                  </h1>
+                  </HeadingTag>
                 ))}
             </div>
             {description &&

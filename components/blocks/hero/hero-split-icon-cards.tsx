@@ -11,6 +11,7 @@ import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroSplitIconCardsItem {
   /**
@@ -40,6 +41,11 @@ export interface HeroSplitIconCardsProps {
    * Hero heading text
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 2. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Supporting description text
    */
@@ -137,6 +143,7 @@ export function HeroSplitIconCards({
   sectionId = "hero-split-icon-cards",
   eyebrow,
   heading,
+  headingLevel,
   description,
   primaryCta,
   secondaryCta,
@@ -158,6 +165,7 @@ export function HeroSplitIconCards({
   logoSlot,
   logoClassName,
 }: HeroSplitIconCardsProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!primaryCta && !secondaryCta) return null;
@@ -253,23 +261,23 @@ export function HeroSplitIconCards({
 
               {heading &&
                 (typeof heading === "string" ? (
-                  <h2
+                  <HeadingTag
                     className={cn(
                       "text-3xl font-bold md:text-4xl",
                       headingClassName,
                     )}
                   >
                     {heading}
-                  </h2>
+                  </HeadingTag>
                 ) : (
-                  <h2
+                  <HeadingTag
                     className={cn(
                       "text-3xl font-bold md:text-4xl",
                       headingClassName,
                     )}
                   >
                     {heading}
-                  </h2>
+                  </HeadingTag>
                 ))}
               {description &&
                 (typeof description === "string" ? (

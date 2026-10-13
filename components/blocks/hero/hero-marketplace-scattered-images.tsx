@@ -18,12 +18,18 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroMarketplaceScatteredImagesProps {
   /**
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -119,6 +125,7 @@ export interface HeroMarketplaceScatteredImagesProps {
 export function HeroMarketplaceScatteredImages({
   sectionId = "hero-marketplace-scattered-images",
   heading,
+  headingLevel,
   description,
   action,
   actionSlot,
@@ -142,6 +149,7 @@ export function HeroMarketplaceScatteredImages({
   logoSlot,
   logoClassName,
 }: HeroMarketplaceScatteredImagesProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
@@ -302,23 +310,23 @@ export function HeroMarketplaceScatteredImages({
           
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "mb-3 text-4xl lg:text-7xl text-balance",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ) : (
-              <h1
+              <HeadingTag
                 className={cn(
                   "mb-3 text-4xl lg:text-7xl text-balance",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ))}
           {description &&
             (typeof description === "string" ? (

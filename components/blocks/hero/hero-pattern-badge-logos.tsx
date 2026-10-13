@@ -16,6 +16,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroPatternBadgeLogosProps {
   /**
@@ -26,6 +27,11 @@ export interface HeroPatternBadgeLogosProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -111,6 +117,7 @@ export function HeroPatternBadgeLogos({
   sectionId = "hero-pattern-badge-logos",
   badge,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -131,6 +138,7 @@ export function HeroPatternBadgeLogos({
   logosClassName,
   optixFlowConfig,
 }: HeroPatternBadgeLogosProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderActions = useMemo(() => {
     if (actionsSlot) return actionsSlot;
     if (!actions || actions.length === 0) return null;
@@ -255,14 +263,14 @@ export function HeroPatternBadgeLogos({
             <div>
               {heading &&
                 (typeof heading === "string" ? (
-                  <h1
+                  <HeadingTag
                     className={cn(
                       "mb-6 text-4xl font-bold tracking-tight text-balance md:text-5xl lg:text-7xl",
                       headingClassName,
                     )}
                   >
                     {heading}
-                  </h1>
+                  </HeadingTag>
                 ) : (
                   heading
                 ))}

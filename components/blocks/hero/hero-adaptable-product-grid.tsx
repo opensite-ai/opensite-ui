@@ -14,12 +14,18 @@ import type {
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroAdaptableProductGridProps {
   /**
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -111,6 +117,7 @@ export interface HeroAdaptableProductGridProps {
 export function HeroAdaptableProductGrid({
   sectionId = "hero-adaptable-product-grid",
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -133,6 +140,7 @@ export function HeroAdaptableProductGrid({
   logoSlot,
   logoClassName,
 }: HeroAdaptableProductGridProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   return (
     <Section
       id={sectionId}
@@ -152,14 +160,14 @@ export function HeroAdaptableProductGrid({
 
         {heading &&
           (typeof heading === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "text-5xl lg:text-7xl font-semibold text-pretty",
                 headingClassName,
               )}
             >
               {heading}
-            </h1>
+            </HeadingTag>
           ) : (
             <div className={headingClassName}>{heading}</div>
           ))}

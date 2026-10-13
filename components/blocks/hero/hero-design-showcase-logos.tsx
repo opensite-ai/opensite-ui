@@ -16,12 +16,18 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { BlockActions } from "@/components/ui/block-actions";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroDesignShowcaseLogosProps {
   /**
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -113,6 +119,7 @@ export interface HeroDesignShowcaseLogosProps {
 export function HeroDesignShowcaseLogos({
   sectionId = "hero-design-showcase-logos",
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -135,6 +142,7 @@ export function HeroDesignShowcaseLogos({
   showcaseClassName,
   optixFlowConfig,
 }: HeroDesignShowcaseLogosProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderLogos = useMemo(() => {
     if (logosSlot) return logosSlot;
     if (!logos || logos.length === 0) return null;
@@ -221,23 +229,23 @@ export function HeroDesignShowcaseLogos({
           <div className="flex max-w-[920px] flex-col items-center gap-6">
             {heading &&
               (typeof heading === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "mb-6 text-center text-[2.75rem] leading-tight font-semibold md:text-[3.5rem] lg:text-[4.375rem] text-balance max-w-full md:max-w-md",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
-                <h1
+                <HeadingTag
                   className={cn(
                     "mb-6 text-center text-[2.75rem] leading-tight font-semibold md:text-[3.5rem] lg:text-[4.375rem] text-balance max-w-full md:max-w-md",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ))}
             {description &&
               (typeof description === "string" ? (

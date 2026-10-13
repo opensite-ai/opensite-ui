@@ -18,6 +18,7 @@ import type {
 import { BlockActions } from "@/components/ui/block-actions";
 import { LogoConfig } from "../navbars/types";
 import BrandLogo from "@/components/ui/brand-logo";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Image configuration for the gallery section.
@@ -68,6 +69,11 @@ export interface HeroFloatingImagesProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -207,6 +213,7 @@ export function HeroFloatingImages({
   badge,
   badgeIcon,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -233,6 +240,7 @@ export function HeroFloatingImages({
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
   spacing = "py-32 md:py-32",
 }: HeroFloatingImagesProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
@@ -477,14 +485,14 @@ export function HeroFloatingImages({
             )}
             {heading &&
               (typeof heading === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-pretty",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
                 heading
               ))}

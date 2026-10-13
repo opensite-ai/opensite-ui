@@ -23,6 +23,7 @@ import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   formContainer: "",
@@ -67,6 +68,11 @@ export interface HeroImageSliderProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Supporting description text
    */
@@ -231,6 +237,7 @@ export function HeroImageSlider({
   sectionId = "hero-image-slider",
   eyebrow,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -270,6 +277,7 @@ export function HeroImageSlider({
   logoSlot,
   logoClassName,
 }: HeroImageSliderProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderContent = useMemo(() => {
     if (contentSlot) return contentSlot;
 
@@ -301,14 +309,14 @@ export function HeroImageSlider({
         )}
         {heading ? (
           typeof heading === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "mt-3 text-3xl font-bold tracking-tight text-balance md:text-4xl lg:text-5xl text-white text-shadow-lg",
                 headingClassName,
               )}
             >
               {heading}
-            </h1>
+            </HeadingTag>
           ) : (
             <div className={cn("mt-3", headingClassName)}>{heading}</div>
           )
@@ -348,6 +356,7 @@ export function HeroImageSlider({
     headingClassName,
     descriptionClassName,
     actionsClassName,
+    HeadingTag,
   ]);
 
   const hasForm = formEngineSetup !== undefined;

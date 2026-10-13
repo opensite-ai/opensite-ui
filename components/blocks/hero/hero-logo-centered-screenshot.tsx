@@ -18,6 +18,7 @@ import type { PatternName } from "../../ui/pattern-background";
 import { LogoConfig } from "../navbars/types";
 import BrandLogo from "@/components/ui/brand-logo";
 import { DynamicIcon } from "../../ui/dynamic-icon";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroLogoCenteredScreenshotProps {
   /**
@@ -37,6 +38,11 @@ export interface HeroLogoCenteredScreenshotProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -111,6 +117,7 @@ export function HeroLogoCenteredScreenshot({
   logoSlot,
   logoClassName,
   heading,
+  headingLevel,
   description,
   action,
   actionSlot,
@@ -128,6 +135,7 @@ export function HeroLogoCenteredScreenshot({
   imageClassName,
   optixFlowConfig,
 }: HeroLogoCenteredScreenshotProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
@@ -197,14 +205,14 @@ export function HeroLogoCenteredScreenshot({
             <div className="flex flex-col justify-center items-center w-full text-balance">
               {heading &&
                 (typeof heading === "string" ? (
-                  <h1
+                  <HeadingTag
                     className={cn(
                       "mb-4 text-3xl font-medium lg:text-5xl",
                       headingClassName,
                     )}
                   >
                     {heading}
-                  </h1>
+                  </HeadingTag>
                 ) : (
                   heading
                 ))}

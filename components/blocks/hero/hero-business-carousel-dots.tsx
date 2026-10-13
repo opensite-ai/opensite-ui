@@ -18,6 +18,7 @@ import type {
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 const fadeVariants = {
   initial: { opacity: 0 },
@@ -44,6 +45,11 @@ export interface HeroBusinessCarouselDotsProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -141,6 +147,7 @@ export function HeroBusinessCarouselDots({
   badge,
   badgeVariant,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -164,6 +171,7 @@ export function HeroBusinessCarouselDots({
   logoSlot,
   logoClassName,
 }: HeroBusinessCarouselDotsProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const [currentIndex, setCurrentIndex] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const imageCount = carouselImages?.length ?? 0;
@@ -218,14 +226,14 @@ export function HeroBusinessCarouselDots({
 
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "mt-6 text-4xl font-bold md:text-6xl text-balance",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ) : (
               heading
             ))}

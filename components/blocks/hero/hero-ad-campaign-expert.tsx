@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/media-aspect-ratio";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export type { DirectionConfig };
 
@@ -30,6 +31,11 @@ export interface HeroAdCampaignExpertProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -120,6 +126,7 @@ export interface HeroAdCampaignExpertProps {
 export function HeroAdCampaignExpert({
   sectionId = "hero-ad-campaign-expert",
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -141,6 +148,7 @@ export function HeroAdCampaignExpert({
   logoSlot,
   logoClassName,
 }: HeroAdCampaignExpertProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const { responsiveClassName } = useResponsiveLayout({ directionConfig });
 
   const renderActions = useMemo(() => {
@@ -163,7 +171,7 @@ export function HeroAdCampaignExpert({
       if (typeof heading === "string") {
         items.push({
           _type: "text",
-          as: "h1",
+          as: HeadingTag,
           className: cn(
             "text-3xl leading-tight font-bold tracking-tighter lg:text-5xl text-balance",
             headingClassName,
@@ -203,6 +211,7 @@ export function HeroAdCampaignExpert({
     description,
     descriptionClassName,
     renderActions,
+    HeadingTag,
   ]);
 
   return (

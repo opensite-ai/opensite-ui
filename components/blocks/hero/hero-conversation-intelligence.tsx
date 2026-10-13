@@ -16,6 +16,7 @@ import type {
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroConversationIntelligenceProps {
   /**
@@ -108,6 +109,11 @@ export interface HeroConversationIntelligenceProps {
   logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
 }
 
 export function HeroConversationIntelligence({
@@ -134,7 +140,9 @@ export function HeroConversationIntelligence({
   logo,
   logoSlot,
   logoClassName,
+  headingLevel,
 }: HeroConversationIntelligenceProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderImage = useMemo(() => {
     if (imageSlot) return imageSlot;
     if (!image) return null;
@@ -185,14 +193,14 @@ export function HeroConversationIntelligence({
                   <BrandLogo logo={logo} logoSlot={logoSlot} size="lg" />
                 </div>
               )}
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-center text-5xl leading-[1.294] font-semibold sm:text-[3.75rem] md:text-[4.25rem] text-balance",
                   headingClassName,
                 )}
               >
                 {headingPrimary}
-              </h1>
+              </HeadingTag>
               {description &&
                 (typeof description === "string" ? (
                   <p

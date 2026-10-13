@@ -14,12 +14,18 @@ import type { PatternName } from "../../ui/pattern-background";
 import { BrandLogo } from "../../ui/brand-logo";
 import { DynamicIcon } from "../../ui/dynamic-icon";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroGridPatternEfficiencyProps {
   /**
    * Main heading content (can include highlighted text)
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -96,6 +102,7 @@ export interface HeroGridPatternEfficiencyProps {
 export function HeroGridPatternEfficiency({
   sectionId = "hero-grid-pattern-efficiency",
   heading,
+  headingLevel,
   description,
   action,
   actionSlot,
@@ -114,6 +121,7 @@ export function HeroGridPatternEfficiency({
   logoSlot,
   logoClassName,
 }: HeroGridPatternEfficiencyProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderAction = useMemo(() => {
     if (actionSlot) return actionSlot;
     if (!action) return null;
@@ -142,28 +150,28 @@ export function HeroGridPatternEfficiency({
   const renderHeading = useMemo(() => {
     if (heading) {
       return typeof heading === "string" ? (
-        <h1
+        <HeadingTag
           className={cn(
             "text-5xl leading-tight font-extrabold lg:text-8xl lg:leading-snug text-balance",
             headingClassName,
           )}
         >
           {heading}
-        </h1>
+        </HeadingTag>
       ) : (
-        <h1
+        <HeadingTag
           className={cn(
             "text-5xl leading-tight font-extrabold lg:text-8xl lg:leading-snug text-balance",
             headingClassName,
           )}
         >
           {heading}
-        </h1>
+        </HeadingTag>
       );
     } else {
       return null;
     }
-  }, [heading, headingClassName]);
+  }, [heading, headingClassName, HeadingTag]);
 
   return (
     <Section

@@ -18,6 +18,7 @@ import { Badge } from "@/src";
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroEnterpriseSecurityProps {
   /**
@@ -36,6 +37,11 @@ export interface HeroEnterpriseSecurityProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -130,6 +136,7 @@ export function HeroEnterpriseSecurity({
   badgeIcon,
   badgeClassName,
   heading,
+  headingLevel,
   description,
   actions,
   actionsSlot,
@@ -151,6 +158,7 @@ export function HeroEnterpriseSecurity({
   logoSlot,
   logoClassName,
 }: HeroEnterpriseSecurityProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderFeatures = useMemo(() => {
     if (featuresSlot) return featuresSlot;
     if (!features || features.length === 0) return null;
@@ -234,14 +242,14 @@ export function HeroEnterpriseSecurity({
           
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-4xl font-bold text-balance md:text-7xl",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ) : (
               heading
             ))}

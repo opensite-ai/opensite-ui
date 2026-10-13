@@ -13,6 +13,7 @@ import type { PatternName } from "../../ui/pattern-background";
 import { BlockActions } from "@/components/ui/block-actions";
 import { BrandLogo } from "../../ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface HeroHiringAnimatedTextProps {
   /**
@@ -96,6 +97,11 @@ export interface HeroHiringAnimatedTextProps {
   logoClassName?: string;
   /** Optional Section ID */
   sectionId?: string;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
 }
 
 export function HeroHiringAnimatedText({
@@ -120,7 +126,9 @@ export function HeroHiringAnimatedText({
   logo,
   logoSlot,
   logoClassName,
+  headingLevel,
 }: HeroHiringAnimatedTextProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const cycleText = useCallback(() => {
@@ -138,7 +146,7 @@ export function HeroHiringAnimatedText({
     if (headingSlot) return headingSlot;
 
     return (
-      <h1
+      <HeadingTag
         className={cn(
           "text-4xl leading-9 font-bold lg:text-5xl lg:leading-12! xl:text-7xl xl:leading-22! text-white text-shadow-lg",
           headingClassName,
@@ -160,7 +168,7 @@ export function HeroHiringAnimatedText({
             ))}
           </div>
         )}
-      </h1>
+      </HeadingTag>
     );
   }, [
     headingSlot,
@@ -168,6 +176,7 @@ export function HeroHiringAnimatedText({
     animatedTexts,
     headingClassName,
     activeIndex,
+    HeadingTag,
   ]);
 
   return (

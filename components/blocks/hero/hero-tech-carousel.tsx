@@ -16,6 +16,11 @@ import type {
 import type { PatternName } from "../../ui/pattern-background";
 import BrandLogo from "@/components/ui/brand-logo";
 import type { LogoConfig } from "../navbars/types";
+import {
+  headingTag,
+  type HeadingLevel,
+  type HeadingTagName,
+} from "../../../lib/heading-level";
 
 /**
  * Maximum number of panels supported by the hero block.
@@ -125,6 +130,12 @@ export interface HeroTechCarouselProps {
    */
   items?: HeroPanelItem[];
   /**
+   * Heading level for the first panel's title. Defaults to 2; the other
+   * panels stay h2. Page renderers pass 1 for the block that leads the page
+   * and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
+  /**
    * Default autoplay interval (ms) used when a panel has 2+ background media
    * items and does not specify its own `backgroundAutoplayIntervalMs`.
    * @default 5000
@@ -178,6 +189,8 @@ interface PanelProps {
   defaultAutoplayIntervalMs: number;
   optixFlowConfig?: OptixFlowConfig;
   panelContentClassName?: string;
+  /** Element for the panel title. */
+  titleTag?: HeadingTagName;
 }
 
 function HeroPanel({
@@ -185,6 +198,7 @@ function HeroPanel({
   defaultAutoplayIntervalMs,
   optixFlowConfig,
   panelContentClassName,
+  titleTag: TitleTag = "h2",
 }: PanelProps): React.JSX.Element {
   const {
     logo,
@@ -291,7 +305,7 @@ function HeroPanel({
     if (title === undefined || title === null || title === "") return null;
     if (typeof title === "string") {
       return (
-        <h2
+        <TitleTag
           className={cn(
             "font-semibold text-balance",
             hasLogo ? "text-lg lg:text-xl" : "text-xl md:text-2xl lg:text-3xl",
@@ -300,11 +314,11 @@ function HeroPanel({
           )}
         >
           {title}
-        </h2>
+        </TitleTag>
       );
     }
     return <div className={titleClassName}>{title}</div>;
-  }, [title, titleClassName, hasBackground, hasLogo]);
+  }, [title, titleClassName, hasBackground, hasLogo, TitleTag]);
 
   const renderContent = useMemo(() => {
     if (content === undefined || content === null || content === "")
@@ -397,6 +411,7 @@ function HeroPanel({
 export function HeroTechCarousel({
   sectionId = "hero-tech-carousel",
   items,
+  headingLevel,
   backgroundAutoplayIntervalMs = 5000,
   background,
   spacing = "none",
@@ -408,6 +423,7 @@ export function HeroTechCarousel({
   panelContentClassName,
   optixFlowConfig,
 }: HeroTechCarouselProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 2);
   const visibleItems = useMemo(() => {
     if (!items || items.length === 0) return [] as HeroPanelItem[];
     return items.slice(0, HERO_TECH_CAROUSEL_MAX_ITEMS);
@@ -447,6 +463,7 @@ export function HeroTechCarousel({
               defaultAutoplayIntervalMs={backgroundAutoplayIntervalMs}
               optixFlowConfig={optixFlowConfig}
               panelContentClassName={panelContentClassName}
+              titleTag={idx === 0 ? HeadingTag : "h2"}
             />
           ))}
         </div>
