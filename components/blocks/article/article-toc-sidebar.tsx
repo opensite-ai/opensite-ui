@@ -18,6 +18,7 @@ import type {
 import type { PatternName } from "../../ui/pattern-background";
 import { SocialShare } from "@page-speed/social-share";
 import { LongformContent } from "@/components/ui/longform-content";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ArticleTocSection {
   id: string;
@@ -73,6 +74,11 @@ export interface ArticleTocSidebarProps {
    * Article title
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Article description
    */
@@ -207,6 +213,7 @@ export function ArticleTocSidebarComponent({
   ctaClassName,
   heroImageClassName,
   title,
+  headingLevel,
   description,
   authorName,
   authorImage,
@@ -237,6 +244,7 @@ export function ArticleTocSidebarComponent({
   patternOpacity,
   patternClassName,
 }: ArticleTocSidebarProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const [activeSection, setActiveSection] = React.useState<string>(
     sections?.[0]?.id || "",
   );
@@ -446,14 +454,14 @@ export function ArticleTocSidebarComponent({
               {categoryContent}
               {title &&
                 (typeof title === "string" ? (
-                  <h1
+                  <HeadingTag
                     className={cn(
                       "mt-4 text-2xl font-bold tracking-tight md:text-4xl",
                       titleClassName,
                     )}
                   >
                     {title}
-                  </h1>
+                  </HeadingTag>
                 ) : (
                   title
                 ))}

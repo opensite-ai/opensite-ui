@@ -14,12 +14,18 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface BlogHorizontalTimelineProps {
   /**
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Array of content item configurations
    */
@@ -87,6 +93,7 @@ export interface BlogHorizontalTimelineProps {
 export function BlogHorizontalTimelineComponent({
   sectionId = "blog-horizontal-timeline",
   heading,
+  headingLevel,
   posts,
   postsSlot,
   readText,
@@ -103,6 +110,7 @@ export function BlogHorizontalTimelineComponent({
   pattern,
   patternOpacity,
 }: BlogHorizontalTimelineProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderPosts = React.useMemo(() => {
     if (postsSlot) return postsSlot;
     if (!posts || posts.length === 0) return null;
@@ -206,14 +214,14 @@ export function BlogHorizontalTimelineComponent({
       <div className="relative">
         {heading &&
           (typeof heading === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "mb-12 max-w-lg font-sans text-5xl font-extrabold tracking-tight md:text-7xl",
                 headingClassName,
               )}
             >
               {heading}
-            </h1>
+            </HeadingTag>
           ) : (
             heading
           ))}

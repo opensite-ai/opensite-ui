@@ -13,12 +13,18 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface BlogRelatedArticlesProps {
   /**
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Action configuration for the "See All" button
    */
@@ -90,6 +96,7 @@ export interface BlogRelatedArticlesProps {
 export function BlogRelatedArticles({
   sectionId = "blog-related-articles",
   heading,
+  headingLevel,
   seeAllAction,
   seeAllSlot,
   articles,
@@ -106,6 +113,7 @@ export function BlogRelatedArticles({
   pattern,
   patternOpacity,
 }: BlogRelatedArticlesProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderedSeeAllAction = React.useMemo(() => {
     if (seeAllSlot) return seeAllSlot;
     if (!seeAllAction) return null;
@@ -209,14 +217,14 @@ export function BlogRelatedArticles({
         >
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-2xl font-semibold md:text-4xl",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ) : (
               heading
             ))}

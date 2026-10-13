@@ -15,10 +15,16 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { PatternName } from "@/components/ui/pattern-background";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ProjectDetailHeroMetadataProps {
   /** Main title */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /** Subtitle/role text */
   subtitle?: React.ReactNode;
   /** Description text */
@@ -86,6 +92,7 @@ export function ProjectDetailHeroMetadata(
   const {
     sectionId: sectionIdProp,
     title,
+    headingLevel,
     subtitle,
     description,
     year,
@@ -107,6 +114,7 @@ export function ProjectDetailHeroMetadata(
     metadataClassName,
     heroImageClassName,
   } = props;
+  const HeadingTag = headingTag(headingLevel, 1);
   const sectionId = sectionIdProp ?? "project-detail-hero-metadata";
 
   const renderedAction = useMemo(() => {
@@ -159,14 +167,14 @@ export function ProjectDetailHeroMetadata(
           <div className="flex flex-col gap-y-12 lg:flex-row lg:items-start lg:justify-between">
             <motion.div variants={fadeInUp} className="flex-1">
               {typeof title === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
                     titleClassName,
                   )}
                 >
                   {title}
-                </h1>
+                </HeadingTag>
               ) : (
                 <div className={titleClassName}>{title}</div>
               )}

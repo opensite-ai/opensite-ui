@@ -17,6 +17,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { PatternName } from "@/components/ui/pattern-background";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ProjectDetailLargeHeroFeaturedSection {
   title: React.ReactNode;
@@ -26,6 +27,11 @@ export interface ProjectDetailLargeHeroFeaturedSection {
 export interface ProjectDetailLargeHeroFeaturedProps {
   /** Main title */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /** Subtitle text */
   subtitle?: React.ReactNode;
   /** Hero image configuration */
@@ -86,6 +92,7 @@ export function ProjectDetailLargeHeroFeatured(
   const {
     sectionId: sectionIdProp,
     title,
+    headingLevel,
     subtitle,
     heroImage,
     details,
@@ -107,6 +114,7 @@ export function ProjectDetailLargeHeroFeatured(
     sectionsClassName,
     galleryClassName,
   } = props;
+  const HeadingTag = headingTag(headingLevel, 1);
   const sectionId = sectionIdProp ?? "project-detail-large-hero-featured";
 
   const renderedBackAction = useMemo(() => {
@@ -180,14 +188,14 @@ export function ProjectDetailLargeHeroFeatured(
               className={cn("max-w-4xl", headerClassName)}
             >
               {typeof title === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
                     titleClassName,
                   )}
                 >
                   {title}
-                </h1>
+                </HeadingTag>
               ) : (
                 <div className={titleClassName}>{title}</div>
               )}

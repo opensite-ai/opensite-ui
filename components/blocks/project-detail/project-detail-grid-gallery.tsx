@@ -15,6 +15,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { PatternName } from "@/components/ui/pattern-background";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ProjectDetailGridGalleryImage {
   src?: string;
@@ -25,6 +26,11 @@ export interface ProjectDetailGridGalleryImage {
 export interface ProjectDetailGridGalleryProps {
   /** Main title */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /** Subtitle text */
   subtitle?: React.ReactNode;
   /** Project year */
@@ -82,6 +88,7 @@ export function ProjectDetailGridGallery(
   const {
     sectionId: sectionIdProp,
     title,
+    headingLevel,
     subtitle,
     year,
     category,
@@ -103,6 +110,7 @@ export function ProjectDetailGridGallery(
     gridClassName,
     galleryClassName,
   } = props;
+  const HeadingTag = headingTag(headingLevel, 1);
   const sectionId = sectionIdProp ?? "project-detail-grid-gallery";
 
   const renderedBackAction = useMemo(() => {
@@ -170,14 +178,14 @@ export function ProjectDetailGridGallery(
           </div>
 
           {typeof title === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
                 titleClassName,
               )}
             >
               {title}
-            </h1>
+            </HeadingTag>
           ) : (
             <div className={titleClassName}>{title}</div>
           )}

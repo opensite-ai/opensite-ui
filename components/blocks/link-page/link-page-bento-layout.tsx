@@ -32,6 +32,7 @@ import type {
   LinkPageLogoAspect,
   LinkPageLogoBannerAspect,
 } from "./logo-aspect";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Bento link item for the bento layout link page
@@ -61,6 +62,11 @@ export interface LinkPageBentoLayoutProps {
    * Profile name displayed at the top
    */
   name?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Optional bio or description
    */
@@ -316,6 +322,7 @@ export interface LinkPageBentoLayoutProps {
 export function LinkPageBentoLayout({
   sectionId = "link-page-bento-layout",
   name,
+  headingLevel,
   bio,
   avatar,
   avatarUrl,
@@ -365,6 +372,7 @@ export function LinkPageBentoLayout({
   patternClassName,
   optixFlowConfig,
 }: LinkPageBentoLayoutProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   // Stored payloads very commonly carry `{"alt":"…","src":null}` (octane's
   // brand-mark stripper nulls avatar-shaped keys), so the guard checks `.src`
   // truthiness rather than object presence — otherwise the ladder falls into the
@@ -742,7 +750,7 @@ export function LinkPageBentoLayout({
         <div className="space-y-1">
           {name &&
             (typeof name === "string" ? (
-              <h1 className={cn("text-xl font-bold", nameClassName)}>{name}</h1>
+              <HeadingTag className={cn("text-xl font-bold", nameClassName)}>{name}</HeadingTag>
             ) : (
               name
             ))}
@@ -775,6 +783,7 @@ export function LinkPageBentoLayout({
     bioClassName,
     renderSocialLinks,
     headerClassName,
+    HeadingTag,
   ]);
 
   const renderFooter = useMemo(() => {

@@ -11,6 +11,7 @@ import { DynamicIcon } from "../../ui/dynamic-icon";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import { PatternName } from "@/components/ui/pattern-background";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ProjectVideoHoverGridItem {
   thumbnailSrc: string;
@@ -24,6 +25,11 @@ export interface ProjectVideoHoverGridProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Subheading/label content
    */
@@ -188,6 +194,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
 export function ProjectVideoHoverGrid({
   sectionId = "project-video-hover-grid",
   heading,
+  headingLevel,
   subheading,
   videoSections,
   videoSectionsSlot,
@@ -204,6 +211,7 @@ export function ProjectVideoHoverGrid({
   gridClassName,
   cardClassName,
 }: ProjectVideoHoverGridProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderedVideoSections = useMemo(() => {
     if (videoSectionsSlot) return videoSectionsSlot;
     if (!videoSections || videoSections.length === 0) return null;
@@ -240,14 +248,14 @@ export function ProjectVideoHoverGrid({
           <div className="px-6 text-left text-foreground sm:px-8 md:px-12 lg:px-16 xl:px-20">
             {heading &&
               (typeof heading === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:mb-8 lg:text-8xl",
                     headingClassName,
                   )}
                 >
                   {heading}
-                </h1>
+                </HeadingTag>
               ) : (
                 <div className={headingClassName}>{heading}</div>
               ))}

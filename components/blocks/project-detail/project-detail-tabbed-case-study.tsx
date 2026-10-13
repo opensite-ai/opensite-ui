@@ -15,6 +15,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { PatternName } from "@/components/ui/pattern-background";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ProjectDetailTabbedCaseStudyTab {
   id: string;
@@ -47,6 +48,11 @@ export interface ProjectDetailTabbedCaseStudyTool {
 export interface ProjectDetailTabbedCaseStudyProps {
   /** Main title */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /** Subtitle text */
   subtitle?: React.ReactNode;
   /** Hero image configuration */
@@ -111,6 +117,7 @@ export function ProjectDetailTabbedCaseStudy(
   const {
     sectionId: sectionIdProp,
     title,
+    headingLevel,
     subtitle,
     heroImage,
     tabs,
@@ -134,6 +141,7 @@ export function ProjectDetailTabbedCaseStudy(
     testimonialClassName,
     toolsClassName,
   } = props;
+  const HeadingTag = headingTag(headingLevel, 1);
   const sectionId = sectionIdProp ?? "project-detail-tabbed-case-study";
 
   const [activeTab, setActiveTab] = React.useState(tabs?.[0]?.id || "");
@@ -190,14 +198,14 @@ export function ProjectDetailTabbedCaseStudy(
           className={cn("mb-16 max-w-3xl", headerClassName)}
         >
           {typeof title === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl",
                 titleClassName,
               )}
             >
               {title}
-            </h1>
+            </HeadingTag>
           ) : (
             <div className={titleClassName}>{title}</div>
           )}

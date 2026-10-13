@@ -17,6 +17,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ResourceDetailArticleHeroNavigation {
   /**
@@ -194,6 +195,11 @@ export interface ResourceDetailArticleHeroProps {
   pattern?: PatternName;
   /** Optional Section ID */
   sectionId?: string;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
 }
 
 /**
@@ -255,7 +261,9 @@ export function ResourceDetailArticleHero({
   className,
   contentSectionClassName,
   optixFlowConfig,
+  headingLevel,
 }: ResourceDetailArticleHeroProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderedNavigation = useMemo(() => {
     if (navigationSlot) return navigationSlot;
 
@@ -446,14 +454,14 @@ export function ResourceDetailArticleHero({
             {renderedNavigation}
             {blog?.title &&
               (typeof blog.title === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "text-3xl font-medium leading-tight",
                     titleClassName,
                   )}
                 >
                   {blog.title}
-                </h1>
+                </HeadingTag>
               ) : (
                 <div className={titleClassName}>{blog.title}</div>
               ))}

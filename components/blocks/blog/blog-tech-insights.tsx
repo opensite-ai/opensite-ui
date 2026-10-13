@@ -16,12 +16,18 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface BlogTechInsightsProps {
   /**
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Description text below heading
    */
@@ -121,6 +127,7 @@ export interface BlogTechInsightsProps {
 export function BlogTechInsights({
   sectionId = "blog-tech-insights",
   heading,
+  headingLevel,
   description,
   readMoreAction,
   readMoreSlot,
@@ -145,6 +152,7 @@ export function BlogTechInsights({
   pattern,
   patternOpacity,
 }: BlogTechInsightsProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const readMoreActionContent = useMemo(() => {
     if (readMoreSlot) return readMoreSlot;
     if (!readMoreAction) return null;
@@ -334,14 +342,14 @@ export function BlogTechInsights({
         <div className={cn("w-full", headerClassName)}>
           {heading &&
             (typeof heading === "string" ? (
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-2xl font-bold lg:text-3xl",
                   headingClassName,
                 )}
               >
                 {heading}
-              </h1>
+              </HeadingTag>
             ) : (
               heading
             ))}

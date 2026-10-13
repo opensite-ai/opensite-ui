@@ -16,6 +16,7 @@ import type {
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 import { LongformContent } from "@/components/ui/longform-content";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ArticleHeroProsePost {
   title?: string;
@@ -108,6 +109,11 @@ export interface ArticleHeroProseProps {
   patternOpacity?: number;
   /** Optional Section ID */
   sectionId?: string;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
 }
 
 export function ArticleHeroProseComponent({
@@ -131,7 +137,9 @@ export function ArticleHeroProseComponent({
   spacing = "hero",
   pattern,
   patternOpacity,
+  headingLevel,
 }: ArticleHeroProseProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const {
     title,
     authorName,
@@ -212,14 +220,14 @@ export function ArticleHeroProseComponent({
           )}
         >
           {title && (
-            <h1
+            <HeadingTag
               className={cn(
                 "max-w-full md:max-w-3xl text-2xl font-semibold text-balance md:text-5xl",
                 titleClassName,
               )}
             >
               {title}
-            </h1>
+            </HeadingTag>
           )}
           {description && (
             <h3

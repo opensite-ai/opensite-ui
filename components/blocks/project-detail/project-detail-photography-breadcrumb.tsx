@@ -15,10 +15,16 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { PatternName } from "@/components/ui/pattern-background";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ProjectDetailPhotographyBreadcrumbProps {
   /** Main title */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /** Subtitle text */
   subtitle?: React.ReactNode;
   /** Project year */
@@ -77,6 +83,7 @@ export function ProjectDetailPhotographyBreadcrumb(
   const {
     sectionId: sectionIdProp,
     title,
+    headingLevel,
     subtitle,
     year,
     category,
@@ -97,6 +104,7 @@ export function ProjectDetailPhotographyBreadcrumb(
     heroImageClassName,
     galleryClassName,
   } = props;
+  const HeadingTag = headingTag(headingLevel, 1);
   const sectionId = sectionIdProp ?? "project-detail-photography-breadcrumb";
 
   return (
@@ -150,14 +158,14 @@ export function ProjectDetailPhotographyBreadcrumb(
             <div className="space-y-6">
               <div>
                 {typeof title === "string" ? (
-                  <h1
+                  <HeadingTag
                     className={cn(
                       "text-3xl font-bold tracking-tight md:text-4xl",
                       titleClassName,
                     )}
                   >
                     {title}
-                  </h1>
+                  </HeadingTag>
                 ) : (
                   <div className={titleClassName}>{title}</div>
                 )}

@@ -13,6 +13,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface StatsHeroStatItem {
   icon?: string;
@@ -39,6 +40,11 @@ export interface StatsHeroServicesList {
 
 export interface ServiceDetailStatsHeroProps {
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   titleClassName?: string;
   heroImage?: {
     src: string;
@@ -73,6 +79,7 @@ export interface ServiceDetailStatsHeroProps {
 
 export function ServiceDetailStatsHero({
   title,
+  headingLevel,
   titleClassName,
   heroImage,
   heroImageSlot,
@@ -98,6 +105,7 @@ export function ServiceDetailStatsHero({
   bodyPatternOpacity,
   optixFlowConfig,
 }: ServiceDetailStatsHeroProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderHeroImage = () => {
     if (heroImageSlot) return heroImageSlot;
     if (!heroImage) return null;
@@ -261,14 +269,14 @@ export function ServiceDetailStatsHero({
           <div className="mx-auto flex flex-col items-center space-y-6">
             {renderServiceIcon()}
             {title && (
-              <h1
+              <HeadingTag
                 className={cn(
                   "text-4xl font-medium tracking-tight text-primary-foreground md:text-5xl lg:text-6xl",
                   titleClassName,
                 )}
               >
                 {typeof title === "string" ? title : title}
-              </h1>
+              </HeadingTag>
             )}
           </div>
         </div>

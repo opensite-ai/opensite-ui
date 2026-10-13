@@ -9,6 +9,7 @@ import { cn } from "../../../lib/utils";
 import { Section } from "../../ui/section";
 import type { SectionBackground, SectionSpacing } from "../../../src/types";
 import { PatternName } from "@/components/ui/pattern-background";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ProjectGridMotionItem {
   title: string;
@@ -22,6 +23,11 @@ export interface ProjectGridMotionProps {
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Array of project configurations
    */
@@ -95,6 +101,7 @@ export interface ProjectGridMotionProps {
 export function ProjectGridMotion({
   sectionId = "project-grid-motion",
   heading,
+  headingLevel,
   projects,
   projectsSlot,
   optixFlowConfig,
@@ -110,6 +117,7 @@ export function ProjectGridMotion({
   imageContainerClassName,
   cardFooterClassName,
 }: ProjectGridMotionProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   const renderedProjects = useMemo(() => {
     if (projectsSlot) return projectsSlot;
     if (!projects || projects.length === 0) return null;
@@ -164,14 +172,14 @@ export function ProjectGridMotion({
       <div className={cn("container", containerClassName)}>
         {heading &&
           (typeof heading === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "text-7xl leading-tight font-bold uppercase",
                 headingClassName,
               )}
             >
               {heading}
-            </h1>
+            </HeadingTag>
           ) : (
             <div className={headingClassName}>{heading}</div>
           ))}

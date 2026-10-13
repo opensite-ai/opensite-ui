@@ -36,6 +36,7 @@ import {
   type LinkPageLogoAspect,
   type LinkPageLogoBannerAspect,
 } from "./logo-aspect";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 const DEFAULT_STYLE_RULES: FormEngineStyleRules = {
   formContainer: "w-full flex flex-col gap-3 justify-center items-center",
@@ -79,6 +80,11 @@ export interface LinkPageNewsletterSocialProps {
    * Profile name displayed at the top
    */
   name?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Optional bio or description
    */
@@ -340,6 +346,7 @@ export interface LinkPageNewsletterSocialProps {
 export function LinkPageNewsletterSocial({
   sectionId = "link-page-newsletter-social",
   name,
+  headingLevel,
   bio,
   avatar,
   avatarUrl,
@@ -390,6 +397,7 @@ export function LinkPageNewsletterSocial({
   patternClassName,
   optixFlowConfig,
 }: LinkPageNewsletterSocialProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   // Banner mode only engages when there is actually an image to render;
   // logoAspect="banner" with no logoBannerImage.src behaves exactly as horizontal.
   const isBannerMode =
@@ -472,9 +480,9 @@ export function LinkPageNewsletterSocial({
         <div className="space-y-1">
           {name &&
             (typeof name === "string" ? (
-              <h1 className={cn("text-2xl font-bold", nameClassName)}>
+              <HeadingTag className={cn("text-2xl font-bold", nameClassName)}>
                 {name}
-              </h1>
+              </HeadingTag>
             ) : (
               <div className={nameClassName}>{name}</div>
             ))}
@@ -505,6 +513,7 @@ export function LinkPageNewsletterSocial({
     bio,
     bioClassName,
     headerClassName,
+    HeadingTag,
   ]);
 
   const renderSocialLinks = useMemo(() => {

@@ -12,12 +12,18 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface BlogMasonryFeaturedProps {
   /**
    * Main heading content
    */
   heading?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Slide description
    */
@@ -89,6 +95,7 @@ export interface BlogMasonryFeaturedProps {
 export function BlogMasonryFeaturedComponent({
   sectionId = "blog-masonry-featured",
   heading,
+  headingLevel,
   description,
   posts,
   featuredSlot,
@@ -106,6 +113,7 @@ export function BlogMasonryFeaturedComponent({
   pattern,
   patternOpacity,
 }: BlogMasonryFeaturedProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const featuredPost = posts?.[0];
   const otherPosts = posts?.slice(1);
 
@@ -241,14 +249,14 @@ export function BlogMasonryFeaturedComponent({
       <div className="relative">
         {heading &&
           (typeof heading === "string" ? (
-            <h1
+            <HeadingTag
               className={cn(
                 "mb-4 text-center text-2xl font-medium md:text-4xl text-balance",
                 headingClassName,
               )}
             >
               {heading}
-            </h1>
+            </HeadingTag>
           ) : (
             heading
           ))}

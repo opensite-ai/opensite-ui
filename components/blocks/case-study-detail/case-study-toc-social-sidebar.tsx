@@ -28,6 +28,7 @@ import type {
   SectionBackground,
   SectionSpacing,
 } from "../../../src/types";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Social link configuration for sharing buttons.
@@ -64,6 +65,11 @@ export interface CaseStudyTocSocialSidebarProps {
    * Main title/heading content
    */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Hero image URL
    */
@@ -272,6 +278,7 @@ export function CaseStudyTocSocialSidebar({
   breadcrumbs,
   breadcrumbsSlot,
   title,
+  headingLevel,
   heroImageSrc,
   heroImageAlt,
   heroMediaSlot,
@@ -316,6 +323,7 @@ export function CaseStudyTocSocialSidebar({
   socialLinksClassName,
   optixFlowConfig,
 }: CaseStudyTocSocialSidebarProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const sectionRefs = useRef<Record<string, HTMLElement>>({});
 
@@ -713,14 +721,14 @@ export function CaseStudyTocSocialSidebar({
             {breadcrumbsContent}
             {title &&
               (typeof title === "string" ? (
-                <h1
+                <HeadingTag
                   className={cn(
                     "mt-10 text-5xl font-semibold text-balance lg:text-7xl",
                     titleClassName,
                   )}
                 >
                   {title}
-                </h1>
+                </HeadingTag>
               ) : (
                 title
               ))}

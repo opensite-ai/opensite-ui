@@ -11,6 +11,7 @@ import type {
 } from "../../../src/types";
 import type { PatternName } from "../../ui/pattern-background";
 import { LongformContent } from "@/components/ui/longform-content";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ArticleLegalProseProps {
   /**
@@ -18,6 +19,11 @@ export interface ArticleLegalProseProps {
    * "Terms of Use".
    */
   title?: string;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Optional short label prefixing the revision line, e.g. "Last updated".
    * Rendered only when lastUpdatedDate is also supplied.
@@ -105,6 +111,7 @@ export interface ArticleLegalProseProps {
 export function ArticleLegalProse({
   sectionId = "article-legal-prose",
   title,
+  headingLevel,
   lastUpdatedLabel,
   lastUpdatedDate,
   markdownString,
@@ -120,6 +127,7 @@ export function ArticleLegalProse({
   className,
   containerClassName = "px-6 sm:px-6 md:px-8 lg:px-8",
 }: ArticleLegalProseProps) {
+  const HeadingTag = headingTag(headingLevel, 1);
   return (
     <Section
       id={sectionId}
@@ -138,14 +146,14 @@ export function ArticleLegalProse({
           )}
         >
           {title && (
-            <h1
+            <HeadingTag
               className={cn(
                 "text-3xl font-semibold text-balance md:text-4xl",
                 titleClassName,
               )}
             >
               {title}
-            </h1>
+            </HeadingTag>
           )}
           {lastUpdatedDate && (
             <p className="text-sm opacity-70">

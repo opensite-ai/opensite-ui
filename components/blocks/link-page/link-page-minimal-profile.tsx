@@ -32,6 +32,7 @@ import type {
   LinkPageLogoAspect,
   LinkPageLogoBannerAspect,
 } from "./logo-aspect";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 /**
  * Link item for the minimal profile link page
@@ -49,6 +50,11 @@ export interface LinkPageMinimalProfileProps {
    * Profile name displayed at the top
    */
   name?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /**
    * Optional bio or description
    */
@@ -251,6 +257,7 @@ export interface LinkPageMinimalProfileProps {
 export function LinkPageMinimalProfile({
   sectionId = "link-page-minimal-profile",
   name,
+  headingLevel,
   bio,
   avatar,
   avatarUrl,
@@ -289,6 +296,7 @@ export function LinkPageMinimalProfile({
   patternClassName,
   optixFlowConfig,
 }: LinkPageMinimalProfileProps): React.JSX.Element {
+  const HeadingTag = headingTag(headingLevel, 1);
   // Banner mode requires a real src: a stored `{"alt":…,"src":null}` banner must
   // degrade to the legacy horizontal medallion rather than render an empty band.
   const isBannerMode = logoAspect === "banner" && Boolean(logoBannerImage?.src);
@@ -360,9 +368,9 @@ export function LinkPageMinimalProfile({
         <div className="space-y-1">
           {name &&
             (typeof name === "string" ? (
-              <h1 className={cn("text-xl font-semibold", nameClassName)}>
+              <HeadingTag className={cn("text-xl font-semibold", nameClassName)}>
                 {name}
-              </h1>
+              </HeadingTag>
             ) : (
               <div className={nameClassName}>{name}</div>
             ))}
@@ -391,6 +399,7 @@ export function LinkPageMinimalProfile({
     bio,
     bioClassName,
     headerClassName,
+    HeadingTag,
   ]);
 
   const renderLinks = useMemo(() => {

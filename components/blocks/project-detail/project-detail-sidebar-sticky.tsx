@@ -13,6 +13,7 @@ import type {
   SectionSpacing,
 } from "../../../src/types";
 import { PatternName } from "@/components/ui/pattern-background";
+import { headingTag, type HeadingLevel } from "../../../lib/heading-level";
 
 export interface ProjectDetailSidebarStickyRelatedProject {
   title: React.ReactNode;
@@ -26,6 +27,11 @@ export interface ProjectDetailSidebarStickyRelatedProject {
 export interface ProjectDetailSidebarStickyProps {
   /** Main title */
   title?: React.ReactNode;
+  /**
+   * Heading level for the primary title. Defaults to 1. Page renderers
+   * pass 1 for the block that leads the page and 2 elsewhere.
+   */
+  headingLevel?: HeadingLevel;
   /** Subtitle text */
   subtitle?: React.ReactNode;
   /** Category label */
@@ -181,6 +187,7 @@ export function ProjectDetailSidebarSticky(
   const {
     sectionId: sectionIdProp,
     title,
+    headingLevel,
     subtitle,
     category,
     year,
@@ -202,6 +209,7 @@ export function ProjectDetailSidebarSticky(
     imagesClassName,
     relatedProjectsClassName,
   } = props;
+  const HeadingTag = headingTag(headingLevel, 1);
   const sectionId = sectionIdProp ?? "project-detail-sidebar-sticky";
 
   return (
@@ -230,14 +238,14 @@ export function ProjectDetailSidebarSticky(
             >
               <div className="space-y-3">
                 {typeof title === "string" ? (
-                  <h1
+                  <HeadingTag
                     className={cn(
                       "text-5xl font-bold tracking-tight md:text-6xl",
                       titleClassName,
                     )}
                   >
                     {title}
-                  </h1>
+                  </HeadingTag>
                 ) : (
                   <div className={titleClassName}>{title}</div>
                 )}
