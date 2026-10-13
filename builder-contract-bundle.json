@@ -2,7 +2,7 @@
   "metadata": {
     "contractVersion": "v1",
     "uiVersion": "4.0.0",
-    "exportedAt": "2026-10-09T06:38:05.213Z",
+    "exportedAt": "2026-10-13T17:44:41.191Z",
     "source": "@opensite/ui",
     "totalBlocks": 611
   },
@@ -167,6 +167,13 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -357,7 +364,8 @@
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
           "Culture testimonials and team claims must be sourced."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "about-developer-profile",
@@ -483,7 +491,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "about-developer-story",
@@ -621,6 +630,13 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -740,7 +756,8 @@
         "notes": [
           "Values and examples should come from brand source material."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "about-interactive-tabs",
@@ -861,6 +878,13 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -1004,6 +1028,13 @@
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
           "Location and hours data must be sourced."
         ]
+      },
+      "headingContract": {
+        "titleProp": "headline",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -1117,6 +1148,13 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -1247,7 +1285,8 @@
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
           "Use mediaItem for all new pages. primaryImage and secondaryImage remain runtime-only fallbacks for existing sites and must not be generated."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "about-mission-features",
@@ -1387,6 +1426,13 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -1489,7 +1535,8 @@
         "notes": [
           "Mission and principle copy should come from brand source material."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "about-network-spotlight",
@@ -1612,7 +1659,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "about-split-hero",
@@ -1718,6 +1766,13 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -1843,6 +1898,13 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -2018,6 +2080,13 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -2114,7 +2183,8 @@
         "notes": [
           "Do not fabricate metrics or quantified claims."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "about-story-expertise",
@@ -2245,7 +2315,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "about-story-gallery",
@@ -2344,6 +2415,13 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -2443,6 +2521,13 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -2578,6 +2663,13 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -2693,6 +2785,13 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -2789,7 +2888,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "community-initiatives",
@@ -2920,7 +3020,8 @@
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
           "Community impact claims must be sourced."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "free-form-design",
@@ -3065,7 +3166,8 @@
           "Never emit raw a/img/video tags — use the Pressable/Img/Video component nodes.",
           "Never place HTML markup inside a string child or an attribute value; strings are rendered as literal text and markup-shaped attribute values are discarded."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "iframe-embed",
@@ -3161,7 +3263,8 @@
           "Set embedTitle whenever embedUrl is set; an untitled iframe is an accessibility failure.",
           "embedUrl must be an absolute http(s) URL; other schemes are ignored and no frame is rendered."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "script-embed",
@@ -3254,7 +3357,8 @@
           "Supply scriptUrl and/or inlineScriptHtml. companionHtml alone renders markup but runs nothing.",
           "Never wrap inlineScriptHtml in <script> tags — pass only the JavaScript body."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "article-breadcrumb-social",
@@ -3465,6 +3569,13 @@
           "When TOC or chapter tracking is enabled, every sections[].id or chapters[].id value must match a real heading id generated from markdownString content.",
           "Do not use unsupported shareUrls, authorName, or authorRole props with this block."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -3690,6 +3801,13 @@
           "All article media values must be absolute URLs to real image assets. Do not use relative paths, placeholder media variables, logos, favicons, or video URLs in image props.",
           "When TOC or chapter tracking is enabled, every sections[].id or chapters[].id value must match a real heading id generated from markdownString content."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -3860,6 +3978,13 @@
           "All article media values must be absolute URLs to real image assets. Do not use relative paths, placeholder media variables, logos, favicons, or video URLs in image props.",
           "When TOC or chapter tracking is enabled, every sections[].id or chapters[].id value must match a real heading id generated from markdownString content."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -3996,6 +4121,13 @@
           "Article titles, authors, dates, summaries, chapter names, and body copy must come from source-backed article or blog data. Do not invent bylines or publication metadata.",
           "All article media values must be absolute URLs to real image assets. Do not use relative paths, placeholder media variables, logos, favicons, or video URLs in image props."
         ]
+      },
+      "headingContract": {
+        "titleProp": "post.title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -4076,6 +4208,13 @@
         "notes": [
           "Use existing legal copy from source evidence when available; otherwise generate practical template legal copy grounded in the known business context. Never fabricate revision dates, bylines, company registration numbers, or regulator names."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -4216,6 +4355,13 @@
           "Article titles, authors, dates, summaries, chapter names, and body copy must come from source-backed article or blog data. Do not invent bylines or publication metadata.",
           "All article media values must be absolute URLs to real image assets. Do not use relative paths, placeholder media variables, logos, favicons, or video URLs in image props."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -4378,6 +4524,13 @@
           "All article media values must be absolute URLs to real image assets. Do not use relative paths, placeholder media variables, logos, favicons, or video URLs in image props.",
           "Use ctaActions instead of unsupported ctaText or ctaHref props."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -4568,6 +4721,13 @@
           "All article media values must be absolute URLs to real image assets. Do not use relative paths, placeholder media variables, logos, favicons, or video URLs in image props.",
           "When TOC or chapter tracking is enabled, every sections[].id or chapters[].id value must match a real heading id generated from markdownString content."
         ]
+      },
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -4607,7 +4767,8 @@
         "requirePath": "./dist/circuit-board-basic.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "circuit-board-fade-bottom",
@@ -4646,7 +4807,8 @@
         "requirePath": "./dist/circuit-board-fade-bottom.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "circuit-board-fade-bottom-left",
@@ -4685,7 +4847,8 @@
         "requirePath": "./dist/circuit-board-fade-bottom-left.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "circuit-board-fade-bottom-right",
@@ -4724,7 +4887,8 @@
         "requirePath": "./dist/circuit-board-fade-bottom-right.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "circuit-board-fade-center",
@@ -4763,7 +4927,8 @@
         "requirePath": "./dist/circuit-board-fade-center.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "circuit-board-fade-top",
@@ -4802,7 +4967,8 @@
         "requirePath": "./dist/circuit-board-fade-top.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "circuit-board-fade-top-left",
@@ -4841,7 +5007,8 @@
         "requirePath": "./dist/circuit-board-fade-top-left.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "circuit-board-fade-top-right",
@@ -4880,7 +5047,8 @@
         "requirePath": "./dist/circuit-board-fade-top-right.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "dashed-grid-basic",
@@ -4919,7 +5087,8 @@
         "requirePath": "./dist/dashed-grid-basic.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "dashed-grid-fade-bottom",
@@ -4958,7 +5127,8 @@
         "requirePath": "./dist/dashed-grid-fade-bottom.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "dashed-grid-fade-bottom-left",
@@ -4997,7 +5167,8 @@
         "requirePath": "./dist/dashed-grid-fade-bottom-left.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "dashed-grid-fade-bottom-right",
@@ -5036,7 +5207,8 @@
         "requirePath": "./dist/dashed-grid-fade-bottom-right.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "dashed-grid-fade-center",
@@ -5075,7 +5247,8 @@
         "requirePath": "./dist/dashed-grid-fade-center.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "dashed-grid-fade-top",
@@ -5114,7 +5287,8 @@
         "requirePath": "./dist/dashed-grid-fade-top.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "dashed-grid-fade-top-left",
@@ -5153,7 +5327,8 @@
         "requirePath": "./dist/dashed-grid-fade-top-left.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "dashed-grid-fade-top-right",
@@ -5192,7 +5367,8 @@
         "requirePath": "./dist/dashed-grid-fade-top-right.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "diagonal-cross-basic",
@@ -5231,7 +5407,8 @@
         "requirePath": "./dist/diagonal-cross-basic.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "diagonal-cross-fade-bottom",
@@ -5270,7 +5447,8 @@
         "requirePath": "./dist/diagonal-cross-fade-bottom.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "diagonal-cross-fade-bottom-left",
@@ -5309,7 +5487,8 @@
         "requirePath": "./dist/diagonal-cross-fade-bottom-left.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "diagonal-cross-fade-bottom-right",
@@ -5348,7 +5527,8 @@
         "requirePath": "./dist/diagonal-cross-fade-bottom-right.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "diagonal-cross-fade-center",
@@ -5387,7 +5567,8 @@
         "requirePath": "./dist/diagonal-cross-fade-center.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "diagonal-cross-fade-top",
@@ -5426,7 +5607,8 @@
         "requirePath": "./dist/diagonal-cross-fade-top.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "diagonal-cross-fade-top-left",
@@ -5465,7 +5647,8 @@
         "requirePath": "./dist/diagonal-cross-fade-top-left.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "diagonal-cross-fade-top-right",
@@ -5504,7 +5687,8 @@
         "requirePath": "./dist/diagonal-cross-fade-top-right.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "gradient-glow-bottom",
@@ -5543,7 +5727,8 @@
         "requirePath": "./dist/gradient-glow-bottom.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "gradient-glow-top",
@@ -5582,7 +5767,8 @@
         "requirePath": "./dist/gradient-glow-top.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "grid-basic",
@@ -5621,7 +5807,8 @@
         "requirePath": "./dist/grid-basic.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "grid-dots-basic",
@@ -5660,7 +5847,8 @@
         "requirePath": "./dist/grid-dots-basic.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "grid-dots-fade-center",
@@ -5699,7 +5887,8 @@
         "requirePath": "./dist/grid-dots-fade-center.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "grid-fade-bottom",
@@ -5738,7 +5927,8 @@
         "requirePath": "./dist/grid-fade-bottom.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "grid-fade-bottom-left",
@@ -5777,7 +5967,8 @@
         "requirePath": "./dist/grid-fade-bottom-left.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "grid-fade-bottom-right",
@@ -5816,7 +6007,8 @@
         "requirePath": "./dist/grid-fade-bottom-right.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "grid-fade-center",
@@ -5855,7 +6047,8 @@
         "requirePath": "./dist/grid-fade-center.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "grid-fade-top",
@@ -5894,7 +6087,8 @@
         "requirePath": "./dist/grid-fade-top.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "grid-fade-top-left",
@@ -5933,7 +6127,8 @@
         "requirePath": "./dist/grid-fade-top-left.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "grid-fade-top-right",
@@ -5972,7 +6167,8 @@
         "requirePath": "./dist/grid-fade-top-right.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "radial-gradient-bottom",
@@ -6011,7 +6207,8 @@
         "requirePath": "./dist/radial-gradient-bottom.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "radial-gradient-top",
@@ -6050,7 +6247,8 @@
         "requirePath": "./dist/radial-gradient-top.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "spotlight-left",
@@ -6089,7 +6287,8 @@
         "requirePath": "./dist/spotlight-left.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "spotlight-right",
@@ -6128,7 +6327,8 @@
         "requirePath": "./dist/spotlight-right.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "banner-announcement-dismissible",
@@ -6167,7 +6367,8 @@
         "requirePath": "./dist/banner-announcement-dismissible.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "banner-countdown-sale",
@@ -6206,7 +6407,8 @@
         "requirePath": "./dist/banner-countdown-sale.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "banner-delivery-countdown",
@@ -6245,7 +6447,8 @@
         "requirePath": "./dist/banner-delivery-countdown.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "banner-event-promo",
@@ -6283,7 +6486,8 @@
         "requirePath": "./dist/banner-event-promo.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "banner-floating-offer",
@@ -6323,7 +6527,8 @@
         "requirePath": "./dist/banner-floating-offer.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "banner-gdpr-rights",
@@ -6363,7 +6568,8 @@
         "requirePath": "./dist/banner-gdpr-rights.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "banner-privacy-notice",
@@ -6402,7 +6608,8 @@
         "requirePath": "./dist/banner-privacy-notice.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "banner-promo-cta",
@@ -6442,7 +6649,8 @@
         "requirePath": "./dist/banner-promo-cta.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "banner-social-follow",
@@ -6480,7 +6688,8 @@
         "requirePath": "./dist/banner-social-follow.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "banner-survey-incentive",
@@ -6518,7 +6727,8 @@
         "requirePath": "./dist/banner-survey-incentive.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "blog-cards-read-time",
@@ -6607,6 +6817,13 @@
           "media_library",
           "team_members"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -6687,7 +6904,8 @@
           "blog_posts",
           "media_library"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "blog-carousel-apple",
@@ -6777,7 +6995,8 @@
           "blog_posts",
           "media_library"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "blog-category-overlay",
@@ -6859,6 +7078,15 @@
         "requiresSiteCapabilities": [
           "blog_posts",
           "media_library"
+        ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badge"
         ]
       }
     },
@@ -6948,6 +7176,13 @@
           "blog_posts",
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -7075,6 +7310,13 @@
           "blog_posts",
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -7168,7 +7410,8 @@
           "media_library",
           "team_members"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "blog-grid-nine-posts",
@@ -7291,7 +7534,8 @@
           "media_library",
           "team_members"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "blog-horizontal-cards",
@@ -7379,7 +7623,8 @@
           "blog_posts",
           "media_library"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "blog-horizontal-timeline",
@@ -7456,6 +7701,13 @@
           "blog_posts",
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -7545,6 +7797,13 @@
           "blog_posts",
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -7633,6 +7892,13 @@
           "blog_posts",
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -7723,6 +7989,13 @@
           "media_library",
           "team_members"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -7801,7 +8074,8 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-auto-progress-slides",
@@ -7872,6 +8146,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -7944,7 +8225,8 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-feature-badge",
@@ -8023,7 +8305,8 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-fullscreen-scroll-fx",
@@ -8103,7 +8386,8 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-gallery-thumbnails",
@@ -8178,7 +8462,8 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-horizontal-cards",
@@ -8261,7 +8546,8 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-image-hero",
@@ -8341,6 +8627,15 @@
         "mediaSlots": {},
         "requiresSiteCapabilities": [
           "media_library"
+        ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badge"
         ]
       }
     },
@@ -8422,7 +8717,8 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-portfolio-hero",
@@ -8502,6 +8798,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "slides.0.title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -8593,7 +8896,8 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-progress-slider",
@@ -8667,7 +8971,8 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-scrolling-feature-showcase",
@@ -8739,7 +9044,8 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "case-studies-featured-border",
@@ -8779,7 +9085,8 @@
         "requirePath": "./dist/case-studies-featured-border.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "case-studies-image-grid",
@@ -8819,7 +9126,8 @@
         "requirePath": "./dist/case-studies-image-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "case-studies-stats-card",
@@ -8859,7 +9167,8 @@
         "requirePath": "./dist/case-studies-stats-card.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "case-studies-testimonial-stats",
@@ -8899,7 +9208,8 @@
         "requirePath": "./dist/case-studies-testimonial-stats.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "case-study-prose-sidebar",
@@ -8939,7 +9249,8 @@
         "requirePath": "./dist/case-study-prose-sidebar.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "case-study-stats-metrics",
@@ -8981,7 +9292,14 @@
         "requirePath": "./dist/case-study-stats-metrics.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "case-study-toc-social-sidebar",
@@ -9023,7 +9341,14 @@
         "requirePath": "./dist/case-study-toc-social-sidebar.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "comparison-ai-models",
@@ -9064,7 +9389,8 @@
         "requirePath": "./dist/comparison-ai-models.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "comparison-feature-cards",
@@ -9103,7 +9429,14 @@
         "requirePath": "./dist/comparison-feature-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "comparison-feature-grid",
@@ -9143,7 +9476,8 @@
         "requirePath": "./dist/comparison-feature-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "comparison-grid-badges",
@@ -9182,7 +9516,8 @@
         "requirePath": "./dist/comparison-grid-badges.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "comparison-image-cards",
@@ -9222,7 +9557,8 @@
         "requirePath": "./dist/comparison-image-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "comparison-legacy-modern",
@@ -9262,7 +9598,8 @@
         "requirePath": "./dist/comparison-legacy-modern.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "comparison-metrics-rows",
@@ -9302,7 +9639,8 @@
         "requirePath": "./dist/comparison-metrics-rows.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "comparison-table-tabs",
@@ -9343,7 +9681,8 @@
         "requirePath": "./dist/comparison-table-tabs.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "comparison-table-tooltips",
@@ -9383,7 +9722,8 @@
         "requirePath": "./dist/comparison-table-tooltips.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "comparison-table-two-column",
@@ -9422,7 +9762,14 @@
         "requirePath": "./dist/comparison-table-two-column.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "contact-callback",
@@ -9488,7 +9835,8 @@
             "note": "One or two sentences explaining the callback process (optional)"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-card",
@@ -9564,7 +9912,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-careers",
@@ -9626,6 +9975,13 @@
             "note": "Array of JobListingItem with real position data; optional"
           }
         }
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -9684,7 +10040,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-consultation",
@@ -9742,7 +10099,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-dark",
@@ -9807,7 +10165,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-demo",
@@ -9866,7 +10225,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-emergency",
@@ -9927,7 +10287,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-event",
@@ -9984,7 +10345,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-faq",
@@ -10056,7 +10418,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-feedback",
@@ -10112,7 +10475,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-fitness",
@@ -10169,7 +10533,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-floating-banner",
@@ -10232,7 +10597,8 @@
             "note": "Absolute URL or internal path to destination page"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-guest",
@@ -10289,7 +10655,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-help-center",
@@ -10363,7 +10730,8 @@
             "note": "Array of ContactHelpCenterItem with title, subtitle, icon (DynamicIcon name), and optional href"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-image",
@@ -10440,7 +10808,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-insurance",
@@ -10497,7 +10866,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-interview",
@@ -10554,7 +10924,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-locations",
@@ -10611,7 +10982,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-maintenance",
@@ -10668,7 +11040,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-map",
@@ -10753,7 +11126,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-minimal",
@@ -10809,7 +11183,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-moving",
@@ -10866,7 +11241,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-multistep",
@@ -10923,7 +11299,8 @@
             "note": "Must include a valid formConfig.endpoint; multi-step structure is defined by field groupings"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-partnership",
@@ -10980,7 +11357,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-photography",
@@ -11057,7 +11435,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-press",
@@ -11114,7 +11493,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-quote",
@@ -11171,7 +11551,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-referral",
@@ -11228,7 +11609,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-report",
@@ -11286,7 +11668,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-reservation",
@@ -11343,7 +11726,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-retreat",
@@ -11400,7 +11784,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-rsvp",
@@ -11457,7 +11842,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-sales",
@@ -11514,7 +11900,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-schedule",
@@ -11571,7 +11958,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-sponsorship",
@@ -11628,7 +12016,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-support",
@@ -11684,7 +12073,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-tenant",
@@ -11741,7 +12131,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-vendor",
@@ -11798,7 +12189,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-volunteer",
@@ -11855,7 +12247,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-warranty",
@@ -11912,7 +12305,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "contact-wedding",
@@ -11969,7 +12363,8 @@
             "note": "Must include a valid formConfig.endpoint"
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "cta-accent-background",
@@ -12006,7 +12401,8 @@
         "requirePath": "./dist/cta-accent-background.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-app-download-newsletter",
@@ -12044,7 +12440,8 @@
         "requirePath": "./dist/cta-app-download-newsletter.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-background-icon-badge",
@@ -12081,7 +12478,8 @@
         "requirePath": "./dist/cta-background-icon-badge.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-case-study-testimonial",
@@ -12119,7 +12517,8 @@
         "requirePath": "./dist/cta-case-study-testimonial.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-documentation-links",
@@ -12158,7 +12557,8 @@
         "requirePath": "./dist/cta-documentation-links.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-enterprise-dark-features",
@@ -12196,7 +12596,8 @@
         "requirePath": "./dist/cta-enterprise-dark-features.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-enterprise-split",
@@ -12234,7 +12635,8 @@
         "requirePath": "./dist/cta-enterprise-split.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-feature-cards-grid",
@@ -12272,7 +12674,8 @@
         "requirePath": "./dist/cta-feature-cards-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-feature-checklist",
@@ -12310,7 +12713,8 @@
         "requirePath": "./dist/cta-feature-checklist.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-feature-list",
@@ -12347,7 +12751,8 @@
         "requirePath": "./dist/cta-feature-list.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-fullwidth-background",
@@ -12385,7 +12790,8 @@
         "requirePath": "./dist/cta-fullwidth-background.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-gradient-logos-floating",
@@ -12423,7 +12829,8 @@
         "requirePath": "./dist/cta-gradient-logos-floating.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-gradient-stats-hero",
@@ -12461,7 +12868,8 @@
         "requirePath": "./dist/cta-gradient-stats-hero.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-hero-feature-cards",
@@ -12498,7 +12906,8 @@
         "requirePath": "./dist/cta-hero-feature-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-image-overlay-arrow",
@@ -12535,7 +12944,8 @@
         "requirePath": "./dist/cta-image-overlay-arrow.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-image-overlay-centered",
@@ -12573,7 +12983,8 @@
         "requirePath": "./dist/cta-image-overlay-centered.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-minimal-separator",
@@ -12610,7 +13021,8 @@
         "requirePath": "./dist/cta-minimal-separator.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-newsletter-features",
@@ -12648,7 +13060,8 @@
         "requirePath": "./dist/cta-newsletter-features.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-pattern-background",
@@ -12685,7 +13098,14 @@
         "requirePath": "./dist/cta-pattern-background.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "cta-platform-demo",
@@ -12723,7 +13143,8 @@
         "requirePath": "./dist/cta-platform-demo.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-simple-centered",
@@ -12760,7 +13181,8 @@
         "requirePath": "./dist/cta-simple-centered.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-split-gradient-image",
@@ -12797,7 +13219,8 @@
         "requirePath": "./dist/cta-split-gradient-image.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-split-image",
@@ -12834,7 +13257,8 @@
         "requirePath": "./dist/cta-split-image.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-split-image-logos",
@@ -12872,7 +13296,14 @@
         "requirePath": "./dist/cta-split-image-logos.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "cta-stacked-cards",
@@ -12910,7 +13341,8 @@
         "requirePath": "./dist/cta-stacked-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-video-background-hero",
@@ -12948,7 +13380,8 @@
         "requirePath": "./dist/cta-video-background-hero.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "cta-workflow-tabs",
@@ -12986,7 +13419,8 @@
         "requirePath": "./dist/cta-workflow-tabs.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "media-hover-ctas",
@@ -13026,7 +13460,8 @@
         "requirePath": "./dist/media-hover-ctas.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "faq-badge-support",
@@ -13103,7 +13538,8 @@
             "maxItems": 10
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "faq-bordered-badge",
@@ -13175,7 +13611,8 @@
             "maxItems": 10
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "faq-card-categories",
@@ -13260,7 +13697,8 @@
             "maxItems": 6
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "faq-categorized-sections",
@@ -13344,7 +13782,8 @@
             "maxItems": 5
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "faq-centered-accordion",
@@ -13413,7 +13852,8 @@
             "maxItems": 10
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "faq-gradient-categories",
@@ -13498,7 +13938,8 @@
             "maxItems": 4
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "faq-icon-benefits",
@@ -13567,7 +14008,8 @@
             "maxItems": 9
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "faq-muted-cards",
@@ -13636,7 +14078,8 @@
             "maxItems": 10
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "faq-numbered-grid",
@@ -13706,7 +14149,8 @@
             "maxItems": 8
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "faq-numbered-list",
@@ -13774,7 +14218,8 @@
             "maxItems": 8
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "faq-profile-sidebar",
@@ -13864,7 +14309,8 @@
             "maxItems": 10
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "faq-rounded-cards",
@@ -13934,7 +14380,8 @@
             "maxItems": 10
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "faq-sidebar-navigation",
@@ -14032,7 +14479,8 @@
             "maxItems": 6
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "faq-simple-accordion",
@@ -14101,7 +14549,8 @@
             "maxItems": 10
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "faq-split-help",
@@ -14178,7 +14627,8 @@
             "maxItems": 10
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "faq-split-hero",
@@ -14271,7 +14721,8 @@
             "maxItems": 8
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "faq-static-list",
@@ -14337,7 +14788,8 @@
             "maxItems": 12
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-accordion-image",
@@ -14412,7 +14864,8 @@
             "maxItems": 6
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-animated-carousel",
@@ -14497,7 +14950,8 @@
             "maxItems": 6
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-badge-grid-six",
@@ -14586,7 +15040,8 @@
             "maxItems": 9
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-bento-image-grid",
@@ -14671,7 +15126,8 @@
             "maxItems": 6
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-bento-utilities",
@@ -14746,7 +15202,8 @@
             "maxItems": 8
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-capabilities-grid",
@@ -14817,7 +15274,8 @@
             "maxItems": 9
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-card-grid-linked",
@@ -14905,7 +15363,8 @@
             "maxItems": 8
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-carousel-progress",
@@ -14976,7 +15435,8 @@
             "maxItems": 8
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-category-image-cards",
@@ -15054,7 +15514,8 @@
             "maxItems": 6
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-checklist-image",
@@ -15127,7 +15588,8 @@
             "maxItems": 2
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-checklist-three-column",
@@ -15222,7 +15684,8 @@
             "maxItems": 3
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-icon-grid-accent",
@@ -15292,7 +15755,8 @@
             "maxItems": 9
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-icon-grid-bordered",
@@ -15366,7 +15830,8 @@
             "maxItems": 8
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-icon-grid-muted",
@@ -15450,7 +15915,8 @@
             "maxItems": 9
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-icon-tabs-content",
@@ -15563,6 +16029,15 @@
             "maxItems": 5
           }
         }
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badge"
+        ]
       }
     },
     {
@@ -15649,7 +16124,8 @@
             "maxItems": 3
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-image-overlay-badge",
@@ -15719,7 +16195,8 @@
             "maxItems": 2
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-integration-cards",
@@ -15808,7 +16285,8 @@
             "maxItems": 8
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-numbered-cards",
@@ -15901,7 +16379,8 @@
             "maxItems": 5
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-pattern-grid-links",
@@ -15976,7 +16455,8 @@
             "maxItems": 9
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-showcase",
@@ -16040,7 +16520,8 @@
             "maxItems": 6
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-split-image",
@@ -16109,7 +16590,8 @@
             "maxItems": 2
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-split-image-reverse",
@@ -16178,7 +16660,8 @@
             "maxItems": 2
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-stats-highlight",
@@ -16267,7 +16750,8 @@
             "maxItems": 2
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-tabbed-content-image",
@@ -16365,7 +16849,8 @@
             "maxItems": 5
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-three-column-values",
@@ -16434,7 +16919,8 @@
             "maxItems": 6
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "feature-utility-cards-grid",
@@ -16513,7 +16999,8 @@
             "maxItems": 6
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-accordion-social",
@@ -16625,7 +17112,8 @@
             "note": "Brand logo shown above the newsletter section. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-animated-social",
@@ -16691,7 +17179,8 @@
         "requiredProps": [],
         "propConstraints": {},
         "mediaSlots": {}
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-background-card",
@@ -16837,7 +17326,8 @@
             "note": "Brand logo inside the card. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-brand-description",
@@ -16950,7 +17440,8 @@
             "note": "Brand logo shown in the brand column. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-brand-links-contact",
@@ -17077,7 +17568,8 @@
             "note": "Brand logo shown centered above the grid. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-comprehensive-links",
@@ -17194,7 +17686,8 @@
             "note": "Brand logo shown centered above the link grid. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-contact-card",
@@ -17301,7 +17794,8 @@
             "note": "Brand logo shown above the heading. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-cta-banner",
@@ -17404,7 +17898,8 @@
             "note": "Brand logo in the footer grid. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-cta-social",
@@ -17468,7 +17963,8 @@
         "requiredProps": [],
         "propConstraints": {},
         "mediaSlots": {}
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-info-cards-accordion",
@@ -17636,7 +18132,8 @@
             "note": "Theme-aware brand logo in the brand column. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-links-grid",
@@ -17740,7 +18237,8 @@
             "note": "Brand logo displayed in the footer brand column. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-nav-social",
@@ -17860,7 +18358,8 @@
             "note": "Brand logo above the nav sections. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-newsletter-contact",
@@ -17981,7 +18480,8 @@
             "note": "Theme-aware brand logo shown as a separator between content and copyright. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-newsletter-grid",
@@ -18080,7 +18580,8 @@
             "note": "Brand logo in the footer. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-newsletter-minimal",
@@ -18166,7 +18667,8 @@
           "contact_form"
         ],
         "mediaSlots": {}
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-simple-centered",
@@ -18269,7 +18771,8 @@
             "note": "Brand logo for the footer. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-social-apps",
@@ -18373,7 +18876,8 @@
             "note": "Brand logo for the footer. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-social-newsletter",
@@ -18477,7 +18981,8 @@
             "note": "Brand logo shown above social icons. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "footer-split-image-accordion",
@@ -18622,7 +19127,8 @@
             "note": "Brand logo in the right content column. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "auto-scroll-carousel",
@@ -18716,7 +19222,8 @@
             "required": false
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "blur-vignette-grid",
@@ -18813,7 +19320,8 @@
             "required": false
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-badge-cards",
@@ -18906,7 +19414,8 @@
             "required": false
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-demo-link",
@@ -19000,7 +19509,8 @@
             "required": false
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-gradient-overlay",
@@ -19091,7 +19601,8 @@
             "required": false
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-gradient-text",
@@ -19179,7 +19690,8 @@
             "required": false
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-icon-sidebar",
@@ -19266,7 +19778,8 @@
             "required": false
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-icon-tabs",
@@ -19358,7 +19871,8 @@
             "required": true
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-scale-focus",
@@ -19445,7 +19959,8 @@
             "required": false
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-sidebar-resources",
@@ -19540,7 +20055,8 @@
             "required": false
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "carousel-tabs-content",
@@ -19630,7 +20146,8 @@
             "required": false
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "expandable-case-study-cards",
@@ -19731,7 +20248,8 @@
             "required": false
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "instagram-post-grid",
@@ -19902,7 +20420,8 @@
             "required": false
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "interior-carousel",
@@ -19975,7 +20494,8 @@
             "required": false
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "masonry-motion-grid",
@@ -20082,7 +20602,8 @@
             "required": false
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "service-hover-carousel",
@@ -20181,7 +20702,8 @@
             "required": false
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonial-carousel-cards",
@@ -20275,7 +20797,8 @@
             "required": false
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "hero-ad-campaign-expert",
@@ -20395,6 +20918,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -20494,6 +21024,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -20610,6 +21147,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -20796,6 +21340,15 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badge"
+        ]
       }
     },
     {
@@ -20874,6 +21427,15 @@
           }
         },
         "mediaSlots": {}
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badge"
+        ]
       }
     },
     {
@@ -20961,6 +21523,15 @@
         },
         "requiresSiteCapabilities": [
           "media_library"
+        ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "tagline"
         ]
       }
     },
@@ -21068,6 +21639,15 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badge"
+        ]
       }
     },
     {
@@ -21174,6 +21754,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -21339,6 +21926,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -21455,6 +22049,15 @@
         },
         "requiresSiteCapabilities": [
           "media_library"
+        ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badge"
         ]
       }
     },
@@ -21574,6 +22177,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -21657,6 +22267,15 @@
           }
         },
         "mediaSlots": {}
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badge"
+        ]
       }
     },
     {
@@ -21786,6 +22405,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -21892,6 +22518,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -21971,6 +22604,15 @@
           }
         },
         "mediaSlots": {}
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badgeText"
+        ]
       }
     },
     {
@@ -22117,6 +22759,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -22223,6 +22872,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "headingPrimary",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -22350,6 +23006,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -22483,6 +23146,15 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "tagline"
+        ]
       }
     },
     {
@@ -22587,6 +23259,15 @@
         },
         "requiresSiteCapabilities": [
           "media_library"
+        ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "tagline"
         ]
       }
     },
@@ -22697,6 +23378,15 @@
         },
         "requiresSiteCapabilities": [
           "media_library"
+        ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "tagline"
         ]
       }
     },
@@ -22824,6 +23514,15 @@
         },
         "notes": [
           "The logo prop is optional. When provided, the BrandLogo component renders it above the announcement badge with responsive sizing."
+        ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badgeText"
         ]
       }
     },
@@ -22987,6 +23686,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -23118,6 +23824,13 @@
             "note": "Optional product showcase image. IMAGE MEDIA ONLY. Do not use logos, favicons, or video assets."
           }
         }
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -23238,6 +23951,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -23341,6 +24061,15 @@
           }
         },
         "mediaSlots": {}
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badgeText"
+        ]
       }
     },
     {
@@ -23443,6 +24172,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -23587,6 +24323,15 @@
           "products",
           "stats_or_metrics"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badgeText"
+        ]
       }
     },
     {
@@ -23690,6 +24435,15 @@
           }
         },
         "mediaSlots": {}
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badge"
+        ]
       }
     },
     {
@@ -23819,6 +24573,15 @@
           "events",
           "stats_or_metrics"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badgeText"
+        ]
       }
     },
     {
@@ -23926,6 +24689,13 @@
           }
         },
         "mediaSlots": {}
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -24034,6 +24804,15 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badge"
+        ]
       }
     },
     {
@@ -24136,6 +24915,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -24230,6 +25016,13 @@
             "note": "Full-bleed background image. Use a large, high-quality landscape photo."
           }
         }
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -24375,6 +25168,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -24477,6 +25277,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -24542,6 +25349,13 @@
           }
         },
         "mediaSlots": {}
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -24649,6 +25463,15 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badgeText"
+        ]
       }
     },
     {
@@ -24751,6 +25574,13 @@
             "note": "Full-bleed background image. Use a large, high-quality landscape photo."
           }
         }
+      },
+      "headingContract": {
+        "titleProp": "headingPrefix",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -24853,6 +25683,15 @@
         },
         "requiresSiteCapabilities": [
           "media_library"
+        ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badge"
         ]
       }
     },
@@ -24957,6 +25796,15 @@
         },
         "requiresSiteCapabilities": [
           "media_library"
+        ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "eyebrow"
         ]
       }
     },
@@ -25065,6 +25913,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -25173,6 +26028,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -25284,6 +26146,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -25443,6 +26312,13 @@
           "reviews_or_testimonials",
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -25581,6 +26457,13 @@
           "Image and video media must never be swapped between the 'image' prop and the 'modalVideo' prop.",
           "All media src values must be absolute URLs to real assets; relative paths are not allowed."
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -25649,6 +26532,15 @@
           }
         },
         "mediaSlots": {}
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badge"
+        ]
       }
     },
     {
@@ -25758,6 +26650,15 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badgeText"
+        ]
       }
     },
     {
@@ -25830,6 +26731,13 @@
         "requiresSiteCapabilities": [
           "contact_form"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -25941,6 +26849,15 @@
         },
         "requiresSiteCapabilities": [
           "media_library"
+        ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badgeText"
         ]
       }
     },
@@ -26055,6 +26972,15 @@
             "note": "Customer or partner logos. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badge"
+        ]
       }
     },
     {
@@ -26167,6 +27093,13 @@
             "note": "Technology stack logos. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -26277,6 +27210,13 @@
             "note": "Optional brand logo above heading. LOGO IMAGE ONLY. Do not use photos, favicons, or video assets."
           }
         }
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -26403,6 +27343,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -26531,6 +27478,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "brandName",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -26639,6 +27593,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -26740,6 +27701,15 @@
         "mediaSlots": {},
         "requiresSiteCapabilities": [
           "pricing"
+        ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badgeText"
         ]
       }
     },
@@ -26867,6 +27837,15 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badgeText"
+        ]
       }
     },
     {
@@ -26972,6 +27951,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -27068,6 +28054,15 @@
         "requiresSiteCapabilities": [
           "media_library",
           "contact_form"
+        ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badgeText"
         ]
       }
     },
@@ -27193,6 +28188,15 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "eyebrow"
+        ]
       }
     },
     {
@@ -27283,6 +28287,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -27421,6 +28432,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -27521,6 +28539,15 @@
         },
         "requiresSiteCapabilities": [
           "media_library"
+        ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badgeText"
         ]
       }
     },
@@ -27644,6 +28671,15 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badgeText"
+        ]
       }
     },
     {
@@ -27740,6 +28776,15 @@
           }
         },
         "mediaSlots": {}
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "eyebrow"
+        ]
       }
     },
     {
@@ -27832,6 +28877,13 @@
           "media_library",
           "contact_form"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -27950,6 +29002,15 @@
         },
         "requiresSiteCapabilities": [
           "media_library"
+        ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badgeText"
         ]
       }
     },
@@ -28084,6 +29145,15 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badge"
+        ]
       }
     },
     {
@@ -28211,6 +29281,15 @@
           "media_library",
           "stats_or_metrics"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badge"
+        ]
       }
     },
     {
@@ -28308,6 +29387,13 @@
         },
         "mediaSlots": {},
         "requiresSiteCapabilities": []
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -28437,6 +29523,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "items.0.title",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -28582,6 +29675,13 @@
           "media_library",
           "reviews_or_testimonials"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -28730,6 +29830,13 @@
           "media_library",
           "reviews_or_testimonials"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -28848,6 +29955,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -28955,6 +30069,15 @@
         },
         "requiresSiteCapabilities": [
           "media_library"
+        ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badgeText"
         ]
       }
     },
@@ -29078,6 +30201,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -29195,6 +30325,13 @@
           "media_library",
           "reviews_or_testimonials"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -29314,6 +30451,13 @@
         "requiresSiteCapabilities": [
           "media_library"
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -29353,7 +30497,8 @@
         "requirePath": "./dist/industries-badge-list-bordered.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "industries-expandable-showcase",
@@ -29394,7 +30539,8 @@
         "requirePath": "./dist/industries-expandable-showcase.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "industries-hover-reveal-grid",
@@ -29435,7 +30581,8 @@
         "requirePath": "./dist/industries-hover-reveal-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "industries-timeline-table",
@@ -29475,7 +30622,8 @@
         "requirePath": "./dist/industries-timeline-table.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "tripleseat-form",
@@ -29584,7 +30732,8 @@
           "Third-party embed: renders nothing at all unless both leadFormId and publicKey are present.",
           "One instance per page — TripleSeat's markup uses global element ids."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "link-page-bento-layout",
@@ -29847,6 +30996,13 @@
           "Regular links (featured:false or omitted) render as compact rows with an icon and label only.",
           "Recommended: 1–3 featured links, 2–6 regular links."
         ]
+      },
+      "headingContract": {
+        "titleProp": "name",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -30082,6 +31238,13 @@
           "Card labels are short (≤30 chars) because they render in centered small text inside each card.",
           "No featured link concept in this block; use link-tree-block if featured highlighting is needed."
         ]
+      },
+      "headingContract": {
+        "titleProp": "name",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -30291,6 +31454,13 @@
           "avatar prop accepts ImageItem ({ src, alt }); avatarUrl (string) is the legacy fallback. The logo prop (LogoConfig { src, alt, url? }) takes priority over both and is the preferred slot for the site brand mark — shape it with logoAspect, never with a className.",
           "No media gallery in this variant — use link-tree-block if a gallery is needed."
         ]
+      },
+      "headingContract": {
+        "titleProp": "name",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -30525,6 +31695,13 @@
           "formEngineSetup is optional; omit it to render the newsletter card without a form (use newsletterSlot instead).",
           "buttonAction.variant controls the submit button style (default, outline, secondary)."
         ]
+      },
+      "headingContract": {
+        "titleProp": "name",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -30804,6 +31981,13 @@
           "brandAvatar and brandLogo accept ImageItem ({ src, alt }) or a plain string URL; the logo prop (LogoConfig { src, alt, url? }) takes priority over both and is the preferred slot for the site brand mark — shape it with logoAspect, never with a className.",
           "mediaGallery items with type 'video' should provide a poster URL for the thumbnail."
         ]
+      },
+      "headingContract": {
+        "titleProp": "brandName",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -30843,7 +32027,14 @@
         "requirePath": "./dist/list-achievements-showcase.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "list-career-timeline",
@@ -30883,7 +32074,14 @@
         "requirePath": "./dist/list-career-timeline.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "list-feature-comparison",
@@ -30923,7 +32121,16 @@
         "requirePath": "./dist/list-feature-comparison.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": [
+          "badge"
+        ]
+      }
     },
     {
       "componentId": "list-metrics-dashboard",
@@ -30963,7 +32170,8 @@
         "requirePath": "./dist/list-metrics-dashboard.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "list-searchable-grid",
@@ -31002,7 +32210,8 @@
         "requirePath": "./dist/list-searchable-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "list-service-category-table",
@@ -31042,7 +32251,8 @@
         "requirePath": "./dist/list-service-category-table.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "logos-carousel-heading",
@@ -31082,7 +32292,14 @@
         "requirePath": "./dist/logos-carousel-heading.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "logos-centered-simple",
@@ -31122,7 +32339,8 @@
         "requirePath": "./dist/logos-centered-simple.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "logos-certifications-grid",
@@ -31162,7 +32380,8 @@
         "requirePath": "./dist/logos-certifications-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "logos-double-carousel-pattern",
@@ -31202,7 +32421,8 @@
         "requirePath": "./dist/logos-double-carousel-pattern.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "logos-inline-tagline",
@@ -31242,7 +32462,8 @@
         "requirePath": "./dist/logos-inline-tagline.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "logos-marquee-muted",
@@ -31282,7 +32503,8 @@
         "requirePath": "./dist/logos-marquee-muted.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "logos-minimal-carousel",
@@ -31322,7 +32544,8 @@
         "requirePath": "./dist/logos-minimal-carousel.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "logos-numbered-carousel",
@@ -31362,7 +32585,8 @@
         "requirePath": "./dist/logos-numbered-carousel.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "logos-partner-grid-sidebar",
@@ -31402,7 +32626,8 @@
         "requirePath": "./dist/logos-partner-grid-sidebar.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "logos-partner-network",
@@ -31442,7 +32667,8 @@
         "requirePath": "./dist/logos-partner-network.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "logos-two-row-grid",
@@ -31482,7 +32708,8 @@
         "requirePath": "./dist/logos-two-row-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "navbar-animated-preview",
@@ -31694,7 +32921,8 @@
             "maxItems": 4
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-centered-menu",
@@ -31807,7 +33035,8 @@
             "maxItems": 3
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-dark-icons",
@@ -31928,7 +33157,8 @@
             "maxItems": 2
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-dropdown-menu",
@@ -32045,7 +33275,8 @@
             "maxItems": 3
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-education-platform",
@@ -32216,7 +33447,8 @@
             "maxItems": 3
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-enterprise-mega",
@@ -32393,7 +33625,8 @@
             "maxItems": 7
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-feature-grid",
@@ -32516,7 +33749,8 @@
             "maxItems": 2
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-floating-pill",
@@ -32621,7 +33855,8 @@
             "maxItems": 2
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-fullscreen-menu",
@@ -32746,7 +33981,8 @@
             "maxItems": 6
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-icon-links",
@@ -32864,7 +34100,8 @@
             "maxItems": 3
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-image-preview",
@@ -33004,7 +34241,8 @@
             "maxItems": 2
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-mega-menu",
@@ -33135,7 +34373,8 @@
             "maxItems": 6
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-multi-column-groups",
@@ -33273,7 +34512,8 @@
             "maxItems": 3
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-platform-resources",
@@ -33406,7 +34646,8 @@
             "maxItems": 8
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-search-focused",
@@ -33510,7 +34751,8 @@
             "maxItems": 2
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-sidebar-mobile",
@@ -33638,7 +34880,8 @@
             "maxItems": 2
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-simple-links",
@@ -33745,7 +34988,8 @@
             "maxItems": 2
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-split-cta",
@@ -33854,7 +35098,8 @@
             "maxItems": 2
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-sticky-compact",
@@ -33961,7 +35206,8 @@
             "maxItems": 2
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-tabbed-sections",
@@ -34115,7 +35361,8 @@
             "maxItems": 2
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "navbar-transparent-overlay",
@@ -34221,7 +35468,8 @@
             "maxItems": 6
           }
         }
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "offer-modal-membership-image",
@@ -34265,7 +35513,8 @@
         "requirePath": "./dist/offer-modal-membership-image.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "offer-modal-newsletter-discount",
@@ -34307,7 +35556,8 @@
         "requirePath": "./dist/offer-modal-newsletter-discount.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "offer-modal-sheet-newsletter",
@@ -34353,7 +35603,8 @@
         "requirePath": "./dist/offer-modal-sheet-newsletter.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-addons-cards",
@@ -34390,7 +35641,8 @@
         "requirePath": "./dist/pricing-addons-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-addons-featured",
@@ -34427,7 +35679,8 @@
         "requirePath": "./dist/pricing-addons-featured.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-collapsible-plans",
@@ -34464,7 +35717,8 @@
         "requirePath": "./dist/pricing-collapsible-plans.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-columns-toggle",
@@ -34501,7 +35755,8 @@
         "requirePath": "./dist/pricing-columns-toggle.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-comparison-headers",
@@ -34538,7 +35793,8 @@
         "requirePath": "./dist/pricing-comparison-headers.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-comparison-table",
@@ -34575,7 +35831,8 @@
         "requirePath": "./dist/pricing-comparison-table.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-discount-card",
@@ -34612,7 +35869,8 @@
         "requirePath": "./dist/pricing-discount-card.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-enterprise-contact",
@@ -34649,7 +35907,8 @@
         "requirePath": "./dist/pricing-enterprise-contact.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-feature-matrix",
@@ -34686,7 +35945,8 @@
         "requirePath": "./dist/pricing-feature-matrix.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-four-tier-toggle",
@@ -34723,7 +35983,8 @@
         "requirePath": "./dist/pricing-four-tier-toggle.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-full-comparison",
@@ -34760,7 +36021,8 @@
         "requirePath": "./dist/pricing-full-comparison.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-gradient-cards",
@@ -34797,7 +36059,8 @@
         "requirePath": "./dist/pricing-gradient-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-icon-headers",
@@ -34834,7 +36097,8 @@
         "requirePath": "./dist/pricing-icon-headers.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-minimal-cards",
@@ -34871,7 +36135,8 @@
         "requirePath": "./dist/pricing-minimal-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-packages-radio",
@@ -34908,7 +36173,8 @@
         "requirePath": "./dist/pricing-packages-radio.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-popular-highlight",
@@ -34945,7 +36211,8 @@
         "requirePath": "./dist/pricing-popular-highlight.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-radio-toggle",
@@ -34982,7 +36249,8 @@
         "requirePath": "./dist/pricing-radio-toggle.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-responsive-table",
@@ -35019,7 +36287,8 @@
         "requirePath": "./dist/pricing-responsive-table.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-services-cards",
@@ -35056,7 +36325,8 @@
         "requirePath": "./dist/pricing-services-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-simple-card",
@@ -35093,7 +36363,8 @@
         "requirePath": "./dist/pricing-simple-card.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-single-card",
@@ -35130,7 +36401,8 @@
         "requirePath": "./dist/pricing-single-card.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-split-layout",
@@ -35167,7 +36439,8 @@
         "requirePath": "./dist/pricing-split-layout.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-spotlight-card",
@@ -35204,7 +36477,8 @@
         "requirePath": "./dist/pricing-spotlight-card.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-switch-cards",
@@ -35241,7 +36515,8 @@
         "requirePath": "./dist/pricing-switch-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-tabs-toggle",
@@ -35278,7 +36553,8 @@
         "requirePath": "./dist/pricing-tabs-toggle.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-tier-grid",
@@ -35317,7 +36593,8 @@
         "requirePath": "./dist/pricing-tier-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-toggle-cards",
@@ -35355,7 +36632,8 @@
         "requirePath": "./dist/pricing-toggle-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-toggle-period",
@@ -35392,7 +36670,8 @@
         "requirePath": "./dist/pricing-toggle-period.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "pricing-two-column-basic",
@@ -35429,7 +36708,8 @@
         "requirePath": "./dist/pricing-two-column-basic.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "process-expandable-timeline",
@@ -35523,7 +36803,8 @@
           }
         },
         "mediaSlots": {}
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "process-hover-cards",
@@ -35643,7 +36924,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "process-icon-timeline",
@@ -35762,6 +37044,13 @@
           }
         },
         "mediaSlots": {}
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -35877,6 +37166,13 @@
           }
         },
         "mediaSlots": {}
+      },
+      "headingContract": {
+        "titleProp": "missionHeading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -36011,6 +37307,13 @@
           }
         },
         "mediaSlots": {}
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -36135,6 +37438,13 @@
           }
         },
         "mediaSlots": {}
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -36268,6 +37578,13 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -36372,6 +37689,13 @@
           }
         },
         "mediaSlots": {}
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -36488,6 +37812,13 @@
           }
         },
         "mediaSlots": {}
+      },
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
       }
     },
     {
@@ -36527,7 +37858,14 @@
         "requirePath": "./dist/project-detail-architecture-carousel.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-card-header",
@@ -36567,7 +37905,14 @@
         "requirePath": "./dist/project-detail-card-header.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-case-study-prose",
@@ -36606,7 +37951,14 @@
         "requirePath": "./dist/project-detail-case-study-prose.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-compact-metadata",
@@ -36644,7 +37996,14 @@
         "requirePath": "./dist/project-detail-compact-metadata.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-exhibition-sidebar",
@@ -36683,7 +38042,14 @@
         "requirePath": "./dist/project-detail-exhibition-sidebar.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-fashion-editorial",
@@ -36722,7 +38088,14 @@
         "requirePath": "./dist/project-detail-fashion-editorial.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-fullscreen-hero",
@@ -36761,7 +38134,14 @@
         "requirePath": "./dist/project-detail-fullscreen-hero.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-grid-gallery",
@@ -36800,7 +38180,14 @@
         "requirePath": "./dist/project-detail-grid-gallery.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-hero-metadata",
@@ -36840,7 +38227,14 @@
         "requirePath": "./dist/project-detail-hero-metadata.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-hover-gallery",
@@ -36879,7 +38273,14 @@
         "requirePath": "./dist/project-detail-hover-gallery.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-large-hero-featured",
@@ -36918,7 +38319,14 @@
         "requirePath": "./dist/project-detail-large-hero-featured.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-list-related",
@@ -36957,7 +38365,14 @@
         "requirePath": "./dist/project-detail-list-related.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-mask-reveal",
@@ -36997,7 +38412,14 @@
         "requirePath": "./dist/project-detail-mask-reveal.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-minimal-centered",
@@ -37036,7 +38458,14 @@
         "requirePath": "./dist/project-detail-minimal-centered.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-numbered-sections",
@@ -37075,7 +38504,14 @@
         "requirePath": "./dist/project-detail-numbered-sections.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-parallax-scroll",
@@ -37115,7 +38551,14 @@
         "requirePath": "./dist/project-detail-parallax-scroll.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-photography-breadcrumb",
@@ -37154,7 +38597,14 @@
         "requirePath": "./dist/project-detail-photography-breadcrumb.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-sculpture-showcase",
@@ -37194,7 +38644,14 @@
         "requirePath": "./dist/project-detail-sculpture-showcase.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-sidebar-navigation",
@@ -37233,7 +38690,14 @@
         "requirePath": "./dist/project-detail-sidebar-navigation.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-sidebar-sticky",
@@ -37272,7 +38736,14 @@
         "requirePath": "./dist/project-detail-sidebar-sticky.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-split-materials",
@@ -37311,7 +38782,14 @@
         "requirePath": "./dist/project-detail-split-materials.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-detail-tabbed-case-study",
@@ -37350,7 +38828,14 @@
         "requirePath": "./dist/project-detail-tabbed-case-study.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-alternating-motion",
@@ -37389,7 +38874,8 @@
         "requirePath": "./dist/project-alternating-motion.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "project-background-reveal",
@@ -37428,7 +38914,14 @@
         "requirePath": "./dist/project-background-reveal.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-card-overlay",
@@ -37467,7 +38960,14 @@
         "requirePath": "./dist/project-card-overlay.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-carousel-cinematic",
@@ -37506,7 +39006,14 @@
         "requirePath": "./dist/project-carousel-cinematic.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-carousel-detail-cards",
@@ -37545,7 +39052,14 @@
         "requirePath": "./dist/project-carousel-detail-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-carousel-minimal",
@@ -37583,7 +39097,14 @@
         "requirePath": "./dist/project-carousel-minimal.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-experience-quote",
@@ -37622,7 +39143,8 @@
         "requirePath": "./dist/project-experience-quote.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "project-featured-carousel",
@@ -37661,7 +39183,8 @@
         "requirePath": "./dist/project-featured-carousel.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "project-filterable-gallery",
@@ -37700,7 +39223,8 @@
         "requirePath": "./dist/project-filterable-gallery.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "project-filterable-three-column",
@@ -37739,7 +39263,8 @@
         "requirePath": "./dist/project-filterable-three-column.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "project-grid-gallery",
@@ -37778,7 +39303,8 @@
         "requirePath": "./dist/project-grid-gallery.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "project-grid-motion",
@@ -37817,7 +39343,14 @@
         "requirePath": "./dist/project-grid-motion.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-horizontal-cards",
@@ -37856,7 +39389,8 @@
         "requirePath": "./dist/project-horizontal-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "project-hover-reveal-grid",
@@ -37895,7 +39429,8 @@
         "requirePath": "./dist/project-hover-reveal-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "project-interactive-hover-reveal",
@@ -37934,7 +39469,8 @@
         "requirePath": "./dist/project-interactive-hover-reveal.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "project-masonry-columns",
@@ -37973,7 +39509,8 @@
         "requirePath": "./dist/project-masonry-columns.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "project-nature-mosaic",
@@ -38012,7 +39549,14 @@
         "requirePath": "./dist/project-nature-mosaic.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-scroll-reveal",
@@ -38051,7 +39595,14 @@
         "requirePath": "./dist/project-scroll-reveal.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-showcase-alternating",
@@ -38090,7 +39641,14 @@
         "requirePath": "./dist/project-showcase-alternating.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-sticky-scroll",
@@ -38129,7 +39687,8 @@
         "requirePath": "./dist/project-sticky-scroll.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "project-studio-hover-preview",
@@ -38168,7 +39727,8 @@
         "requirePath": "./dist/project-studio-hover-preview.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "project-table-list",
@@ -38207,7 +39767,8 @@
         "requirePath": "./dist/project-table-list.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "project-video-carousel",
@@ -38246,7 +39807,14 @@
         "requirePath": "./dist/project-video-carousel.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-video-hover-bento",
@@ -38285,7 +39853,14 @@
         "requirePath": "./dist/project-video-hover-bento.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-video-hover-grid",
@@ -38324,7 +39899,14 @@
         "requirePath": "./dist/project-video-hover-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-video-hover-rounded",
@@ -38363,7 +39945,14 @@
         "requirePath": "./dist/project-video-hover-rounded.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-video-hover-stack",
@@ -38402,7 +39991,14 @@
         "requirePath": "./dist/project-video-hover-stack.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-video-hover-two-by-two",
@@ -38441,7 +40037,14 @@
         "requirePath": "./dist/project-video-hover-two-by-two.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "project-work-showcase",
@@ -38480,7 +40083,8 @@
         "requirePath": "./dist/project-work-showcase.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "project-zigzag-layout",
@@ -38519,7 +40123,8 @@
         "requirePath": "./dist/project-zigzag-layout.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "resource-detail-article-hero",
@@ -38561,7 +40166,14 @@
         "requirePath": "./dist/resource-detail-article-hero.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "blog.title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "resource-detail-document-sidebar",
@@ -38606,7 +40218,14 @@
         "requirePath": "./dist/resource-detail-document-sidebar.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "resource-detail-whitepaper-sidebar",
@@ -38648,7 +40267,8 @@
         "requirePath": "./dist/resource-detail-whitepaper-sidebar.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "resource-list-course-cards",
@@ -38690,7 +40310,8 @@
         "requirePath": "./dist/resource-list-course-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "resource-list-featured-articles",
@@ -38731,7 +40352,8 @@
         "requirePath": "./dist/resource-list-featured-articles.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "resource-list-featured-grid",
@@ -38774,7 +40396,14 @@
         "requirePath": "./dist/resource-list-featured-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "resource-list-hero-filter",
@@ -38820,7 +40449,14 @@
         "requirePath": "./dist/resource-list-hero-filter.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "resource-list-news-updates",
@@ -38860,7 +40496,8 @@
         "requirePath": "./dist/resource-list-news-updates.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "service-detail-centered-expertise",
@@ -38899,7 +40536,14 @@
         "requirePath": "./dist/service-detail-centered-expertise.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "service-detail-compact-cards",
@@ -38938,7 +40582,14 @@
         "requirePath": "./dist/service-detail-compact-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "service-detail-image-hero",
@@ -38977,7 +40628,14 @@
         "requirePath": "./dist/service-detail-image-hero.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "service-detail-prose-minimal",
@@ -39016,7 +40674,14 @@
         "requirePath": "./dist/service-detail-prose-minimal.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "service-detail-sidebar-related",
@@ -39055,7 +40720,14 @@
         "requirePath": "./dist/service-detail-sidebar-related.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "service-detail-sidebar-stats",
@@ -39094,7 +40766,14 @@
         "requirePath": "./dist/service-detail-sidebar-stats.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "service-detail-stats-hero",
@@ -39133,7 +40812,14 @@
         "requirePath": "./dist/service-detail-stats-hero.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 1,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "services-list-accordion",
@@ -39171,7 +40857,8 @@
         "requirePath": "./dist/services-list-accordion.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-accordion-benefits",
@@ -39209,7 +40896,8 @@
         "requirePath": "./dist/services-list-accordion-benefits.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-cards-hover",
@@ -39247,7 +40935,8 @@
         "requirePath": "./dist/services-list-cards-hover.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-category-accordion",
@@ -39285,7 +40974,8 @@
         "requirePath": "./dist/services-list-category-accordion.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-centered-icons",
@@ -39323,7 +41013,8 @@
         "requirePath": "./dist/services-list-centered-icons.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-culture-tabs",
@@ -39361,7 +41052,8 @@
         "requirePath": "./dist/services-list-culture-tabs.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-feature-spotlight",
@@ -39400,7 +41092,8 @@
         "requirePath": "./dist/services-list-feature-spotlight.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-featured-highlight",
@@ -39438,7 +41131,8 @@
         "requirePath": "./dist/services-list-featured-highlight.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-hero-cards",
@@ -39476,7 +41170,8 @@
         "requirePath": "./dist/services-list-hero-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-icon-grid",
@@ -39514,7 +41209,8 @@
         "requirePath": "./dist/services-list-icon-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-image-cards",
@@ -39552,7 +41248,8 @@
         "requirePath": "./dist/services-list-image-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-image-overlay-grid",
@@ -39590,7 +41287,8 @@
         "requirePath": "./dist/services-list-image-overlay-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-masonry",
@@ -39628,7 +41326,8 @@
         "requirePath": "./dist/services-list-masonry.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-methodology-steps",
@@ -39666,7 +41365,8 @@
         "requirePath": "./dist/services-list-methodology-steps.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-minimal-grid",
@@ -39704,7 +41404,8 @@
         "requirePath": "./dist/services-list-minimal-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-muted-cards",
@@ -39742,7 +41443,8 @@
         "requirePath": "./dist/services-list-muted-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-numbered-steps",
@@ -39780,7 +41482,8 @@
         "requirePath": "./dist/services-list-numbered-steps.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-pricing-grid",
@@ -39818,7 +41521,8 @@
         "requirePath": "./dist/services-list-pricing-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-progress-sidebar",
@@ -39856,7 +41560,8 @@
         "requirePath": "./dist/services-list-progress-sidebar.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-split-checklist",
@@ -39894,7 +41599,8 @@
         "requirePath": "./dist/services-list-split-checklist.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-sticky-image",
@@ -39932,7 +41638,8 @@
         "requirePath": "./dist/services-list-sticky-image.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-table-hover",
@@ -39970,7 +41677,8 @@
         "requirePath": "./dist/services-list-table-hover.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-tabs-features",
@@ -40008,7 +41716,8 @@
         "requirePath": "./dist/services-list-tabs-features.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-timeline",
@@ -40046,7 +41755,8 @@
         "requirePath": "./dist/services-list-timeline.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-two-column-grid",
@@ -40084,7 +41794,8 @@
         "requirePath": "./dist/services-list-two-column-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-vertical-tags",
@@ -40122,7 +41833,8 @@
         "requirePath": "./dist/services-list-vertical-tags.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "services-list-video-showcase",
@@ -40160,7 +41872,8 @@
         "requirePath": "./dist/services-list-video-showcase.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "stats-animated-counter",
@@ -40253,7 +41966,8 @@
         "requiresSiteCapabilities": [
           "stats_or_metrics"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "stats-bar-comparison",
@@ -40388,7 +42102,8 @@
         "requiresSiteCapabilities": [
           "stats_or_metrics"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "stats-card-group",
@@ -40515,7 +42230,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "stats-circular-progress",
@@ -40661,7 +42377,8 @@
         "requiresSiteCapabilities": [
           "stats_or_metrics"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "stats-growth-timeline",
@@ -40804,7 +42521,8 @@
         "requiresSiteCapabilities": [
           "stats_or_metrics"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "stats-icon-cards",
@@ -40904,7 +42622,8 @@
         "requiresSiteCapabilities": [
           "stats_or_metrics"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "stats-impact-grid",
@@ -41041,7 +42760,8 @@
         "requiresSiteCapabilities": [
           "stats_or_metrics"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "stats-milestone-sidebar",
@@ -41131,7 +42851,8 @@
         "requiresSiteCapabilities": [
           "stats_or_metrics"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "stats-number-ticker",
@@ -41223,7 +42944,8 @@
         "requiresSiteCapabilities": [
           "stats_or_metrics"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "stats-primary-secondary",
@@ -41309,7 +43031,8 @@
         "requiresSiteCapabilities": [
           "stats_or_metrics"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "stats-simple-grid",
@@ -41417,7 +43140,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "stats-timeline-tabs",
@@ -41573,7 +43297,8 @@
         "requiresSiteCapabilities": [
           "stats_or_metrics"
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "team-alternating-bios",
@@ -41612,7 +43337,8 @@
         "requirePath": "./dist/team-alternating-bios.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-avatar-social",
@@ -41651,7 +43377,8 @@
         "requirePath": "./dist/team-avatar-social.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-bio-badges",
@@ -41690,7 +43417,8 @@
         "requirePath": "./dist/team-bio-badges.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-carousel-experience",
@@ -41729,7 +43457,8 @@
         "requirePath": "./dist/team-carousel-experience.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-compact-cta",
@@ -41768,7 +43497,8 @@
         "requirePath": "./dist/team-compact-cta.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-compact-grid",
@@ -41807,7 +43537,8 @@
         "requirePath": "./dist/team-compact-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-contact-cards",
@@ -41846,7 +43577,8 @@
         "requirePath": "./dist/team-contact-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-department-sections",
@@ -41885,7 +43617,8 @@
         "requirePath": "./dist/team-department-sections.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-expertise-cards",
@@ -41924,7 +43657,8 @@
         "requirePath": "./dist/team-expertise-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-filterable-search",
@@ -41963,7 +43697,8 @@
         "requirePath": "./dist/team-filterable-search.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-gradient-cards",
@@ -42002,7 +43737,8 @@
         "requirePath": "./dist/team-gradient-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-grid-animated",
@@ -42041,7 +43777,14 @@
         "requirePath": "./dist/team-grid-animated.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "title",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "team-hover-highlight",
@@ -42080,7 +43823,8 @@
         "requirePath": "./dist/team-hover-highlight.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-hover-overlay",
@@ -42119,7 +43863,8 @@
         "requirePath": "./dist/team-hover-overlay.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-investor-showcase",
@@ -42158,7 +43903,8 @@
         "requirePath": "./dist/team-investor-showcase.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-large-images",
@@ -42197,7 +43943,8 @@
         "requirePath": "./dist/team-large-images.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-media-showcase",
@@ -42238,7 +43985,8 @@
         "requirePath": "./dist/team-media-showcase.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-role-filter",
@@ -42277,7 +44025,8 @@
         "requirePath": "./dist/team-role-filter.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-simple-grid",
@@ -42316,7 +44065,8 @@
         "requirePath": "./dist/team-simple-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-skill-badges",
@@ -42355,7 +44105,8 @@
         "requirePath": "./dist/team-skill-badges.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-social-cards",
@@ -42394,7 +44145,8 @@
         "requirePath": "./dist/team-social-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-social-grid",
@@ -42434,7 +44186,8 @@
         "requirePath": "./dist/team-social-grid.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "team-testimonial-stats",
@@ -42473,7 +44226,8 @@
         "requirePath": "./dist/team-testimonial-stats.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "testimonials-animated-split",
@@ -42597,7 +44351,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-bento-grid",
@@ -42711,7 +44466,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-carousel-image",
@@ -42823,7 +44579,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-centered-avatars",
@@ -42937,7 +44694,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-company-logo",
@@ -43060,7 +44818,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-grid-add-review",
@@ -43171,7 +44930,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-images-helpful",
@@ -43305,7 +45065,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-large-quote",
@@ -43389,7 +45150,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-list-verified",
@@ -43513,7 +45275,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-logo-cards",
@@ -43645,7 +45408,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-marquee",
@@ -43781,7 +45545,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-masonry-grid",
@@ -43905,7 +45670,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-mini-dividers",
@@ -44015,7 +45781,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-minimal-numbered",
@@ -44125,7 +45892,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-parallax-number",
@@ -44236,7 +46004,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-quote-carousel",
@@ -44345,7 +46114,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-scrolling-columns",
@@ -44487,7 +46257,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-simple-grid",
@@ -44621,7 +46392,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-slider-minimal",
@@ -44730,7 +46502,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-split-image",
@@ -44839,7 +46612,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-stats-header",
@@ -44989,7 +46763,8 @@
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed.",
           "Stats must reflect real, sourced business metrics. Do not fabricate numeric values."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-twitter-cards",
@@ -45114,7 +46889,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "testimonials-wall-compact",
@@ -45239,7 +47015,8 @@
         "notes": [
           "All media src values must be absolute URLs to real assets; relative paths and placeholder media variables are not allowed."
         ]
-      }
+      },
+      "headingContract": null
     },
     {
       "componentId": "timeline-ai-workflow-cards",
@@ -45277,7 +47054,8 @@
         "requirePath": "./dist/timeline-ai-workflow-cards.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "timeline-alternating-diagonal",
@@ -45315,7 +47093,8 @@
         "requirePath": "./dist/timeline-alternating-diagonal.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "timeline-changelog-badges",
@@ -45353,7 +47132,14 @@
         "requirePath": "./dist/timeline-changelog-badges.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "timeline-history-prose",
@@ -45391,7 +47177,14 @@
         "requirePath": "./dist/timeline-history-prose.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "timeline-horizontal-icons",
@@ -45429,7 +47222,14 @@
         "requirePath": "./dist/timeline-horizontal-icons.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "timeline-horizontal-phases",
@@ -45467,7 +47267,14 @@
         "requirePath": "./dist/timeline-horizontal-phases.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "timeline-product-launch",
@@ -45505,7 +47312,14 @@
         "requirePath": "./dist/timeline-product-launch.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "timeline-productivity-list",
@@ -45543,7 +47357,8 @@
         "requirePath": "./dist/timeline-productivity-list.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "timeline-scroll-highlight",
@@ -45581,7 +47396,14 @@
         "requirePath": "./dist/timeline-scroll-highlight.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "timeline-scroll-sticky-image",
@@ -45619,7 +47441,14 @@
         "requirePath": "./dist/timeline-scroll-sticky-image.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "timeline-stepper-animated",
@@ -45657,7 +47486,14 @@
         "requirePath": "./dist/timeline-stepper-animated.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "timeline-tabbed-phases",
@@ -45695,7 +47531,14 @@
         "requirePath": "./dist/timeline-tabbed-phases.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": {
+        "titleProp": "heading",
+        "defaultHeadingLevel": 2,
+        "supportsHeadingLevel": true,
+        "canLeadPage": true,
+        "eyebrowProps": []
+      }
     },
     {
       "componentId": "timeline-two-column-featured",
@@ -45733,7 +47576,8 @@
         "requirePath": "./dist/timeline-two-column-featured.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     },
     {
       "componentId": "timeline-vertical-icon-dashed",
@@ -45771,7 +47615,8 @@
         "requirePath": "./dist/timeline-vertical-icon-dashed.cjs"
       },
       "importantUsageNotes": null,
-      "usageRequirements": null
+      "usageRequirements": null,
+      "headingContract": null
     }
   ],
   "sharedLayout": {
