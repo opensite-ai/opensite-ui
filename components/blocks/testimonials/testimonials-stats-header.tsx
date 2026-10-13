@@ -9,13 +9,13 @@ import { Card, CardContent } from "../../ui/card";
 import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import type {
+  ActionConfig,
   SectionBackground,
   SectionSpacing,
   TestimonialItem,
 } from "../../../src/types";
 import { Pressable, StarRating } from "@/src";
 import { BlockActions } from "@/components/ui/block-actions";
-import { ActionConfig } from "@page-speed/maps/components/geo-map";
 
 /**
  * Stat item interface for displaying metrics

@@ -9,11 +9,11 @@ import { Section } from "../../ui/section";
 import type { PatternName } from "../../ui/pattern-background";
 import { Pressable } from "../../../lib/Pressable";
 import type {
+  ActionConfig,
   SectionBackground,
   SectionSpacing,
   TestimonialItem,
 } from "../../../src/types";
-import { ActionConfig } from "@page-speed/maps/components/geo-map";
 import { BlockActions } from "@/components/ui/block-actions";
 
 export interface TestimonialsSimpleGridProps {
