@@ -1,6 +1,8 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import type { PatternName } from "../../components/ui/pattern-background";
 
+export type { HeadingLevel, HeadingTagName } from "../../lib/heading-level";
+
 /**
  * Block Types - Semantic UI Builder Types
  */
