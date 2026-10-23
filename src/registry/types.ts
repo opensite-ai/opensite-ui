@@ -48,7 +48,8 @@ export type BlockCategory =
   // embed blocks (iframes, script tags); `integrations` holds blocks that wrap a
   // specific named third-party product.
   | "advanced"
-  | "integrations";
+  | "integrations"
+  | "reservation-events";
 
 /**
  * Semantic role hints for a media slot. Consumers (semantic site builders,

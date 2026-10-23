@@ -1998,6 +1998,14 @@ const BLOCK_LOADERS: Record<string, BlockLoader> = {
     import("../project-zigzag-layout").then(
       (module) => module.ProjectZigzagLayout,
     ),
+  "events-view": () =>
+    import("../events-view").then(
+      (module) => module.EventsView,
+    ),
+  "get-ticket-button": () =>
+    import("../get-ticket-button").then(
+      (module) => module.GetTicketButton,
+    ),
   "resource-detail-article-hero": () =>
     import("../resource-detail-article-hero").then(
       (module) => module.ResourceDetailArticleHero,

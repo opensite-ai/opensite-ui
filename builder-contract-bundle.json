@@ -2,9 +2,9 @@
   "metadata": {
     "contractVersion": "v1",
     "uiVersion": "4.1.0",
-    "exportedAt": "2026-10-13T18:12:59.473Z",
+    "exportedAt": "2026-10-23T09:08:47.298Z",
     "source": "@opensite/ui",
-    "totalBlocks": 611
+    "totalBlocks": 613
   },
   "blocks": [
     {
@@ -40123,6 +40123,76 @@
         "requirePath": "./dist/project-zigzag-layout.cjs"
       },
       "importantUsageNotes": null,
+      "usageRequirements": null,
+      "headingContract": null
+    },
+    {
+      "componentId": "events-view",
+      "blockName": "EventsView",
+      "blockRef": "reservation-events/events-view",
+      "displayName": "Events View",
+      "description": "A view for displaying reservation events, allowing to open the reservation flow pane.",
+      "category": "reservation-events",
+      "semanticTags": [
+        "events",
+        "view",
+        "reservation",
+        "ticket"
+      ],
+      "layoutRole": "page",
+      "propsContract": {
+        "type": "typescript-type-reference",
+        "reference": "EventsViewProps",
+        "runtimeSchema": null,
+        "runtimeSchemaStatus": "missing"
+      },
+      "examples": {
+        "exampleUsage": "<EventsView apiConfig={eventsApiConfig} />",
+        "exampleProps": null
+      },
+      "source": {
+        "exportPath": "./blocks/reservation-events/events-view",
+        "modulePath": "@opensite/ui/blocks/reservation-events/events-view",
+        "typesPath": "./dist/events-view.d.ts",
+        "importPath": "./dist/events-view.js",
+        "requirePath": "./dist/events-view.cjs"
+      },
+      "importantUsageNotes": "Load `@opensite/events/style.css` once in the host application for its styles.",
+      "usageRequirements": null,
+      "headingContract": null
+    },
+    {
+      "componentId": "get-ticket-button",
+      "blockName": "GetTicketButton",
+      "blockRef": "reservation-events/get-ticket-button",
+      "displayName": "Get Ticket Button",
+      "description": "A button that opens the event reservation flow pane.",
+      "category": "reservation-events",
+      "semanticTags": [
+        "ticket",
+        "event",
+        "reservation",
+        "button"
+      ],
+      "layoutRole": "page",
+      "propsContract": {
+        "type": "typescript-type-reference",
+        "reference": "GetTicketButtonProps",
+        "runtimeSchema": null,
+        "runtimeSchemaStatus": "missing"
+      },
+      "examples": {
+        "exampleUsage": "<GetTicketButton apiConfig={eventsApiConfig} eventId={64} label=\"Get Tickets\" />",
+        "exampleProps": null
+      },
+      "source": {
+        "exportPath": "./blocks/reservation-events/get-ticket-button",
+        "modulePath": "@opensite/ui/blocks/reservation-events/get-ticket-button",
+        "typesPath": "./dist/get-ticket-button.d.ts",
+        "importPath": "./dist/get-ticket-button.js",
+        "requirePath": "./dist/get-ticket-button.cjs"
+      },
+      "importantUsageNotes": "Load `@opensite/events/style.css` once in the host application for its styles.",
       "usageRequirements": null,
       "headingContract": null
     },

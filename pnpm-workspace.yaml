@@ -26,3 +26,4 @@ minimumReleaseAgeExclude:
   - '@page-speed/pressable@0.1.2'
   - '@page-speed/router@1.2.2'
   - '@page-speed/social-share@0.1.8'
+  - '@opensite/events@1.0.0'
