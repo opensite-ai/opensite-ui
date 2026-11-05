@@ -14,6 +14,8 @@ const clientEntryNames = new Set([
   "tripleseat-form",
   // END advanced + integrations embed blocks
   // ---------------------------------------------------------------------------
+  "events-view",
+  "get-ticket-button",
   "animated-dialog",
   "dynamic-icon",
   "social-link-icon",
@@ -1318,6 +1320,8 @@ const allEntries = {
   "tripleseat-form": "src/tripleseat-form.ts",
   // END advanced + integrations embed blocks
   // ---------------------------------------------------------------------------
+  "events-view": "src/events-view.ts",
+  "get-ticket-button": "src/get-ticket-button.ts",
   registry: "src/registry.ts",
   "registry/metadata": "src/registry/metadata.ts",
   utils: "lib/utils.ts",

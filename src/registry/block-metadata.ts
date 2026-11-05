@@ -36163,4 +36163,28 @@ export const BLOCK_METADATA_REGISTRY: Record<string, BlockMetadataEntry> = {
     props: "FaqSplitHeroProps",
     ...FAQ_BLOCK_CONTRACTS["faq-split-hero"],
   },
+  "get-ticket-button": {
+    id: "get-ticket-button",
+    name: "Get Ticket Button",
+    description: "A button that opens the event reservation flow pane.",
+    importantUsageNotes: "Load `@opensite/events/style.css` once in the host application for its styles.",
+    semanticTags: ["ticket", "event", "reservation", "button"],
+    category: "reservation-events",
+    props: "GetTicketButtonProps",
+    exampleUsage: `
+      <GetTicketButton apiConfig={eventsApiConfig} eventId={64} label="Get Tickets" />
+    `.trim(),
+  },
+  "events-view": {
+    id: "events-view",
+    name: "Events View",
+    description: "A view for displaying reservation events, allowing to open the reservation flow pane.",
+    importantUsageNotes: "Load `@opensite/events/style.css` once in the host application for its styles.",
+    semanticTags: ["events", "view", "reservation", "ticket"],
+    category: "reservation-events",
+    props: "EventsViewProps",
+    exampleUsage: `
+      <EventsView apiConfig={eventsApiConfig} />
+    `.trim(),
+  }
 };

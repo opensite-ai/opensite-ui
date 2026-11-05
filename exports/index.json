@@ -33,6 +33,7 @@
       "process": "./exports/blocks/process.json",
       "project-detail": "./exports/blocks/project-detail.json",
       "project-list": "./exports/blocks/project-list.json",
+      "reservation-events": "./exports/blocks/reservation-events.json",
       "resource-detail": "./exports/blocks/resource-detail.json",
       "resource-list": "./exports/blocks/resource-list.json",
       "service-detail": "./exports/blocks/service-detail.json",
@@ -46,11 +47,11 @@
     "rootModules": "./exports/root-modules.json"
   },
   "stats": {
-    "totalExports": 677,
+    "totalExports": 679,
     "coreExports": 2,
     "uiComponentExports": 55,
     "hooksExports": 2,
-    "blockExports": 612,
+    "blockExports": 614,
     "utilExports": 3,
     "rootModuleExports": 1
   }

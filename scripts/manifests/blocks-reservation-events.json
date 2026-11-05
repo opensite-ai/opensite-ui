@@ -1,0 +1,16 @@
+[
+  {
+    "path": "./blocks/reservation-events/events-view",
+    "types": "./dist/events-view.d.ts",
+    "import": "./dist/events-view.js",
+    "require": "./dist/events-view.cjs",
+    "exportName": "EventsView"
+  },
+  {
+    "path": "./blocks/reservation-events/get-ticket-button",
+    "types": "./dist/get-ticket-button.d.ts",
+    "import": "./dist/get-ticket-button.js",
+    "require": "./dist/get-ticket-button.cjs",
+    "exportName": "GetTicketButton"
+  }
+]

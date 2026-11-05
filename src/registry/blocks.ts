@@ -619,6 +619,8 @@ import { LinkPageMinimalProfile } from "../../components/blocks/link-page/link-p
 import { LinkPageNewsletterSocial } from "../../components/blocks/link-page/link-page-newsletter-social";
 import { LinkPageGridCards } from "../../components/blocks/link-page/link-page-grid-cards";
 import { LinkPageBentoLayout } from "../../components/blocks/link-page/link-page-bento-layout";
+import { GetTicketButton } from "../../components/blocks/reservation-events/get-ticket-button";
+import { EventsView } from "../../components/blocks/reservation-events/events-view";
 
 import { BLOCK_METADATA_REGISTRY } from "./block-metadata";
 import type { BlockCategory, BlockRegistryEntry } from "./types";
@@ -1242,6 +1244,8 @@ const BLOCK_COMPONENTS: Record<string, BlockRegistryEntry["component"]> = {
   "footer-accordion-social": FooterAccordionSocial,
   "footer-info-cards-accordion": FooterInfoCardsAccordion,
   "faq-split-hero": FaqSplitHero,
+  "get-ticket-button": GetTicketButton,
+  "events-view": EventsView,
 };
 
 export const BLOCK_REGISTRY: Record<string, BlockRegistryEntry> = Object.fromEntries(
@@ -1309,4 +1313,3 @@ export function searchBlocks(query: string): BlockRegistryEntry[] {
       ),
   );
 }
-

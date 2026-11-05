@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "exportedAt": "2026-10-13T18:12:59.473Z",
-    "totalBlocks": 611,
+    "exportedAt": "2026-10-23T09:08:47.298Z",
+    "totalBlocks": 613,
     "version": "4.1.0",
     "source": "@opensite/ui"
   },
@@ -35384,6 +35384,40 @@
           }
         ]
       }
+    },
+    {
+      "id": "get-ticket-button",
+      "name": "Get Ticket Button",
+      "description": "A button that opens the event reservation flow pane.",
+      "semanticTags": [
+        "ticket",
+        "event",
+        "reservation",
+        "button"
+      ],
+      "category": "reservation-events",
+      "props": "GetTicketButtonProps",
+      "exampleUsage": "<GetTicketButton apiConfig={eventsApiConfig} eventId={64} label=\"Get Tickets\" />",
+      "importantUsageNotes": "Load `@opensite/events/style.css` once in the host application for its styles.",
+      "usageRequirements": null,
+      "exampleProps": null
+    },
+    {
+      "id": "events-view",
+      "name": "Events View",
+      "description": "A view for displaying reservation events, allowing to open the reservation flow pane.",
+      "semanticTags": [
+        "events",
+        "view",
+        "reservation",
+        "ticket"
+      ],
+      "category": "reservation-events",
+      "props": "EventsViewProps",
+      "exampleUsage": "<EventsView apiConfig={eventsApiConfig} />",
+      "importantUsageNotes": "Load `@opensite/events/style.css` once in the host application for its styles.",
+      "usageRequirements": null,
+      "exampleProps": null
     }
   ]
 }
